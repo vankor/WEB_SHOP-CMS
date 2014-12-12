@@ -55,7 +55,9 @@ public class Town implements Comparable, Model.Entity, Serializable{
 	/*	private List<Adress> shopdelresidents = new ArrayList<Adress>();*/
 	private transient List<Adress> userresidents = new ArrayList<Adress>();
 	private List<Town_Delivery> towndeliveries = new ArrayList<Town_Delivery>();
+	private Boolean isdefault = false;
 	
+
 	private Boolean isdeleted = false;
 	
 	
@@ -146,25 +148,13 @@ public class Town implements Comparable, Model.Entity, Serializable{
 	public void setOrders(Set<Order> orders) {
 		this.orders = orders;
 	}
-	
-/*	@OneToMany(mappedBy="town", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-	@JsonManagedReference
-	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-	@Fetch(FetchMode.SELECT)
-	@BatchSize(size = 20)
-	public List<Adress> getShopdelresidents() {
-		return this.shopdelresidents;
-	}
-	public void setShopdelresidents(List<Adress> shopdelresidents) {
-		this.shopdelresidents = shopdelresidents;
-	}*/
+
 	
 	@OneToMany(mappedBy="town", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonManagedReference
 	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-	@Fetch(FetchMode.SELECT)
-	@BatchSize(size = 20)
-	public List<Adress> getResidents() {
+	@Fetch(FetchMode.SUBSELECT)
+		public List<Adress> getResidents() {
 		return residents;
 	}
 	public void setResidents(List<Adress> residents) {
@@ -172,6 +162,15 @@ public class Town implements Comparable, Model.Entity, Serializable{
 		for(Adress a:residents){
 			a.setTown(this);
 		}
+	}
+	
+	@Column(name = "isdefault")
+	@Type(type = "boolean")
+	public Boolean getIsdefault() {
+		return isdefault;
+	}
+	public void setIsdefault(Boolean isdefault) {
+		this.isdefault = isdefault;
 	}
 
 //	private List<DeliveryType> deltypes = new ArrayList<DeliveryType>();

@@ -79,27 +79,7 @@ public class compareServ {
 	@RequestMapping(method = RequestMethod.GET)
 	public String showCompareGoods(@PathVariable (value="catid") Integer catid, HttpSession sess, Map<String, Object> map){
 		
-		AnonimBuck bucket = (AnonimBuck) sess.getAttribute("currbuck");
-		if(bucket==null){bucket = new AnonimBuck();}
-		map.put("bucketsize", bucket.getSize());
 		
-		Set<Page> headerpages = pageServ.getHeaderPages();
-		map.put("headerpages", headerpages);
-		
-		Set<PageGroup> pagegroups = pgrServ.getFooterPagegroups();
-		map.put("pagegroups", pagegroups);
-		
-		Integer currenttownid = (Integer) sess.getAttribute("cityid");
-		if(currenttownid==null){currenttownid = 908;}
-		Town currenttown = new Town();
-		currenttown = twnServ.getById(currenttownid);
-		
-		List<BasicConfiguration> bcfgs = bcfServ.getAll();
-		BasicConfiguration basic = bcfgs.get(0);
-		map.put("basic", basic);
-		
-		List<Category> roots = catServ.getRootCategories();
-		map.put("currentCatList", roots);
 		
 		CompareGoodsSet compareset = (CompareGoodsSet)sess.getAttribute("comparelist");
 		if(compareset==null)compareset = new CompareGoodsSet();
@@ -120,12 +100,7 @@ public class compareServ {
 		List<PropSegment> propsegments = cat.getPropsegments();
 		Set<PropSegmCompareBean> propsegmset = new TreeSet<PropSegmCompareBean>();
 		for(PropSegment prsg: propsegments){
-	//		props.addAll(prsg.getProperties());
-		
-		
-		
-		
-		
+	
 			GoodCompareBean comparebean = new GoodCompareBean();
 		Set<PropertyCompareBean> propscompared = new TreeSet<PropertyCompareBean>();
 		for(Property prop: prsg.getProperties()){

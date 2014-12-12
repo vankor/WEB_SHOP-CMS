@@ -32,6 +32,8 @@ import Model.CommentService;
 import Model.Configuration;
 import Model.ConfigurationBean;
 import Model.ConfigurationService;
+import Model.Country;
+import Model.CountryBean;
 import Model.CountryService;
 import Model.DeliveryTypeService;
 import Model.GoodItem;
@@ -53,6 +55,9 @@ import Model.News;
 import Model.NewsBean;
 import Model.NewsImageLoaderFactory;
 import Model.NewsService;
+import Model.NewsType;
+import Model.NewsTypeBean;
+import Model.NewsTypeService;
 import Model.Page;
 import Model.PageBean;
 import Model.PageGroup;
@@ -162,6 +167,11 @@ public class AdminContent {
 	@Autowired
 	private NewsService nwsServ;
 	
+	@Autowired
+	private CountryService ctrServ;
+	@Autowired
+	private NewsTypeService ntpServ;
+	
 
 	
 	@RequestMapping(value = "/addPagegroup", method = RequestMethod.GET)
@@ -242,6 +252,8 @@ public class AdminContent {
 		
 	}
 	
+	
+	
 	@RequestMapping(value = "/updatedPagegroup", method = RequestMethod.POST)
 	public String updatedPagegroup(@ModelAttribute (value = "pagegroup") @Valid PageGroupBean pagegroupbean, BindingResult bindingResult, Map<String, Object> map){
 		if(bindingResult.hasErrors()){
@@ -274,6 +286,59 @@ public class AdminContent {
 		else
 			map.put("type", "update");
 		return "adminPagegroup";
+		
+	}
+	
+	
+	@RequestMapping(value = "/addNewstype", method = RequestMethod.GET)
+	public String addNewstype( Map<String, Object> map){
+		NewsTypeBean newsbean = new NewsTypeBean();
+		map.put("nwstype", newsbean);
+		map.put("type", "create");
+		return "adminNewstype";
+		
+	}
+	
+	@RequestMapping(value = "/updateNewstype/{nwstypeid}", method = RequestMethod.GET)
+	public String updateNewstype(@PathVariable (value = "nwstypeid") Integer id, @RequestParam(value = "result", required = false) Integer result, Map<String, Object> map){
+		NewsType ntype = ntpServ.getById(id);
+		NewsTypeBean newsbean = new NewsTypeBean();
+		newsbean.constructbean(ntype);
+		if(result!=null && result==1)
+		map.put("result", "success");
+		map.put("nwstype", newsbean);
+		map.put("type", "update");
+		return "adminNewstype";	
+	}
+	
+	
+	
+	@RequestMapping(value = "/updatedNewstype", method = RequestMethod.POST)
+	public String updatedNewstype(@ModelAttribute (value = "nwstype") @Valid NewsTypeBean nwstypebean, BindingResult bindingResult, Map<String, Object> map){
+		if(bindingResult.hasErrors()){
+			map.put("nwstype", nwstypebean);
+			if(nwstypebean.getId()==null)
+				map.put("type", "create");
+			else
+				map.put("type", "update");
+			return "adminNewstype";
+		}
+		
+		NewsType ntype = new NewsType();
+		if(nwstypebean.getId()!=null)
+			ntype =  ntpServ.getById(nwstypebean.getId());
+		ntype.constructfrombean(nwstypebean);
+		
+	
+		map.put("result","success");
+		nwstypebean = new NewsTypeBean();
+		nwstypebean.constructbean(ntype);
+		map.put("nwstype", nwstypebean);
+		if(nwstypebean.getId()==null)
+			map.put("type", "create");
+		else
+			map.put("type", "update");
+		return "adminNewstype";
 		
 	}
 	
@@ -595,6 +660,10 @@ public class AdminContent {
 				news.setCategory(catServ.getById(newsbean.getCategory().getId()));
 			}
 		
+		if(newsbean.getType().getId()!=null)
+			news.setType(ntpServ.getById(newsbean.getType().getId()));
+	//	System.out.println("eeeee   "+newsbean.getId());
+		
 		List<Image> images = new ArrayList<Image>();
 		List<Video> videos = new ArrayList<Video>();
 			
@@ -628,7 +697,7 @@ public class AdminContent {
 		
 		newsbean.setFromNews(news);
 		map.put("news", newsbean);
-		map.put("update", "create");
+		map.put("type", "update");
 		map.put("result", "success");
 		return "adminNews";
 		

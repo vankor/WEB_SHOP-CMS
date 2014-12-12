@@ -253,13 +253,14 @@ margin: 0px auto;
 float: left;
 clear: both;
 padding-left:4px;
+
 }
 
 #Dashboardnavigation ul li {
 float: left;
 border-left: 1px solid #c6cad3;
 position: relative;
-
+cursor:pointer;
 border-left-width: 1px;
 color: rgb(101, 112, 139);
 display: list-item;
@@ -330,7 +331,7 @@ color: #fff;
 #Dashboardnavigation ul li a{
 	box-sizing: border-box;
 color: rgb(101, 112, 139);
-cursor: auto;
+cursor: pointer;
 display: block;
 font-family: Arial;
 font-size: 15px;

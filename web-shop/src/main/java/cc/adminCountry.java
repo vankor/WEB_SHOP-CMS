@@ -229,7 +229,7 @@ public class adminCountry{
 	
 	
 	@RequestMapping(value = "/adminTown/{townId}", method = RequestMethod.GET)
-    public String adminTown(@PathVariable (value = "countryId") Integer cid, @PathVariable (value = "townId") Integer twnid, Map<String, Object> map, HttpServletRequest request, HttpSession sess) {
+    public String adminTown(@RequestParam(required = false, value = "result") String result, @PathVariable (value = "countryId") Integer cid, @PathVariable (value = "townId") Integer twnid, Map<String, Object> map, HttpServletRequest request, HttpSession sess) {
 		Town town0 = twnServ.getById(twnid);
 		TownBean town = new TownBean();
 		town.constructFromTown(town0);
@@ -257,7 +257,7 @@ public class adminCountry{
 		map.put("regions", town0.getRegion().getCountry().getRegions());
 		map.put("countries", cntrServ.getAll());
 	//	dlvlst.removeAll(town.getDeltypes());
-	//	map.put("uncheckedels", dlvlst);
+		map.put("result", result);
 		return "adminTown";
 	}
 	
@@ -359,6 +359,8 @@ public class adminCountry{
 		    return "adminTown";
         }
 		
+		
+		
 		List<DeliveryTypeBean> twndlv = townbean.getDeltypes();
 		ListIterator<DeliveryTypeBean> ltr = twndlv.listIterator();
 		System.out.println("SIIIIZE 1"+ twndlv.size());
@@ -388,7 +390,7 @@ public class adminCountry{
 			town = twnServ.getById(townbean.getId());
 		}
 			
-	//	town.constructFromBean(townbean);
+		town.constructFromBean(townbean);
 				
 		twnServ.update(town, townbean);
 		
@@ -397,8 +399,9 @@ public class adminCountry{
 		map.put("deltypes", dlvlst);
 		map.put("regions", townbean.getRegion().getCountry().getRegions());
 		map.put("countries", cntrServ.getAll());
-	
-		return "adminTown";
+		String referer = request.getHeader("referer").split("\\?")[0];
+		map.put("result", "success");
+		return "redirect:"+referer;
 	}
 	
 	@RequestMapping(value = "/addDelTypeToGood", method = RequestMethod.POST)

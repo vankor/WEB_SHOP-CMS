@@ -80,24 +80,30 @@ public class LoginController {
 	private BasicConfigurationService bcfServ;
 	
 
-      @RequestMapping(value = "/login",method = RequestMethod.POST)
-      public String loginValidate(@ModelAttribute("login")LoginBean loginBean, Map <String, Object> map, HttpServletRequest req, HttpSession sess) {
-          User t = usrServ.loginUser(loginBean.getLogin(),loginBean.getPass());
-         System.out.println("uuuuuuuuuuuuuuuuuuu");
-          if(t!=null){
-        	   req.getSession().setAttribute("usr", t);
-        	  return "usrmenu";
-          }
-          else{
-        	  return "logged";
-          }
- 
-      }
+	@RequestMapping("/adminlogin")
+	public String logAdmin(Map<String, Object> map){
+			map.put("section", "adminlogin");
+			return "login";
+	}
+	
+	@RequestMapping("/login")
+	public String logUsr(Map<String, Object> map){
+			map.put("section", "userlogin");
+			return "login";
+	}
+	
+	@RequestMapping(value = "/loginfail",method = RequestMethod.GET)
+    public String logindialog(@RequestParam (value = "type") String section, Map <String, Object> map, HttpServletRequest req) {
+	    map.put("login", new LoginBean());
+        map.put("section", section);
+        return "login";
+    }
+	
       
       @RequestMapping(value = "/reg",method = RequestMethod.GET)
-      public String addUser(Map <String, Object> map, HttpServletRequest req, HttpSession sess) {
+      public String addUser(@RequestParam(value = "logresult") String logresult, Map <String, Object> map, HttpServletRequest req, HttpSession sess) {
          
-    	  AnonimBuck bucket = (AnonimBuck) sess.getAttribute("currbuck");
+    	AnonimBuck bucket = (AnonimBuck) sess.getAttribute("currbuck");
   		if(bucket==null){bucket = new AnonimBuck();}
   		map.put("bucketsize", bucket.getSize());
   		
@@ -118,7 +124,9 @@ public class LoginController {
   		
   		List<Category> roots = catServ.getRootCategories();
   		map.put("currentCatList", roots);
-    	  
+    	
+  		if(logresult!=null && !logresult.equals(""))
+  		map.put("logresult", logresult);
     	  System.out.println("here");
           Random r = new Random();
           map.put("user", new User());
@@ -150,10 +158,27 @@ public class LoginController {
     		  @RequestParam (value = "email") String email,
     		  @RequestParam (value = "name") String name, 
     		  @RequestParam (value = "pass") String pass, 
-    		  @RequestParam (value = "city") Integer city, 
+    		  @RequestParam (value = "city") Integer city,
+    		  @RequestParam (value = "cityname") String cityname, 
     		  @RequestParam (value = "mailer") Boolean mailer, 
     		  Map <String, Object> map, HttpServletRequest req) {
+    	  
+    	 
     	  User user = new User();
+    	  if(city!=null){
+    		  Town town = twnServ.getById(city);
+    		  if(town!=null)
+    		  user.setTown(town);
+    		  else{
+    			  if(cityname!=null && !cityname.equals(""))
+    				  user.setStringtown(cityname); 
+    			  
+    		  }
+    	  }
+    	  if(city==null && cityname!=null && !cityname.equals("")){
+    		  user.setStringtown(cityname);
+    	  }
+    	  
     	  user.setUsername(email);
     	  user.setName(name);
     	  
@@ -169,7 +194,7 @@ public class LoginController {
 	      user.setIsSubscribed(mailer);
  //   	  System.out.println(mailer);
     	  user.setIsSubscribed(mailer);
-    	  user.setTown(twnServ.getById(city));
+    	  
     	  user.setAccountNonExpired(true);
     	  user.setAccountNonLocked(true);
     	  user.setCredentialsNonExpired(true);

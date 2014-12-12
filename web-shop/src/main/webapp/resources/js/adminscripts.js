@@ -99,10 +99,11 @@ function chsEntity(id,idfld, urlparam, section, classname, text){
         success: function(good){
   //     	alert(good.name);
        	$("#popup1").hide();
-       	if(idfld == 'producer' || idfld == 'parentpage' || idfld == 'pagegroup' || idfld == 'slider'){
+       	if(idfld == 'producer' || idfld == 'parentpage' || idfld == 'pagegroup' || idfld == 'slider' || idfld == 'newstype'){
        		$("#"+idfld+"_id").val(good.id);
        		$("#"+idfld+"_text").val(text);
      //  		alert("#"+idfld+"_id");
+       		$("#popup").hide();
        		return;
        	}
        	
@@ -213,8 +214,8 @@ function load_entitychoise(url, idfld, classname, num)
 	        data: {"classname":classname, "idfld":idfld},
 	        dataType: "text",
 	        success: function(data){
-  //     	alert(data);
-       	$("#popup1").fadeIn('200');
+	 //       	alert(data);
+	        	$("#popup1").fadeIn('200');
 	        	$("#popup1").html(data);
 				
 				

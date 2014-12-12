@@ -274,17 +274,7 @@ public class GoodDAOImpl extends GenericHibTemplateDAOImpl<GoodItem, Integer> im
 		list = template.findByNamedParam("select distinct g from GoodItem as g INNER JOIN g.vals as v INNER JOIN v.prop as p where g.name like :val or g.description like :val or v.value like :val or p.name like :val","val",value+'%');
 		
 		}     
-//		Object[] params  = new Object[1];
-//		params[0] = value;
-//		List<Object> list = template.find("SELECT id FROM goods WHERE MATCH(name) AGAINST(?)", params);
-//		DetachedCriteria crit = DetachedCriteria.forClass(GoodItem.class,"g");
-//		crit.createAlias("g.vals", "vals");
-//		crit.add(Restrictions.disjunction()
-	//	        .add(Restrictions.like("vals", value))
-//		        .add(Restrictions.like("g.name", value))
-//		        .add(Restrictions.like("g.description", value))
-//		    );
-//		List<Object> list = template.findByCriteria(crit);
+
 		
 		return toList(list);
 	}
@@ -359,6 +349,27 @@ public class GoodDAOImpl extends GenericHibTemplateDAOImpl<GoodItem, Integer> im
 	public GoodItem getGoodItemByUrl(String url) {
 		List<Object> list = template.findByNamedParam("select g from GoodItem as g inner join g.page as p  where p.fullurl like :url","url",url);
 		return (GoodItem)list.get(0);
+	}
+
+
+
+	@Override
+	@Transactional
+	public List<GoodItem> searchGood(String val, Integer begin, Integer end) {
+		
+		List<Object> list = new ArrayList<Object>();
+		
+		if(val !=null && !val.isEmpty()){
+			Session sess = template.getSessionFactory().openSession();
+			Query query = sess.createQuery("select distinct g from GoodItem as g INNER JOIN g.vals as v INNER JOIN v.prop as p where g.name like :val or g.description like :val or v.value like :val or p.name like :val");
+			query.setParameter("val", val);
+			query.setFirstResult(begin).setMaxResults(end);
+			list = query.list();
+		
+		}   
+		
+		return toList(list);
+		
 	}
 
 

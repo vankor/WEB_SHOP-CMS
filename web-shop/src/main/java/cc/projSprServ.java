@@ -12,6 +12,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -83,6 +84,7 @@ import Model.CommentService;
 import Model.CompareGoodsSet;
 import Model.Configuration;
 import Model.ConfigurationService;
+import Model.Country;
 import Model.CountryBean;
 import Model.CountryService;
 import Model.DeliveryType;
@@ -142,6 +144,8 @@ import Model.VoteService;
 @Controller
 
 public class projSprServ {
+	
+	public static final Integer PAGE_SIZE = 16;
 	
 	@Autowired
 	private GoodItemService Serv;
@@ -208,6 +212,9 @@ public class projSprServ {
 	
 	@Autowired
 	private ConfigurationService confServ;
+	
+	@Autowired
+	private CountryService ctrServ;
 	
 	public void setSessionParameters(User user, AnonimBuck bucket, HttpServletRequest request, HttpSession sess){
 		if (user==null){
@@ -288,30 +295,7 @@ public class projSprServ {
 	@RequestMapping("/index")
 	public String listGoods(Map<String, Object> map, HttpServletRequest request, HttpSession sess) {
 		
-		User user = (User) request.getAttribute("user");
-		map.put("user", user);
 		
-		AnonimBuck bucket = (AnonimBuck) sess.getAttribute("currbuck");
-		if(bucket==null){bucket = new AnonimBuck();}
-		map.put("bucketsize", bucket.getSize());
-		
-		Set<Page> headerpages = pageServ.getHeaderPages();
-		map.put("headerpages", headerpages);
-		
-		Set<PageGroup> pagegroups = pgrServ.getFooterPagegroups();
-		map.put("pagegroups", pagegroups);
-		
-		Integer currenttownid = (Integer) sess.getAttribute("cityid");
-		if(currenttownid==null){currenttownid = 908;}
-		Town currenttown = new Town();
-		currenttown = twnServ.getById(currenttownid);
-		
-		List<BasicConfiguration> bcfgs = bcfServ.getAll();
-		BasicConfiguration basic = bcfgs.get(0);
-		map.put("basic", basic);
-		
-		List<Category> roots = catServ.getRootCategories();
-		map.put("currentCatList", roots);
 		
 		
 		
@@ -337,9 +321,7 @@ public class projSprServ {
 		Configuration config = confServ.getActiveConfiguration();
 		map.put("config", config);
 		Set<Category> topcategories = catServ.getTopCategories();
-/*	for(Category cat:topcategories){
-			cat.setTopgoods(Serv.getTopGoods(cat));
-		}*/
+
 		map.put("topcatcount", topcategories.size());
 		
 		map.put("topcategories", topcategories);
@@ -350,7 +332,7 @@ public class projSprServ {
 		map.put("actions", randomtopactions);
 		
 		
-		map.put("currenttown", currenttown);
+//		map.put("currenttown", currenttown);
 		map.put("residenttowns", twnServ.getResidentTowns());
 		
 		map.put("searchForm", new SearchForm());
@@ -1108,13 +1090,28 @@ public class projSprServ {
 
 	
 	@RequestMapping(value = "/livesearch", method = RequestMethod.POST)
-	public @ResponseBody List<GoodItem> searchGood(@RequestParam (value = "search") String val){
+	public @ResponseBody List<GoodItem> liveSearchGood(@RequestParam (value = "search") String val){
 		List<GoodItem> goods = Serv.searchGood(val);
 		return goods;
 	}
 	
+	@RequestMapping(value = "/search/pagin/${pgnum}", method = RequestMethod.GET)
+	public String searchGood(@RequestParam (value = "req") String val, @RequestParam (value = "pgnum") Integer pgnum, Map<String, Object> map){
+		Integer end = pgnum*PAGE_SIZE;
+		Integer begin = end - PAGE_SIZE;
+		List<GoodItem> goods = Serv.searchGood(val, begin, end);
+		map.put("goods", goods);
+		map.put("req", val);
+		Integer pagecount = Math.round(goods.size()/PAGE_SIZE);
+		map.put("pagecount", pagecount);
+		map.put("currentpage", pagecount);
+		
+		return "searchresults";
+	}
+	
+	
 	@RequestMapping(value = "/addedParams",method = RequestMethod.GET)
-    public String addedCatParams(@ModelAttribute(value = "category") Category cat, Map<String, Object> map, HttpRequest req) {
+    public String addedCatParams(@ModelAttribute(value = "category") Category cat, Map<String, Object> map) {
 		
 		catServ.add(cat);
 		List <Category> t =catServ.getRootCategories();
@@ -1203,22 +1200,14 @@ public class projSprServ {
 	@RequestMapping(value = "/newslist/{pgnum}", method = RequestMethod.GET)
 	public String newsList(@RequestParam(value = "type") Integer nwstp_id, @PathVariable(value = "pgnum") Integer pgnum, Map<String, Object> map, HttpServletRequest request, HttpSession sess) {
 		final Integer PAGE_SIZE = 12;
-		User user = (User) request.getAttribute("user");
-		map.put("user", user);
-		AnonimBuck bucket = (AnonimBuck) sess.getAttribute("currbuck");
-		if(bucket==null){bucket = new AnonimBuck();}
-		map.put("bucketsize", bucket.getSize());
+
 		StringBuilder entityurl = new StringBuilder();
 		String[] urlparts = request.getHeader("referer").split("/");
 		String slash = "/";
 		for(int i =0; i<urlparts.length; i++){
 			if(i<urlparts.length-1){
-		//		if(i==urlparts.length-2)slash = "";
 			entityurl.append(urlparts[i]+slash);}
-		/*	else{
-			pgnum = Integer.parseInt(urlparts[i]);
-			
-			}	*/
+
 		}
 		
 		NewsType nwstp = ntpServ.getById(nwstp_id);
@@ -1228,7 +1217,7 @@ public class projSprServ {
 		
 		Integer end = pgnum*PAGE_SIZE;
 		Integer begin = end - PAGE_SIZE;
-		Integer pagecount = actServ.getCount()/PAGE_SIZE;
+		Integer pagecount = nwsServ.getCount()/PAGE_SIZE;
 		Set<News> news = nwsServ.listNewsPageByType(nwstp, begin, end);
 		
 		Map<NewsType, Long> newstypeList = ntpServ.getAllNewsTypeNewsCount();
@@ -1237,20 +1226,16 @@ public class projSprServ {
 		map.put("newsTypes", newstypeList);
 		map.put("currnewstype", nwstp);
 		map.put("entityurl", entityurl.toString());
-		map.put("currentCatList", catServ.getRootCategories());
+//		map.put("currentCatList", catServ.getRootCategories());
 		return "newsList";
 		
 	}
 	
 	@RequestMapping(value = "/category/{catid}/newslist/{pgnum}", method = RequestMethod.GET)
-	public String categoryNewsList(@RequestParam(value = "type") Integer nwstp_id, @PathVariable(value = "pgnum") Integer pgnum, @PathVariable(value = "catid") Integer catid, Map<String, Object> map, HttpServletRequest request, HttpSession sess) {
+	public String categoryNewsList(@RequestParam(required = false, value = "type") Integer nwstp_id, @PathVariable(value = "pgnum") Integer pgnum, @PathVariable(value = "catid") Integer catid, Map<String, Object> map, HttpServletRequest request, HttpSession sess) {
 		final Integer PAGE_SIZE = 12;
 	
-		User user = (User) request.getAttribute("user");
-		map.put("user", user);
-		AnonimBuck bucket = (AnonimBuck) sess.getAttribute("currbuck");
-		if(bucket==null){bucket = new AnonimBuck();}
-		map.put("bucketsize", bucket.getSize());
+		
 		
 		StringBuilder entityurl = new StringBuilder();
 		String[] urlparts = request.getHeader("referer").split("/");
@@ -1280,7 +1265,7 @@ public class projSprServ {
 		map.put("newsTypes", newstypeList);
 		map.put("currnewstype", nwstp);
 		map.put("entityurl", entityurl.toString());
-		map.put("currentCatList", catServ.getRootCategories());
+//		map.put("currentCatList", catServ.getRootCategories());
 		return "newsList";
 		
 	}
@@ -1316,6 +1301,33 @@ public class projSprServ {
 		return "adminCountries";
 		
 	}
+	
+	
+	@RequestMapping(value = "/admin/updatedCountries", method = RequestMethod.POST)
+	public String updatedCountries(@ModelAttribute (value = "countrybean") @Valid CountryBean countrybean, HttpServletRequest req, BindingResult bindingResult, Map<String, Object> map){
+		
+		if(bindingResult.hasErrors()){
+			map.put("countrybean", countrybean);
+			return "adminCountries";
+		}
+		for(Country cntr:countrybean.getCountries()){
+			if(cntr.getId()!=null){
+				Country country = ctrServ.getById(cntr.getId());
+				country.setName(cntr.getName());
+				ctrServ.update(country);
+			}
+			else{
+				if(cntr.getName()!=null && cntr.getName()!="")
+				ctrServ.add(cntr);
+			}
+		}
+		countrybean.setCountries(ctrServ.getAll());
+		map.put("countrybean", countrybean);
+		map.put("result", "success");
+		return "adminCountries";
+		
+	}
+	
 	
 	@RequestMapping(value = "/category/{catid}/news/{newsid}")
     public String showNews( @PathVariable(value = "catid") Integer catid,  @PathVariable(value = "newsid") Integer newsid, Map<String, Object> map, HttpServletRequest request, HttpSession sess) {

@@ -490,11 +490,9 @@ public class usrServ {
 		return "usr";
 	}
 	
-	@RequestMapping("/login")
-	public String logUsr(Map<String, Object> map){
-			map.put("section", "adminlogin");
-			return "login";
-	}
+	
+	
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 

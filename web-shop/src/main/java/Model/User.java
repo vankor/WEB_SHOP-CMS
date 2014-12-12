@@ -79,13 +79,14 @@ public class User implements UserDetails, Comparable, Model.Entity{
 	protected transient AnonimBuck anonimbucket;
 	protected String city;
 	private Boolean isSubscribed;
+	
 	private Town town;
 
 	private String nick;
 	private String originpassword;
 	private String regprovehash;
 	private Boolean proved;
-
+	protected String stringtown;	
 	//	private String phone;
 	private Date birthdate;
 	private Date regdate;
@@ -123,6 +124,13 @@ public class User implements UserDetails, Comparable, Model.Entity{
 	}
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	@Column (name = "stringtown")
+	public String getStringtown() {
+		return stringtown;
+	}
+	public void setStringtown(String stringtown) {
+		this.stringtown = stringtown;
 	}
 	
 	@Column (name = "originpassword")

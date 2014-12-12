@@ -15,5 +15,7 @@ public interface TownDAO extends GenericDAO<Town, Integer>{
 	public Town getTownsByCode(Integer code);
 	public Set<Town> getResidentTowns();	
 	public Integer save(Town entity);
+	public void setDefault(Town town);
+	public Town getDefault();
 
 }

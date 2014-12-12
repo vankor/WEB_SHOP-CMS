@@ -42,6 +42,8 @@ function adduser(){
     var psw = $("#clientp1").val();
     var dis = $("#clientdscount").val();
     var city = $("#clienttown").val();
+    var cityname = $("#clienttown_f").val();
+    
     var mailer = false;
     var answer = $("#clientanswer").val();
     
@@ -62,7 +64,7 @@ function adduser(){
 	$.ajax({
 	       type: "POST",
 	  	   url: url+"/adduser",
-	       data: {"name":name, "email":email, "pass":psw, "city":city, "mailer":mailer, "section":"add"},
+	       data: {"name":name, "cityname":cityname, "email":email, "pass":psw, "city":city, "mailer":mailer, "section":"add"},
 	       cache: false,                                
 	       success: function(responce){
 	 //   	   alert(responce);
@@ -128,7 +130,9 @@ function  inputSwitchTab( tab )
 	$( '.inputTab'+tab ).addClass( 'active' );
 }
 </script>
-
+<c:if test = "${logresult == 'fail'}">
+<div id = "loginfail">Вы ввели неверный логин или пароль, зарегистрируйтесь либо повторите попытку!</div>
+</c:if>
 <div class="inputHeader">Регистрация</div>
 
 <div class="inputBody">
@@ -161,35 +165,93 @@ function  inputSwitchTab( tab )
 					</table>
 				</td>
 				<td class="inputRight" valign=top>
-				<form action="http://www.mobilluck.com.ua/cart.php" method="POST">
-					<input type="hidden" name="action" value="orderlogin">
-					<input type="hidden" name="mode" value="postuser">
-					<table cellspacing=0 cellpadding=0>
-						<tr>
-							<th align=left>Электронная почта:<font> *</font><br /></th>
-						</tr>
-						<tr>
-							<td align=left class="firstRow"><input class="dlgftext" type=text name="clientlog" /></td>
-						</tr>
-						<tr>
-							<th align=left>Пароль:<font> *</font><br /></th>
-						</tr>
-						<tr>
-							<td align=left>
-								<input class="dlgftext" type=password name="clientpass" />
-								<a role="button" id="restorepassbtnmy" style="margin-left: 16px;" class="ths_psw_restore">Напомнить пароль</a>
-							</td>
-						</tr>
-						<tr>
-							<td align=left><input class="inputSubmit" type=submit name="dlgf_submit" value="Войти"/></td>
-						</tr>
-					</table>
-				</form>
+				<form id="login-form" method="POST" action="${pageContext.request.contextPath}/j_spring_security_check">
+                    <table>
+                        <tbody>
+                            <tr>
+                                
+                                <td class="right-side">
+                                    <input type="hidden" value="orderlogin" name="action"></input>
+                                    <input type="hidden" value="" name="refurlhndl"></input>
+                                    <input type="hidden" value="postuser" name="mode"></input>
+                                    <div>
+                                        <label class="titleSec" for="dlgf_mail">
+
+                                            Электронная почта: 
+
+                                            <span class="necessary">
+
+                                                *
+
+                                            </span>
+                                        </label>
+                                        <p>
+                                            <input id="dlgf_mail" class="dlgftext" type="text" name="j_username"></input>
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <label class="titleSec" for="dlgf_mail">
+
+                                            Пароль: 
+
+                                            <span class="necessary">
+
+                                                *
+
+                                            </span>
+                                        </label>
+                                        <p>
+                                            <input id="dlgf_psw" class="dlgftext" type="password" name="j_password"></input>
+                                        </p>
+                                        <p class="restore_pass">
+                                            <a id="restorepassbtn2" class="dlglink" href="#">
+                                                <span>
+
+                                                    Напомнить пароль
+
+                                                </span>
+                                            </a>
+                                        </p>
+                                    </div>
+     <!--                              <label id="login_button" for="login">  -->  
+                                        <div>
+                                                   <input value = "Войти" id="login" type="submit" name="dlgf_submit"></input>
+                                        </div>
+               <!--                     </label>   --> 
+                                    <p class="or-registrate">
+
+                                        или 
+
+                                        <a href="${pageContext.request.contextPath}/reg">
+
+                                            зарегистрироваться
+
+                                        </a>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <p class="license_agreement">
+
+                                        Регистрируясь, вы принимаете условия 
+
+                                        <a rel="nofollow" href="http://www.mobilluck.com.ua/info.php?page=using">
+
+                                            соглашения.
+
+                                        </a>
+                                    </p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
 			</tr>
 		</table>
 	</td></tr>
 	<tr class="inputTab2 active"><td colspan=2>
-		<form id="clientfrm" name="clientfrm" action="/input.php" method="POST" onsubmit="return testinfo(this);">
+		<form id="clientfrm" name="clientfrm" action="" method="POST" onsubmit="return testinfo(this);">
 		<input type="hidden" name="action" value="makereg">
 				<table cellspacing=0 cellpadding=0>
 			<tr>
@@ -327,7 +389,7 @@ function  inputSwitchTab( tab )
 				<td class="inputRegRight" align=left><input class="inputRegSubmit" onclick = "return adduser()" name="orderbut" value="Зарегистрироваться"/></td>
 				<td class="inputRegSpacer">&nbsp;</td>
 			
-				<div id="regresult" style = "border-radius:2px; display:none; height: 20px; background: gray;">
+				<div id="regresult" style = "padding-top:7px; font-size:14px; border-radius:2px; display:none; height: 20px; background: gray;">
   				</div>
 			</tr>
 			<tr>

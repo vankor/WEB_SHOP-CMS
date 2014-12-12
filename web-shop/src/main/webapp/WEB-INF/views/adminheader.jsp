@@ -103,13 +103,17 @@ $("#BrowseServices").click(function() {
 		
 	        	    <li id="navgoods" ><a href="<c:url value="/admin/admingoods/pagin/1" />">Товары</a></li>
 	    	    	    <li id="navMessages" >
-		<a href="<c:url value="/admin/adminnews/pagin/1" />">Новости</a>
+		<a role = "button">Новости</a>
+		<ul class="DashSubMenu"  class="active">
+		    <li><a href="<c:url value="/admin/adminnewstypes/pagin/1" />">Типы новостей</a></li>
+		    <li><a href="<c:url value="/admin/adminnews/pagin/1" />">Новости</a></li>
+		</ul>
 	    </li>
 
 	        	    <li id="navspots" ><a href="<c:url value="/admin/adminCountry" />">Представительства</a></li>
     	    <li id="navContactus" ><a href="<c:url value="/admin/adminusers/pagin/1" />">Пользователи</a></li>
     	    	    <li id="navothers" class = "subway">
-		<a href="<c:url value="/admin/adminactions/showaction" />">Другие функции</a>
+		<a role = "button">Другие функции</a>
 		<ul class="DashSubMenu"  class="active">
 		    <li><a href="<c:url value="/admin/adminactions/pagin/1" />">Акции</a></li>
 		    <li><a href="<c:url value="/admin/adminproducers/pagin/1" />">Производители</a></li>
@@ -120,6 +124,7 @@ $("#BrowseServices").click(function() {
 		     <li><a href="<c:url value="/admin/admingoodstatuses/pagin/1" />">Статусы товаров</a></li>
 		    <li><a href="<c:url value="/admin/adminpagegroups/pagin/1" />">Группы инфо-страниц</a></li>
 		    <li><a href="<c:url value="/admin/adminpages/pagin/1" />">Инфо-страницы</a></li>
+		    
 		<!--     <li><a href="<c:url value="/admin/adminforwards/pagin/1" />">Рассылки</a></li>--> 
 
 

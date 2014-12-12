@@ -19,6 +19,13 @@
 	<tx:annotation-driven transaction-manager="transactionManager" order="200"/>
 	
 	
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+ 
+		<property name="location"
+        value="classpath:database.properties" />
+	</bean>
+	
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
@@ -27,10 +34,10 @@
 	<!-- Непосредственно бин dataSource -->
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
-		p:driverClassName="com.mysql.jdbc.Driver" 
-		p:url="jdbc:mysql://localhost:3306/new3"
-		p:username="root" 
-		p:password="1111" />
+		p:driverClassName="${db.driverClassName}" 
+		p:url="${db.url}"
+		p:username="${db.username}" 
+		p:password="${db.password}" />
 
 	<!-- Настройки фабрики сессий Хибернейта -->
 	<bean id="sessionFactory"
@@ -83,7 +90,8 @@
   	 </bean>
   	 
   	    
-      
+      <bean id="sessionParamsFilter" class="Model.SessionParamsFilter" autowire="byType">
+   	 </bean>
   
    
 	

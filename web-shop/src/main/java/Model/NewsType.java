@@ -35,12 +35,8 @@ property = "@id")
 public class NewsType  implements Comparable, Model.Entity, Serializable{
 
 private Integer id;
-
-
 private String name;
 private String title;
-
-
 private Boolean isdeleted;
 private Set<News> news = new TreeSet<News>();
 
@@ -113,6 +109,16 @@ public Set<News> getNews() {
 
 public void setNews(Set<News> news) {
 	this.news = news;
+}
+
+@Override
+public String toString() {
+	return name;
+}
+
+public void constructfrombean(NewsTypeBean ntp){
+	this.name = ntp.getName();
+	this.title = ntp.getTitle();
 }
 
 @Override

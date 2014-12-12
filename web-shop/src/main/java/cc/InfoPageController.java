@@ -31,6 +31,7 @@ import Model.PageGroup;
 import Model.PageGroupService;
 import Model.PageService;
 import Model.PropertyService;
+import Model.ResourceNotFoundException;
 import Model.Town;
 import Model.TownService;
 import Model.URLService;
@@ -63,29 +64,6 @@ public class InfoPageController {
 	@RequestMapping(method = RequestMethod.GET)
     public String showPage(Map<String, Object> map, HttpServletRequest request, HttpServletResponse response, HttpSession sess) {
 		
-		User user = (User)request.getAttribute("user");
-		AnonimBuck bucket = (AnonimBuck) sess.getAttribute("currbuck");
-		if(bucket==null){bucket = new AnonimBuck();}
-		map.put("bucketsize", bucket.getSize());
-		
-		Set<Page> headerpages = pageServ.getHeaderPages();
-		map.put("headerpages", headerpages);
-		
-		Set<PageGroup> pagegroups = pgrServ.getFooterPagegroups();
-		map.put("pagegroups", pagegroups);
-		
-		Integer currenttownid = (Integer) sess.getAttribute("cityid");
-		if(currenttownid==null){currenttownid = 908;}
-		Town currenttown = new Town();
-		currenttown = twnServ.getById(currenttownid);
-		
-		List<BasicConfiguration> bcfgs = bcfServ.getAll();
-		BasicConfiguration basic = bcfgs.get(0);
-		map.put("basic", basic);
-		
-		List<Category> roots = catServ.getRootCategories();
-		map.put("currentCatList", roots);
-		
 		String restOfTheUrl = (String) request.getAttribute(
 		        HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
 		String[] pprts = restOfTheUrl.split("/");
@@ -93,10 +71,10 @@ public class InfoPageController {
 		System.out.println(pageurl);
 		Page currpage = pageServ.getPageByUrl(pageurl);
 		if(currpage==null){
-			System.out.println("error 404");
+			throw new ResourceNotFoundException();
 		}
 		List<PageGroup> allpagegroups = pgrServ.getAll();
-		map.put("allpagegroups", pagegroups);
+		map.put("allpagegroups", allpagegroups);
 		map.put("currpage", currpage);
 		return "infopage";
 		

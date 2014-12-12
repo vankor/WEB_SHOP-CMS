@@ -119,22 +119,6 @@ public class bucketServ {
 	
 	
 	
-	@RequestMapping(value = "/search", method = RequestMethod.GET)
-    public @ResponseBody
-    String getTime() {
- 
-        Random rand = new Random();
-        float r = rand.nextFloat() * 100;
-        String result = "<br>Next Random # is <b>" + r + "</b>. Generated on <b>" + new Date().toString() + "</b>";
-       System.out.println("Debug Message from CrunchifySpringAjaxJQuery Controller.." + new Date().toString());
-        List<String> list = new ArrayList<String>();
-        list.add("2f32f");
-        list.add("qwfqwf");
-        return result;
-    }
-	
-	
-	
 	
 	@RequestMapping("/anonimgoods")
 	public String listAnonimGoods(Map <String, Object> map, HttpSession sess){

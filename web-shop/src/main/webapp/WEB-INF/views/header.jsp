@@ -164,7 +164,7 @@ function load_text(lnk, type, pid)
 			<td class="head_basked">
 				<div class="baskedbox">
 					<div onclick = "showbuck()" class="basked">
-						<p class="basked_items_count"><span style="position:relative; top:2px; right:0">0</span></p><div class="basked_img"></div><span class="text">Корзина</span>
+						<p class="basked_items_count"><span style="position:relative; top:2px; right:0">${bucketsize}</span></p><div class="basked_img"></div><span class="text">Корзина</span>
 						<div class="trigger" style="background-position: -207px 0px;">&nbsp;</div>
 					</div>
 						<div class="basked_items_list" style="display: none;">
@@ -279,14 +279,14 @@ function load_text(lnk, type, pid)
 	</tr>
 	<tr>
 		<td  width="500">
-			<form action="http://www.mobilluck.com.ua/search.php" method="GET" name="srch" id="srch">
+			<form action="<c:url value = '/search'/>" method="GET" name="srch" id="srch">
 			<table>
 			<tr>
 				<td>
-								<input autocomplete="off" type="text" name="sw" id="searchsw" value="" placeholder="Что вы хотите найти?" x-webkit-speech="x-webkit-speech"/>
+								<input autocomplete="off" type="text" name="req" id="searchsw" value="" placeholder="Что вы хотите найти?" x-webkit-speech="x-webkit-speech"/>
 				<div id="searchsw2"></div>
 				</td>
-				<td><input id="searchbtn" type="submit" src="http://img.mobilluck.com.ua/img/product/search.png" value="Искать" /></td>
+				<td><input id="searchbtn" type="submit"  value="" /></td>
 			</tr>
 						</table>
 			</form>
@@ -307,8 +307,8 @@ function load_text(lnk, type, pid)
 					{
 						var txt = $(this).val();
 						if(txt.length>2){
-							alert(txt);
-							fillSearchListNS(txt, 'searchdrop', 'searchsw');
+						//	alert(txt);
+						//	fillSearchListNS(txt, 'searchdrop', 'searchsw');
 							
 						}
 					}

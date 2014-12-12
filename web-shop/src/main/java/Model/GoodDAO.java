@@ -21,4 +21,5 @@ public interface GoodDAO extends GenericDAO<GoodItem, Integer>{
 		public Integer getCount();
 		public Set<GoodItem> getTopGoods(Category cat);
 		public GoodItem getGoodItemByUrl(String url);
+		public List<GoodItem> searchGood(String val, Integer begin, Integer end);
 }

@@ -111,8 +111,7 @@ public class Region implements Comparable, Model.Entity, Serializable{
 	
 	@OneToMany(mappedBy = "region", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
 	@JsonManagedReference
-	@Fetch(FetchMode.SELECT)
-	@BatchSize(size = 30)
+	@Fetch(FetchMode.SUBSELECT)
 	@Valid
 	public List<Town> getTowns() {
 		return towns;

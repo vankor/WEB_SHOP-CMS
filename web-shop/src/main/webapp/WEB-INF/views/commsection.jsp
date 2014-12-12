@@ -1213,14 +1213,6 @@ function clo(){
 </c:if> 
 
 <c:if test="${section == 'succesreg'}">
-	 <style>
-   			.letter {
-   				 color: white; /* Цвет символа */
-   				 font-size: 110%; /* Размер шрифта */
-   				 
-  					 } 
-  			
- 			 </style>
 <p><span class="letter" style = "padding-left:30%;">Поздравляем с успешной регистрацией!</span></p>
 </c:if> 
 

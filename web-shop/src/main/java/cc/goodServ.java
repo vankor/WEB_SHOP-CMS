@@ -510,6 +510,7 @@ public class goodServ {
 		double sum =calc.getSumValue();
 		System.out.println("Сумма: "+ sum);
 		map.put("buckrows", buck.getRows());
+		map.put("bucketsize", buck.getSize());
 		map.put("buck", buck);
 		map.put("sum", sum);
 		map.put("goodid", goodid);

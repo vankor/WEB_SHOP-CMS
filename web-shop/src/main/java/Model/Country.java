@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
@@ -24,6 +25,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -66,6 +68,8 @@ public class Country implements Serializable,  Comparable, Model.Entity{
 	}
 	
 	@Column(name = "name")
+	@NotNull(message = "*Имя страны должно быть заполнено!")
+	@NotEmpty(message = "*Имя страны должно быть заполнено!")
 	public String getName() {
 		return name;
 	}
@@ -76,7 +80,7 @@ public class Country implements Serializable,  Comparable, Model.Entity{
 	@OneToMany(mappedBy = "country", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //	@Fetch(value = FetchMode.SUBSELECT)
 	@JsonManagedReference
-	@Fetch(FetchMode.SELECT)
+	@Fetch(FetchMode.SUBSELECT)
 	
 	public List<Region> getRegions() {
 		return regions;

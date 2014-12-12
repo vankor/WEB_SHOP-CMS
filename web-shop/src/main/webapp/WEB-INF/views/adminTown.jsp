@@ -305,6 +305,9 @@ function costlessaddr(ind, num){
 <div  class="mainwrapper"> 
 
 <h2>Данные для города ${town.name}</h2>
+<c:if test = "${result == 'success'}">
+<div id = "success"><p>Город успешно сохранен!</p></div>
+</c:if>
 <c:forEach items = "${idbean.ids}" var ="id">
 <script>
 dltp_info[i] = "<c:out value="${id}"/>";
@@ -385,8 +388,15 @@ info_item["ids"] = dltp_info;
          <form:input type = "hidden" path="region.name" />
 		</div>
 		</li>
-        
-		
+        <li>
+		<div id = "col1">
+		<form:label path="isdefault" >Город по умолчанию (если не задан пользователем): </form:label>
+		</div>
+		<div id = "col2">
+		<form:checkbox path="isdefault" />
+		</div>
+		</li>
+			
 		
       </div>	
        <div id = "sector">

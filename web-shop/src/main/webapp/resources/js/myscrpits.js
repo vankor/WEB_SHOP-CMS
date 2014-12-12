@@ -15,7 +15,10 @@
 						    	   goodsinbucket=++bucksize;
 						    	   $("#bucketval").html("");
 						    	   $("#bucketval").html("("+goodsinbucket+")");
-						    	  
+						    	   var ct =  parseInt($(".basked_items_count").find("span").html());
+						    	   $(".basked_items_count").find("span").html(++ct);
+						   // 	   alert(ct);
+						    	   
 						   	//	     $(".goodMenuNode").css("background", "blue" );
 						      //     $(el).css("background", "gray" );
 						     	//	location.href=url+'/#tab='+$(el).attr("id"); 
@@ -195,6 +198,8 @@ function deletefrombuck(goodurl, goodid, bucksize){
 	    	   goodsinbucket=--bucksize;
 	    	   $("#bucketval").html("");
 	    	   $("#bucketval").html("("+goodsinbucket+")");
+	    	//   var ct =  parseInt($(".basked_items_count").find("span").html());
+	    	   $(".basked_items_count").find("span").html(goodsinbucket);
 	   	//	     $(".goodMenuNode").css("background", "blue" );
 	      //     $(el).css("background", "gray" );
 	     	//	location.href=url+'/#tab='+$(el).attr("id"); 
@@ -221,6 +226,12 @@ function changecount(goodurl, goodid,bucksize){
 	    	   goodsinbucket=--bucksize;
 	    	   $("#bucketval").html("");
 	    	   $("#bucketval").html("("+goodsinbucket+")");
+	    	   var htmlresp = $($.parseHTML(responce));
+	    	   var bucket_count = htmlresp.filter("#bucket_count"); 
+		    	console.log(bucket_count); 
+		    	var ct = parseInt($(bucket_count).html());
+		    	
+	    	   $(".basked_items_count").find("span").html(ct);
 	   	//	     $(".goodMenuNode").css("background", "blue" );
 	      //     $(el).css("background", "gray" );
 	     	//	location.href=url+'/#tab='+$(el).attr("id"); 

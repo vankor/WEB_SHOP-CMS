@@ -138,7 +138,7 @@ var url = "<c:out value="${pageContext.request.contextPath}"/>";
   
   
   
-  <c:if test="${section == 'error'}">
+  <c:if test="${section == 'adminerror'}">
   <link rel="stylesheet" href="<c:url value="/resources/loginstyles.css"/>"/>
                     
                     <div id="container">

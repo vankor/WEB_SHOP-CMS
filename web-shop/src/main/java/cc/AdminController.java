@@ -76,6 +76,7 @@ import Model.MultiChangeBean;
 import Model.MultiObjectFieldContainer;
 import Model.MultiValueBean;
 import Model.NewsService;
+import Model.NewsTypeService;
 import Model.ObjectFieldContainer;
 import Model.Order;
 import Model.OrderRow;
@@ -219,6 +220,9 @@ public class AdminController {
 	
 	@Autowired
 	private BasicConfigurationService bconfServ;
+	
+	@Autowired
+	private NewsTypeService ntpServ;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String adminPanel(Map<String, Object> map, HttpServletRequest request, HttpSession sess) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
@@ -718,6 +722,46 @@ public class AdminController {
 		
 	}
 	
+	
+	@RequestMapping(value = "/adminnewstypes/pagin/{pgnum}", method = RequestMethod.GET)
+    public String adminNewstypes(@PathVariable (value = "pgnum") Integer pgnum, Map<String, Object> map, HttpServletRequest request, HttpSession sess) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ClassNotFoundException{
+		
+		User user = (User) request.getAttribute("user");
+		Integer end = pgnum*PAGE_SIZE;
+		Integer begin = end - PAGE_SIZE;
+	
+		System.out.println(begin+"  "+end);
+		Map<String, Filter> filters = (Map<String, Filter>) sess.getAttribute("adminfilters");
+		if(filters==null){
+			filters = new TreeMap<String, Filter>();
+		}
+		
+		Filter ordfilter = getCurrentFilter(filters, "NewsType");
+		
+		if(ordfilter ==null){
+			System.out.println("‘»À‹“– Õ”À≈¬Œ… ");
+			ordfilter = new Filter();
+		}
+		Integer pagecount = Math.round(ntpServ.getCount()/PAGE_SIZE);
+		map.put("pagecount", pagecount);
+//		map.put("goods", Serv.listPage(goodfilter,begin, end));
+		map.put("filter", ordfilter);
+		map.put("title", "”Ô‡‚ÎÂÌËÂ ÚËÔ‡ÏË ÌÓ‚ÓÒÚÂÈ");
+		map.put("pgnum", pgnum);
+		
+		List<ObjectFieldContainer> containers = new ArrayList<ObjectFieldContainer>();
+	
+		
+		fillobjectcontainers(containers, "NewsType", ordfilter, begin, end);
+		System.out.println(confServ.getCount());
+		map.put("containers", containers);
+		map.put("adminclassname", "NewsType");
+		map.put("entityurl", "/admin/adminnewstypes/pagin/");
+//		map.put("section", "configurations");
+		return "adminGoodList";
+		
+	}
+	
 	@RequestMapping(value = "/adminorders/pagin/{pgnum}", method = RequestMethod.GET)
     public String adminOrders(@PathVariable (value = "pgnum") Integer pgnum, Map<String, Object> map, HttpServletRequest request, HttpSession sess) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, ClassNotFoundException {
 		
@@ -745,28 +789,7 @@ public class AdminController {
 		map.put("pgnum", pgnum);
 		
 		List<ObjectFieldContainer> containers = new ArrayList<ObjectFieldContainer>();
-	/*	for(Order ord:ordServ.listPage(ordfilter,begin, end)){
-			if(ord.getIsdeleted()==null || ord.getIsdeleted()!=true){
-			ObjectFieldContainer container = new ObjectFieldContainer();
-			container.setObj(ord);
-			CommonUtilsService.setEntityAdminReferences(container);
-			List<EntityField> fields = entServ.listByClassname("Order");
-		for(EntityField entfield: fields){
-			Class fldclass = CommonUtilsService.getClassByName(ord, entfield.getPropname());
-			System.out.println("»Ãﬂ  À¿——¿ —“ŒÀ¡÷¿ "+fldclass.getSimpleName());
-			entfield.setPropclassname(fldclass.getSimpleName());
-					boolean isPrimitiveOrWrapped = ClassUtils.isPrimitiveOrWrapper(fldclass);
-					if(!isPrimitiveOrWrapped){
-						entfield.setIsobject(true);
-					}
-					
-			container.getFields().put(entfield, null);
-		}
-		container.fillFieldValues();
-		containers.add(container);
-		}
-		}*/
-		
+			
 		fillobjectcontainers(containers, "Order", ordfilter, begin, end);
 
 		map.put("containers", containers);

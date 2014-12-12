@@ -72,70 +72,24 @@ public void fillnumber(PhoneNumber nphn){
 	}
 	
 	@Transactional
+	public Town getDefault() {
+		return townDAO.getDefault();
+	}
+
+	@Transactional
 	public void update(Town town, TownBean townbean){
-/*		for(Town_Delivery twndl: g.getTowndeliveries()){
-			
-		}*/
-/*		System.out.println(g.getResidents().size());
-		for(Adress ader: g.getResidents()){
-			System.out.println(ader.getHouse_num()+ "  "+ader.getStreet_name());
-		}*/
-		
-/*		List<DeliveryType> dlvlist = new ArrayList<DeliveryType>();
-		for(DeliveryTypeBean dtp: bean.getDeltypes()){
-			boolean contains = false;
-			DeliveryType deltype = dtp.getDeltype();
-			dlvlist.add(dtp.getDeltype());
-			for(Town_Delivery tdlv:g.getTowndeliveries()){
-				if(tdlv.getDeliveryType().equals(deltype)){
-					contains=true;
-					tdlv.setPrice(dtp.getPrice());
-					tdlv.setIscostless(dtp.getIscostless());
-				}
-			}
-			
-			if(!contains){
-				Town_Delivery twndlv = new Town_Delivery();
-				twndlv.setDeliveryType(deltype);
-				twndlv.setTown(g);
-				twndlv.setPrice(dtp.getPrice());
-				twndlv.setIscostless(dtp.getIscostless());
-				g.addTowndelivery(twndlv);
-				deltype.addTowndeliverytype(twndlv);
-				System.out.println(twndlv.getPk().getDelivery().getId());
-				System.out.println(twndlv.getPk().getTown().getId());
-				if(g.getId()==null){twndlvDAO.update(twndlv);}
-				
-			}
-			
+
+		if(townbean.getIsdefault()==true){
+		setDefault(town);
+		System.out.println(town.getIsdefault()+ "   DEFFFFAUUUULTTT!");
 		}
-	
-		
-		ListIterator<Town_Delivery> ltr1 = 	g.getTowndeliveries().listIterator();
-		while(ltr1.hasNext()){
-			Town_Delivery t = ltr1.next();
-			if(!dlvlist.contains(t.getDeliveryType())){
-				ltr1.remove();
-				twndlvDAO.delete(t);
-			}
-			else{
-				
-						
-				if(g.getId()==null){g.setId((Integer)townDAO.save(g));}
-				if(twndlvDAO!=null) {System.out.println("nonulllldao");}
-				twndlvDAO.update(t);
-				
-			}
-		}*/
-		
-		
-		Adress todel = new Adress();
+		else{
+		town.setIsdefault(false);	
+		}
 		Iterator<Adress> iter = town.getResidents().iterator();
 		while(iter.hasNext()){
 			Adress proper = iter.next();
 			if(!townbean.getResidents().contains(proper)){
-		/*		isdeleted = true;
-				todel = proper;*/
 				iter.remove();
 				System.out.println("›ÎÂÏÂÌÚ "+proper.getStreet_name()+" Û‰‡ÎÂÌ ");
 			}
@@ -326,9 +280,10 @@ public void fillnumber(PhoneNumber nphn){
 	//		addrdel.se(d.getDays());
 			addrdel.setIscostless(d.getIscostless());
 	//		addrdel.setMindelterm(d.getMindays());
+			twndlvDAO.update(addrdel);
 			town.getTowndeliveries().add(addrdel);
 			}		
-			
+					
 		}
 		
 		System.out.println("»“Œ√ œŒ √Œ–Œƒ”");
@@ -485,7 +440,10 @@ public void fillnumber(PhoneNumber nphn){
 		return (Integer) townDAO.save(town);
 	}
 
-
+	@Transactional
+	public void setDefault(Town town) {
+		townDAO.setDefault(town);
+	}
 
 /*	@Override
 	@Transactional

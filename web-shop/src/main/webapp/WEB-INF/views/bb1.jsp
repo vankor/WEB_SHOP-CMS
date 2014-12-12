@@ -173,6 +173,8 @@ var goodurl = "<c:out value="${pageContext.request.contextPath}"/>" +"/good/"+ "
 	    	console.log(activeuserfilters); 
 	    	var catcount = htmlresp.filter("#catcount"); 
 	    	console.log(catcount); 
+	    	
+	    	
 	    	$('#valfilters').html(valfilters);
 			$('#goodlist').html(goodlist);
 			$('#activeuserfilters').html(activeuserfilters);

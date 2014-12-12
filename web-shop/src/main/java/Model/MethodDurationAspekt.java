@@ -29,13 +29,12 @@ public class MethodDurationAspekt {
 		
 //		System.out.println("FQQQQQ ");
 		long t1 = System.nanoTime();
-		try{
-			return call.proceed();
-		}
-		finally{
+		Object output = new Object();
+			output = call.proceed();
 			long t2 = System.nanoTime();
 			System.out.println("ƒлительность выполнени€ метода "+call.toShortString()+": "+(t2-t1)+" наносекунд");
-		}
+		
+		return output;
 		
 		
 	}

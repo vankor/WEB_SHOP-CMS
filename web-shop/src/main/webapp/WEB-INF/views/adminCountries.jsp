@@ -46,7 +46,10 @@ function removeProperty(id){
 
 <div class="mainwrapper"> 
 <h1>Вести страны:</h1>
-<form:form method="post" action="addedCountry" modelAttribute="countrybean">
+<c:if test = "${result == 'success'}">
+<div id = "success"><p>Изменения сохранены!</p></div>
+</c:if>
+<form:form method="post" action="updatedCountries" modelAttribute="countrybean">
 		<div id = "sector">
 		<c:if test = "${!empty countrybean.countries}">
 		<c:forEach items = "${countrybean.countries}" var = "country" varStatus = "i">

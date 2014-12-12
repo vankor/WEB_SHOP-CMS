@@ -121,28 +121,8 @@ public class GController {
     public String showGoodCategory(@PathVariable (value = "section") String section, @CookieValue(value = "isVoted", defaultValue = "0") Integer isVoted, Map<String, Object> map, HttpServletRequest request, HttpSession sess) {
 	
 		System.out.println("Выборки для товаров: ");
-		User user = (User)request.getAttribute("user");
-		AnonimBuck bucket = (AnonimBuck) sess.getAttribute("currbuck");
-		if(bucket==null){bucket = new AnonimBuck();}
-		map.put("bucketsize", bucket.getSize());
+		User user = (User)sess.getAttribute("user");
 		
-		Set<Page> headerpages = pageServ.getHeaderPages();
-		map.put("headerpages", headerpages);
-		
-		Set<PageGroup> pagegroups = pgrServ.getFooterPagegroups();
-		map.put("pagegroups", pagegroups);
-		
-		Integer currenttownid = (Integer) sess.getAttribute("cityid");
-		if(currenttownid==null){currenttownid = 908;}
-		Town currenttown = new Town();
-		currenttown = twnServ.getById(currenttownid);
-		
-		List<BasicConfiguration> bcfgs = bcfServ.getAll();
-		BasicConfiguration basic = bcfgs.get(0);
-		map.put("basic", basic);
-		
-		List<Category> roots = catServ.getRootCategories();
-		map.put("currentCatList", roots);
 		
 		String restOfTheUrl = (String) request.getAttribute(
 		        HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
@@ -222,7 +202,7 @@ public class GController {
 		
 		map.put("goodstate", g.getState());
 		map.put("images", g.getImages());
-		map.put("bucketsize", bucket.getSize());
+//		map.put("bucketsize", bucket.getSize());
 		Boolean onlyproved = false;
 		Set<Comment> comms = new TreeSet<Comment>(new Comparator<Comment>(){
 
@@ -232,8 +212,6 @@ public class GController {
 				return o2.getDatetime().compareTo(o1.getDatetime());
 			}
 
-			
-			
 		});
 		if(onlyproved){
 			comms = comServ.getProvedCommentsByGood(g);

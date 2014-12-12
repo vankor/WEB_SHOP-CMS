@@ -108,31 +108,7 @@ public class CController {
 	
 	@RequestMapping(method = RequestMethod.GET)
     public String listCategory(@PathVariable (value = "pgnum") Integer pgnum, Map<String, Object> map, HttpServletRequest request, HttpSession sess) {
-			
-
-			User user = (User) request.getAttribute("user");
-			AnonimBuck bucket = (AnonimBuck) sess.getAttribute("currbuck");
-			if(bucket==null){bucket = new AnonimBuck();}
-			map.put("bucketsize", bucket.getSize());
-			
-			Set<Page> headerpages = pageServ.getHeaderPages();
-			map.put("headerpages", headerpages);
-			
-			Set<PageGroup> pagegroups = pgrServ.getFooterPagegroups();
-			map.put("pagegroups", pagegroups);
-			
-			Integer currenttownid = (Integer) sess.getAttribute("cityid");
-			if(currenttownid==null){currenttownid = 908;}
-			Town currenttown = new Town();
-			currenttown = twnServ.getById(currenttownid);
-			
-			List<BasicConfiguration> bcfgs = bcfServ.getAll();
-			BasicConfiguration basic = bcfgs.get(0);
-			map.put("basic", basic);
-			
-			List<Category> roots = catServ.getRootCategories();
-			map.put("currentCatList", roots);
-			
+					
 			
 			String restOfTheUrl = (String) request.getAttribute(
 			        HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
@@ -155,7 +131,7 @@ public class CController {
 			map.put("hotnumbs", nmbServ.getHotNumbers());
 			map.put("costlesslines", nmbServ.getCostlessLines());
 //			map.put("catList", roots);
-			map.put("currentCatList", roots);
+//			map.put("currentCatList", roots);
 			map.put("paramcontainer", new ParamContainer());
 			map.put("catid", cat.getId());
 			map.put("category", cat);

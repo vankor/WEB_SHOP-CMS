@@ -37,6 +37,7 @@
 	<script src="<c:url value="/resources/js/myscrpits.js" />"></script>
 	<script src="<c:url value="/resources/js/autocomplete.js" />"></script>
 	<script src="<c:url value="/resources/js/datepicker.js" />"></script>
+	<script src="<c:url value="/resources/js/adminscripts.js" />"></script>
 		<script type="text/javascript" src="<c:url value="/resources/js/tinymce/tinymce.min.js" />" ></script>
 <script type="text/javascript">
 tinyMCE.init({
@@ -162,6 +163,20 @@ function addField(){
 			<form:input type = "hidden" id = "cat_id" onclick = 'load_goodchoise(this, "${pageContext.request.contextPath}/choiseCategory", "cat", "choisecategory")' path="category.id" />
 			<form:input  id = "cat_name" onclick = 'load_goodchoise(this, "${pageContext.request.contextPath}/choiseCategory", "cat", "choisecategory")' path="category.name" />
 			<form:errors path="category" cssClass="error" />
+			</div>
+		</div>
+		</li>
+		
+		<li>
+		<div id = "row">
+		
+			<div id = "col1"><form:label  path="category.id">
+				Тип новостей:
+			</form:label></div>
+			<div id = "col2">
+			<form:input type = "hidden" id = "newstype_id" path="type.id" />
+			<form:input  id = "newstype_text" onclick = "load_entitychoise('${pageContext.request.contextPath}','newstype','Model.NewsType', -1)" path="type.name" />
+			<form:errors path="type" cssClass="error" />
 			</div>
 		</div>
 		</li>
@@ -375,6 +390,8 @@ function addField(){
 <div class="close"><img width="30" height="30" src="/web-shop/resources/images/x-button-gray.png"></div>
 <div id = "popupcontent"></div>
 </div>
+
+<div id = "popup1" class = "popupwindow"></div>
 
 </body>
 </html>

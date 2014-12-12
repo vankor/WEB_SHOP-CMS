@@ -16,7 +16,14 @@ public class TownBean {
 	private List<DeliveryTypeBean> deltypes = new ArrayList<DeliveryTypeBean>();
 	private List<Adress> shopresidents = new ArrayList<Adress>();
 	private List<Adress> shopdelresidents = new ArrayList<Adress>();
+	private Boolean isdefault;
 	
+	public Boolean getIsdefault() {
+		return isdefault;
+	}
+	public void setIsdefault(Boolean isdefault) {
+		this.isdefault = isdefault;
+	}
 	public List<Adress> getShopdelresidents() {
 		return shopdelresidents;
 	}
@@ -87,6 +94,7 @@ public class TownBean {
 			deltypes.add(bn);
 		}
 		this.shopresidents = g.getShopresidents();
+		this.isdefault = g.getIsdefault();
 		
 		
 	}

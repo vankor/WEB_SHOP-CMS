@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.DetachedCriteria;
@@ -47,6 +48,7 @@ public class TownDAOImpl extends GenericHibTemplateDAOImpl<Town, Integer> implem
 	}
 
 	@Override
+	@Transactional
 	public void add(Town entity) {
 		super.add(entity);
 		template.flush();
@@ -58,6 +60,7 @@ public class TownDAOImpl extends GenericHibTemplateDAOImpl<Town, Integer> implem
 	}
 
 	@Override
+	@Transactional
 	public Town getTownsByCode(Integer code) {
 		List<Object> list = template.findByCriteria(DetachedCriteria.forClass(Town.class).add(Restrictions.eq("phonecode", code)));
 		Town twn = null;
@@ -69,10 +72,31 @@ public class TownDAOImpl extends GenericHibTemplateDAOImpl<Town, Integer> implem
 	}
 
 	@Override
+	@Transactional
 	public Set<Town> getResidentTowns() {
 		List<Object> list = template.findByNamedParam("select t from Town as t INNER JOIN t.residents as r where r.adresstype = :adresstype", "adresstype", AdressType.RESIDENT);
 		template.setCacheQueries(true);
 		return toSet(list);
+	}
+
+	@Override
+	@Transactional
+	public void setDefault(Town town) {
+		Session sess = template.getSessionFactory().openSession();
+		Query query = sess.createQuery("update Town set isdefault = false where isdefault = true");
+		query.executeUpdate();
+		town.setIsdefault(true);
+		
+		
+	}
+
+	@Override
+	@Transactional
+	public Town getDefault() {
+		Session sess = template.getSessionFactory().openSession();
+		Town town = (Town) sess.createCriteria(Town.class).add(Restrictions.eq("isdefault", true)).uniqueResult();
+		
+		return town;
 	}
 
 

@@ -368,6 +368,12 @@ public class CommonUtilsService {
 			
 		}
 		
+		if(container.getObj() instanceof NewsType){
+			container.getRefs().put("Редактировать", "/admin/admincontent/updateNewstype/"+entid);
+			container.getRefs().put("Удалить", "/admin/setdeleted/NewsType/"+entid);
+			
+		}
+		
 	}
 
 

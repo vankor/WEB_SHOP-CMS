@@ -5,6 +5,9 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 
+
+<div style = "display:none;" id = "bucket_count">${bucketsize}</div>
+
 <script>
 $(document).ready(function(){
 $("#buck_close").click(function(){
@@ -16,7 +19,6 @@ $("#buck_close").click(function(){
 });
 });
 </script>
-
 <div id="popup_wrapper" style="display: block;">
 
     <div id="popup_outer" style="width: 680px;">
@@ -157,6 +159,7 @@ $("#buck_close").click(function(){
     </div>
 
 </div>
+
 <script>
 function clo(){
 	$("#bucket").css("display", "none");

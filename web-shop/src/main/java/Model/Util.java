@@ -14,7 +14,8 @@ public class Util {
 	  public static int getdelposition(Collection<DeliveryTypeBean> coll, Object o) {
 		  int i = 0;
 		  for(DeliveryTypeBean h: coll){
-			  if(h.getDeltype().equals(o))
+			  
+			  if(h.getDeltype()!=null && h.getDeltype().equals(o))
 			  {return i;}
 			  i++;
 		  }

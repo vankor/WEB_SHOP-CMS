@@ -100,9 +100,16 @@ public class GoodItemService extends ServiceImpl<GoodItem, Integer, GoodDAO>{
 		gd.update(g);	
 	}
 	
+	@Transactional
 	public GoodItem getGoodItemByUrl(String url) {
 		return gd.getGoodItemByUrl(url);
 		
+	}
+
+
+	@Transactional
+	public List<GoodItem> searchGood(String val, Integer begin, Integer end) {
+		return gd.searchGood(val, begin, end);
 	}
 
 

@@ -105,6 +105,9 @@
 	<div style = "padding-left:20%; width:80%;" id = "fixedbuttons"><ul ><li style = "display: inline;"><button  onclick = "location.href = '${pageContext.request.contextPath}/admin/admincontent/addConfiguration';">Добавить новый шаблон конфигурации</a></li><li id = "menucontainer"></li></ul></div>
 	</c:if>
 	
+	<c:if test = "${adminclassname ==  'NewsType'}">
+	<div style = "padding-left:20%; width:80%;" id = "fixedbuttons"><ul ><li style = "display: inline;"><button  onclick = "location.href = '${pageContext.request.contextPath}/admin/admincontent/addNewstype';">Добавить тип новостей</a></li><li id = "menucontainer"></li></ul></div>
+	</c:if>
 
 	<div class = "gridinstruments">
 	<input type = "checkbox" id = "moveactive"/> Перемещение столбцов

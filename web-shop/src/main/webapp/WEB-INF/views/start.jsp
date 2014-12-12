@@ -54,6 +54,9 @@ $("img").lazyload({ threshold : 100, effect : "fadeIn", failurelimit : 100 });
 <body >
 
 <div id="page">
+<c:if test = "${!empty user}">
+${user.id} rgrg
+</c:if>
 <div id ="headerwrapper">
 <jsp:include page="/WEB-INF/views/header.jsp" />
 <div id="wrapper">

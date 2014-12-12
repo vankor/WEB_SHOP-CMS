@@ -32,6 +32,8 @@ public class NewsBean implements FileEntityBean{
 	private List<CommonsMultipartFile> newvideos= new ArrayList<CommonsMultipartFile>();
 	private String creation_date;
 	private String creation_time;
+	private NewsType type;
+	
 	
 	@NotNull (message = "*Для новости обязателен текст")
 	@Valid
@@ -66,6 +68,14 @@ public class NewsBean implements FileEntityBean{
 	}
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	
+	@NotNull(message = "*Необходимо задать тип новостей!")
+	public NewsType getType() {
+		return type;
+	}
+	public void setType(NewsType type) {
+		this.type = type;
 	}
 
 	@Valid
@@ -157,6 +167,7 @@ public class NewsBean implements FileEntityBean{
 		this.thumb = act.getThumb();
 		this.istop = act.getIstop();
 		this.promotext = act.getPromotext();
+		this.type = act.getType();
 	}
 	
 	public List<CommonsMultipartFile> getNewvideos() {

@@ -1388,7 +1388,31 @@ p.but_sub:hover{cursor:pointer;color:white}
 .showhidebtn{background:url("../img/ar_gr.png") no-repeat scroll right 6px transparent;color:#666;padding:0 12px 0 15px;margin:3px 35px 0 0;cursor:pointer}
 .showhidebtn2{background-position:right -5px}
 .showhidebtn b{border-bottom:1px dashed #666}
-
+.letter {
+   				 color: white; 
+   				 font-size: 110%; 
+   				 
+  					 } 
+ 
+ #searchbtn{
+ 	background-image:url("./images/search.png");
+ 		background-repeat: no-repeat;
+ 	width:92px;
+ 	height:35px;
+ 	cursor:pointer;
+ }
+ 
+  #loginfail {
+ width:50%;
+  margin:auto;
+  padding: 7px; font-size: 14px; border-radius: 2px; height: 15px; background: none repeat scroll 0% 0% red;
+   				 color: white; 
+   				font-weight:700;
+   				 text-align:center;
+   				 border-radius:4px;
+   				 margin-bottom:15px;
+  					 } 
+  
 /* carousel */
 .jcarousel-skin-tango .jcarousel-container{}
 .jcarousel-skin-tango .jcarousel-container-horizontal{width:925px;height:248px;padding:0px 29px 0px 0px}
