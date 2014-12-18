@@ -194,6 +194,6 @@
         </div>
     </div>                                     
         <div style="margin-top: 30px; margin-bottom: 30px;">
-                    <img src="http://www.mobilluck.com.ua/img/product/left_arrow.png"> <a href="${pageContext.request.contextPath}/good/${good.id}/all" style="font-size: 16px;">Вернуться к подробной информации о ${good.name} Silver</a>
+                    <img src="http://www.mobilluck.com.ua/img/product/left_arrow.png"> <a href="${pageContext.request.contextPath}/catalog/${good.page.fullurl}/all" style="font-size: 16px;">Вернуться к подробной информации о ${good.name} Silver</a>
                 </div>
                 </div>

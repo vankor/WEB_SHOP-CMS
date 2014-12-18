@@ -427,7 +427,7 @@ $("img").lazyload({ threshold : 100, effect : "fadeIn", failurelimit : 100 });
                             </div>
                          <!--     <div class="btn_buy" onclick="$('#popupbg').hide(); $('#dialog_wrapper').hide(); return buy_popup(89477,'it986qr2arh979bde5unt5nfl2', this, '0')"></div> -->
                        
-                       			<div class="btn_buy" onclick="$('#popupbg').hide(); $('#dialog_wrapper').hide(); return addtobuck('${pageContext.request.contextPath}/good/${good.id}/${section}',${good.id},${bucketsize})"></div>
+                       			<div class="btn_buy" onclick="$('#popupbg').hide(); $('#dialog_wrapper').hide(); return addtobuck(${good.id},${bucketsize})"></div>
                         </div>
                     </div>
                             <div class="presence" itemprop="availability" content="in_stock">
@@ -1013,10 +1013,10 @@ function add_wishlist(prodid, section, lnk)
 	var coor = getOffset( lnk );
 	left = coor.left;
 	top = coor.top;
-//	alert(section);
+//	alert(goodservurl+"/addwishgood");
 	$.ajax({
         type: "POST",
-        url: url+"/addwishgood",
+        url: goodservurl+"/addwishgood",
         data: {"section": section, "goodid":prodid},
 //        dataType: "text",
         success: function(data){
@@ -1190,66 +1190,6 @@ function add_wishlist(prodid, section, lnk)
         });
 
 
-
-function strahovka_click(prodid, sesid, lnk, pcredit)
-{
-    if($("#chstrah").attr("checked")==true)
-    {
-        var ww = $(window).width(), wh = $(window).height();
-    	var left = this.offsetLeft, top = this.offsetTop;
-    	if (navigator.userAgent.toLowerCase().indexOf("msie") != -1){left += (ww-978)/2;}
-
-    	var coor = getOffset( lnk );
-    	left = coor.left;
-    	top = coor.top;
-
-        $("#popup_cart_title").html("Корзина заказов");
-    	$("#popup_cart_content").html("<br /><br />Идет подгрузка информации...<br /><br />");
-
-        $("#popupbg").show();
-        $("#popup_wrapper").show();
-
-        $.ajax({
-            type: "POST",
-            url: "/ajx/ajx_jq.php",
-            data: 'cmd=uh_com_cartitemadd2&prodid='+prodid+'&csi='+sesid,
-            dataType: "text",
-            success: function(data){
-                var stsum = $("#stsum").val();
-                //alert(sesid+' '+data+' '+stsum);
-                ui_cart_strahset(sesid, data, stsum, "popup_cart_content");
-    			ui_cart_view( sesid, "popup_cart_content", true );
-
-    	    }
-    	});
-
-     }
-     else
-     {
-        $("#popup_cart_title").html("Корзина заказов");
-    	$("#popup_cart_content").html("<br /><br />Идет подгрузка информации...<br /><br />");
-
-        $("#popupbg").show();
-        $("#popup_wrapper").show();
-
-        $.ajax({
-            type: "POST",
-            url: "/ajx/ajx_jq.php",
-            data: 'cmd=uh_com_cartitemadd3&prodid='+prodid+'&csi='+sesid,
-            dataType: "text",
-            success: function(data){
-                ui_cart_strahset(sesid, data, 0, "popup_cart_content");
-                ui_cart_view( sesid, "popup_cart_content", true );
-
-    	    }
-    	});
-
-     }
-     _gaq.push(['_trackPageview', 'http://www.mobilluck.com.ua/order_way/addtocart.html']);
-     _gaq.push(['_trackPageview', 'http://www.mobilluck.com.ua/order_way/addtocart_strah.html']);
-     $('body,html').animate( {scrollTop: 0}, 1000, 'swing');
-}
-
 var cCompareProds = new Array();
 var cCompareType = 0;
 
@@ -1301,93 +1241,8 @@ function updateCompareList()
 }
 
 
-/*
-function show_mod(prodid, sectid, profid, cost_db, lnk, minus)
-{
-
-	var ww = $(window).width(), wh = $(window).height();
-	var left = this.offsetLeft, top = this.offsetTop;
-	if (navigator.userAgent.toLowerCase().indexOf("msie") != -1){left += (ww-978)/2;}
-
-	var coor = getOffset( lnk );
-	left = coor.left-minus;
-	top = coor.top;
-
-	$("#dialog_title").html("Модификации");
-	$("#dialog_content").html("<br /><br />Идет подгрузка информации...<br /><br />");
-
-	showPopupDlg(left, top, 750);
-	//$("#popupbg").show();
-	//$("#popup_wrapper").show();
-
-	$.ajax({
-        type: "POST",
-        url: "/ajx/ajx_product.php",
-        data: 'cmd=uh_getmod&prodid='+prodid+'&sectid='+sectid+'&profid='+profid+'&cost_db='+cost_db+'&csi=n4o0hi0buepsoktemtuc0oclr6',
-        dataType: "text",
-        success: function(data){
-        	//alert(data);
-			$("#dialog_content").html(data);
-	    }
-	});
-    //$('body,html').animate( {scrollTop: 0}, 1000, 'swing');
-	return false;
-}
-*/
 
 
-
-function other_producer(lnk, pid)
-{
-    var ww = $(window).width(), wh = $(window).height();
-	var left = this.offsetLeft, top = this.offsetTop;
-	if (navigator.userAgent.toLowerCase().indexOf("msie") != -1){left += (ww-978)/2;}
-
-	var coor = getOffset( lnk );
-	left = coor.left;
-	top = coor.top;
-
-    var wd = 500;
-    $("#dialog_title").html('Игровые приставки других брендов');
-    $("#dialog_content").html("<br /><br />Идет подгрузка информации...<br /><br />");
-    showPopupDlg(left, top, wd);
-	$.ajax({
-        type: "POST",
-        url: "/ajx/ajx_product.php",
-        data: 'cmd=uh_otherproducer&id='+pid,
-        dataType: "text",
-        success: function(data){
-        	$("#dialog_content").html(data);
-        }
-    });
-}
-
-/*function add_wishlist(prodid, lnk)
-{
-	var ww = $(window).width(), wh = $(window).height();
-	var left = this.offsetLeft, top = this.offsetTop;
-	if (navigator.userAgent.toLowerCase().indexOf("msie") != -1){left += (ww-978)/2;}
-
-	var coor = getOffset( lnk );
-	left = coor.left;
-	top = coor.top;
-
-	$.ajax({
-        type: "POST",
-        url: "/ajx/ajx_jq.php",
-        data: 'cmd=uh_com_addwishlist&id='+prodid+'&csi=n4o0hi0buepsoktemtuc0oclr6',
-        dataType: "text",
-        success: function(data){
-        	$("#dialog_title").html('Желаемые покупки');
-        	$("#dialog_content").html(data);
-        	showPopupDlg(left, top, 350);
-            $("#addwish").html("Все желаемые товары");
-            $("#addwish").attr("href", "http://www.mobilluck.com.ua/user_room.php?mode=user_wish");
-            $("#addwish").attr("onClick", "");
-			$("#addwish").attr("target", "_blank");
-        }
-    });
-}*/
 
     function show_big_photo(lnk, pid, i)
     {
@@ -1419,8 +1274,6 @@ function other_producer(lnk, pid)
 				});
 		}
 			</script>
-		<script type="text/javascript" src="http://www.mobilluck.com.ua/onlinecredit/delta.js"></script>
-
 </div>
 
 </div>
@@ -1455,44 +1308,6 @@ function other_producer(lnk, pid)
 -->
 		<div id = "bucket"></div>
 
-
-
-	<script>
-function feedback(topic, lnk, ttop)
-{
-	var ww = $(window).width(), wh = $(window).height();
-	var left = this.offsetLeft, top = this.offsetTop;
-	if (navigator.userAgent.toLowerCase().indexOf("msie") != -1){left += (ww-978)/2;}
-
-	var coor = getOffset( lnk );
-	left = coor.left - 250;
-	top = coor.top - ttop;
-
-	$.ajax({
-		type: "POST",
-		url: "/ajx/ajx_pop.php",
-		data: 'cmd=uh_feed&topic='+topic+'',
-		dataType: "text",
-		success: function(data){
-			$("#dialog_title").html('');
-			$("#dialog_content").html(data);
-			showPopupDlg(left, top, 480);
-		}
-	});
-}
-</script>
-			<script id="xcntmyAsync" type="text/javascript">
-			var xcnt_product_id = '89477';
-			(function(){
-				var xscr = document.createElement( 'script' );
-				var xcntr = escape(document.referrer); xscr.async = true;
-				xscr.src = ( document.location.protocol === 'https:' ? 'https:' : 'http:' )
-				+ '//x.cnt.my/async/track/?r=' + Math.random();
-				var x = document.getElementById( 'xcntmyAsync' );
-				x.parentNode.insertBefore( xscr, x );
-			}());
-			</script>
-			<script src="http://rt.actionpay.ru/code/mobilluck/" defer></script><script>window.APRT_DATA = { pageType: 2, currentCategory: { id: 13, name: 'Игровые приставки' }, currentProduct: { id: 89477, name: 'Игровая приставка Genius Heeha 100X', price: 268 } }; </script>
 
 		<!-- End SiteHeart code -->
 		</body>

@@ -280,7 +280,7 @@ $(document).ready(function(){
 									<tbody>
 										<tr>
 											<td>
-											<a href="${pageContext.request.contextPath}/good/${good.id}/all" title="${good.name}" target="_blank">
+											<a href="${pageContext.request.contextPath}/catalog/${good.page.fullurl}/all" title="${good.name}" target="_blank">
 												<img src="<c:url value="/resources/images${good.thumb}" />" data-original="<c:url value="/resources/images${good.thumb}" />" alt="${good.name}" style="display: inline;"></a>
 											</td>
 										</tr>
@@ -289,7 +289,7 @@ $(document).ready(function(){
 							</div>
 							<div class="cci2info_action">
 								<p class="cci2_mdl_action">
-									<a href="${pageContext.request.contextPath}/good/${good.id}/all" title="${good.name}" target="_blank">${good.name}</a>
+									<a href="${pageContext.request.contextPath}/catalog/${good.page.fullurl}/all" title="${good.name}" target="_blank">${good.name}</a>
 								</p>
 
 								<table class="w100_action" style="height: 70px;">
@@ -308,7 +308,7 @@ $(document).ready(function(){
                                         										<span>${good.price}</span>                                        
 									</td>
 									<td rowspan="2">
-										 <div class="btn_buy_other_sm" onclick="addtobuck('${pageContext.request.contextPath}/good/${good.id}/all',${good.id},${bucketsize})"></div>
+										 <div class="btn_buy_other_sm" onclick="addtobuck(${good.id},${bucketsize})"></div>
 									</td>
 								</tr>
 								

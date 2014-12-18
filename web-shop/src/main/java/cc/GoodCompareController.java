@@ -43,7 +43,7 @@ import Model.ValueService;
 
 @Controller
 @RequestMapping("/{catid}/comparegoods")
-public class compareServ {
+public class GoodCompareController {
 	
 	@Autowired
 	private GoodItemService Serv;

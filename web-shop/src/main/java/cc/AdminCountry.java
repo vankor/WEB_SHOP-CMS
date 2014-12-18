@@ -81,7 +81,7 @@ import Model.VoteService;
 
 @Controller
 @RequestMapping(value = {"/admin/admincountry/{countryId}"})
-public class adminCountry{
+public class AdminCountry{
 	@Autowired
 	private GoodItemService Serv;
 	

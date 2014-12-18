@@ -258,9 +258,9 @@ public class goodServ {
 		
 	}
 	
-	@RequestMapping(value = "/addwishgood", method = RequestMethod.POST)
-	public String addWishgood(@RequestParam (value = "goodid") Integer goodid,HttpServletRequest request, @RequestParam (value = "section") String section,  Map<String, Object> map) {
-			User user = (User)request.getAttribute("user");
+/*	@RequestMapping(value = "/addwishgood", method = RequestMethod.POST)
+	public String addWishgood(@RequestParam (value = "goodid") Integer goodid,HttpServletRequest request, HttpSession sess, @RequestParam (value = "section") String section,  Map<String, Object> map) {
+			User user = (User)sess.getAttribute("user");
 			map.put("section", section);
 			System.out.println("Имя товара желания - "+Serv.getById(goodid).getName());
 			if(user!=null){
@@ -275,7 +275,7 @@ public class goodServ {
 		
 		
 	}
-	
+*/	
 	@RequestMapping(value = "/addwatchgood", method = RequestMethod.POST)
 	public @ResponseBody String addWatchgood(@RequestParam (value = "goodid") Integer goodid, HttpServletRequest request,  Map<String, Object> map) {
 			User user = (User)request.getAttribute("user");
@@ -495,7 +495,7 @@ public class goodServ {
 		}
 	
 	
-	@RequestMapping(value = "/changecount", method = RequestMethod.POST)
+	/*	@RequestMapping(value = "/changecount", method = RequestMethod.POST)
 	public String changeGoodCountInBucket(@RequestParam (value = "goodid") Integer goodid, @RequestParam (value = "count") Integer count, Map<String, Object> map,  HttpSession sess, HttpServletRequest request) {
 		User user = (User)request.getAttribute("user");
 		AnonimBuck buck = (AnonimBuck)sess.getAttribute("currbuck");
@@ -565,7 +565,7 @@ public class goodServ {
 	//	map.put("section", "bucket");
 		return "bucket";
 		
-	}
+	}*/
 	
 	
 	

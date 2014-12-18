@@ -23,13 +23,13 @@
 					<table cellpadding="0" cellspacing="0" class="w100">
 						<tr>
 							<td>
-								<a href="${pageContext.request.contextPath}/good/${good.id}/all" rel="nofollow"><img src="<c:url value="/resources/images${good.thumb}" />" width="60" height="100" alt="${good.name}" /></a>
+								<a href="${pageContext.request.contextPath}/catalog/${good.page.fullurl}/all" rel="nofollow"><img src="<c:url value="/resources/images${good.thumb}" />" width="60" height="100" alt="${good.name}" /></a>
 							</td>
 						</tr>
 					</table>
 				</div>
 				<div class="gstlitext">
-					<p class="gstli_model"><a href="${pageContext.request.contextPath}/good/${good.id}/all" rel="nofollow">${good.name}</a></p>
+					<p class="gstli_model"><a href="${pageContext.request.contextPath}/catalog/${good.page.fullurl}/all" rel="nofollow">${good.name}</a></p>
 					<p class="gstli_price">${good.price} грн.</p>
 				</div>
 			</div>

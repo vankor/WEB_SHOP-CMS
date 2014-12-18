@@ -18,12 +18,12 @@
         					<table cellpadding="0" cellspacing="0" align="center" width="100%" border="0">
         						<tbody><tr>
         							<td align="center">
-        								<a href="${pageContext.request.contextPath}/good/${othergood.id}/all"><img src="<c:url value="/resources/images${othergood.thumb}" />" width="80" alt="${othergood.name}"></a>
+        								<a href="${pageContext.request.contextPath}/catalog/${othergood.page.fullurl}/all"><img src="<c:url value="/resources/images${othergood.thumb}" />" width="80" alt="${othergood.name}"></a>
         							</td>
         						</tr>
         					</tbody></table>
         				</div>
-                        <div style="height: 47px; overflow: hidden; text-align: left; font-size: 12px; margin-top: 5px;"><a href="${pageContext.request.contextPath}/good/${othergood.id}/all">${othergood.name}</a></div>
+                        <div style="height: 47px; overflow: hidden; text-align: left; font-size: 12px; margin-top: 5px;"><a href="${pageContext.request.contextPath}/catalog/${othergood.page.fullurl}/all">${othergood.name}</a></div>
                         <div style="text-align: left; font-size: 12px; margin-top: 0px; color: #939393;">
                             <img src="<c:url value = "/resources/images/good/raiting${othergood.round_rating}.png"/>" style="position: relative; top: 4px;"></img> ${othergood.votes_count} оценок
                         </div>
@@ -33,7 +33,7 @@
                                     ${othergood.price}
                                 </td>
                                 <td valign="top" style="font-size: 16px; font-weight: bold; text-align: center;">
-                                    <div class="btn_buy_other_sm" onclick="addtobuck('${pageContext.request.contextPath}/good/${othergood.id}/all',${othergood.id},${bucketsize})"></div>
+                                    <div class="btn_buy_other_sm" onclick="addtobuck(${othergood.id},${bucketsize})"></div>
                                 </td>
                             </tr>
                             <tr>

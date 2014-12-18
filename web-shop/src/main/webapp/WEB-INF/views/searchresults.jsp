@@ -139,10 +139,10 @@ function adduser(){
 				<table class="ccitable" cellpadding="0" cellspacing="0">
 					<tbody><tr>
 						<td class="ccit_image" style="position:relative;display: block;">
-							<a rel="nofollow" href="${pageContext.request.contextPath}/good/${good.id}/all"><img src="<c:url value="/resources/images${good.thumb}" />" data-original="<c:url value="/resources/images${good.thumb}" />" width="90" alt="${good.name}"  /></a>
+							<a rel="nofollow" href="${pageContext.request.contextPath}/catalog/${good.page.fullurl}/all"><img src="<c:url value="/resources/images${good.thumb}" />" data-original="<c:url value="/resources/images${good.thumb}" />" width="90" alt="${good.name}"  /></a>
 						</td>
 						<td class="ccit_descr">
-							<p class="ccitd_title"><a href="${pageContext.request.contextPath}/good/${good.id}/all">${good.name}</a></p>
+							<p class="ccitd_title"><a href="${pageContext.request.contextPath}/catalog/${good.page.fullurl}/all">${good.name}</a></p>
 							<p class="ccitd_code">Код товара: ${good.id}</p>
 							<div class="ccitd_resp">
 								<img src="<c:url value="/resources/images/good/raiting${good.round_rating}.png" />" style="position: relative; top: 4px;"> ${good.votes_count} оценок
@@ -164,7 +164,7 @@ function adduser(){
 										<p class="ccitd_price">${good.price} грн</p>
 									</td>
 									<td>
-                                    <a rel="nofollow" onclick="addtobuck('${pageContext.request.contextPath}/good/${good.id}/all',${good.id},${bucketsize})"><img src="http://img.mobilluck.com.ua/img/btn_buy_new.gif" alt="Добавить в корзину - купить Духовой шкаф электрический ElectroLux EEB 4231 POX (12 мес.)" height="37" width="107"></a>
+                                    <a rel="nofollow" onclick="addtobuck(${good.id},${bucketsize})"><img src="http://img.mobilluck.com.ua/img/btn_buy_new.gif" alt="Добавить в корзину - купить Духовой шкаф электрический ElectroLux EEB 4231 POX (12 мес.)" height="37" width="107"></a>
 									</td>
 								</tr>
 								<tr><td class="ccitdt_sep"></td></tr>

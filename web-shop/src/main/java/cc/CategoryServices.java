@@ -63,7 +63,7 @@ import Model.ValueBean;
 
 @Controller
 @RequestMapping(value = {"/category/{catId}/pagin/{pgnum}"})
-public class catServ {
+public class CategoryServices {
 	public static final Integer PAGE_SIZE = 16;
 	
 	@Autowired

@@ -133,7 +133,7 @@ $(document).ready(function() {
 										<p class="cci2_newprice" style="color: #bd9344">${good.price}</p>
 										<p><font color='green'>на складе</font></p>
 									</td>
-									<td><div class="buy_btn_catalog_new" onclick="addtobuck('${pageContext.request.contextPath}/good/${good.id}/all',${good.id},${bucketsize})" title="Добавить в корзину - купить ${good.name}"></div></td>
+									<td><div class="buy_btn_catalog_new" onclick="addtobuck(${good.id},${bucketsize})" title="Добавить в корзину - купить ${good.name}"></div></td>
                                 </tr></table>
 								<p class="cci2_add2" id="comprow${good.id}"><a href="#" onclick="addToCompare(${good.id},${good.category.id},'${pageContext.request.contextPath}');" class="mgtl_add2cmp">Добавить к сравнению</a></p>
 								<div style="padding: 15px 0 15px 0; clear: left;">

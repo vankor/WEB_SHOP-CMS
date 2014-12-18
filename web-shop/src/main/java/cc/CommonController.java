@@ -1,5 +1,7 @@
 package cc;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -16,7 +18,6 @@ import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.log4j.Logger;
 import org.apache.log4j.chainsaw.Main;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -143,7 +144,9 @@ import Model.VoteService;
 
 @Controller
 
-public class projSprServ {
+public class CommonController {
+	
+private Logger logger = LoggerFactory.getLogger(CommonController.class);
 	
 	public static final Integer PAGE_SIZE = 16;
 	

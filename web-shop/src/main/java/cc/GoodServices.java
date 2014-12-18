@@ -44,6 +44,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 
+
 import Model.AnonimBuck;
 import Model.AnonimEmailService;
 import Model.AnonimEmailWatcher;
@@ -483,18 +484,19 @@ public class GoodServices {
 		}
 		buck.changeCount(Serv.getById(goodid), count);
 		sess.setAttribute("currbuck", buck);
-		map.put("section", "bucket");
+	//	map.put("section", "bucket");
 		GoodCollection g = (GoodCollection)buck;
 		OrderSumCalculator calc = new OrderSumCalculator(g);
 		double sum =calc.getSumValue();
 		System.out.println("—ÛÏÏ‡: "+ sum);
 		map.put("buckrows", buck.getRows());
+		map.put("bucketsize", buck.getSize());
 		map.put("buck", buck);
 		map.put("sum", sum);
 		map.put("goodid", goodid);
 		sess.setAttribute("currbuck", buck);
 		map.put("bucketsize", buck.getSize());
-		return "commsection";
+		return "bucket";
 	}
 	
 	@RequestMapping(value = "/deletefrombuck", method = RequestMethod.POST)
@@ -506,7 +508,7 @@ public class GoodServices {
 		}
 		buck.deleteGood(Serv.getById(goodid));
 		sess.setAttribute("currbuck", buck);
-		map.put("section", "bucket");
+//		map.put("section", "bucket");
 		GoodCollection g = (GoodCollection)buck;
 		OrderSumCalculator calc = new OrderSumCalculator(g);
 		double sum =calc.getSumValue();
@@ -518,12 +520,11 @@ public class GoodServices {
 		sess.setAttribute("usr", t);
 		sess.setAttribute("currbuck", buck);
 		map.put("bucketsize", buck.getSize());
-		return "commsection";
+		return "bucket";
 	}
 	
 	@RequestMapping(value = "/bucket", method = RequestMethod.POST)
 	public String showBucket(@RequestParam (value = "goodid") Integer goodid, Map<String, Object> map,  HttpSession sess, HttpServletRequest request) {
-		User t = (User)request.getAttribute("user");
 		GoodItem good = Serv.getById(goodid);
 		AnonimBuck buck = (AnonimBuck)sess.getAttribute("currbuck");
 		if(buck==null){
@@ -540,10 +541,13 @@ public class GoodServices {
 		map.put("goodid", goodid);
 		sess.setAttribute("currbuck", buck);
 		map.put("bucketsize", buck.getSize());
-		map.put("section", "bucket");
-		return "commsection";
+	//	map.put("section", "bucket");
+		return "bucket";
 		
 	}
+	
+	
+	
 	
 	@RequestMapping(value = "/tocompare", method = RequestMethod.POST)
 	public @ResponseBody CompareGoodsSet addGoodToCompare(@RequestParam (value = "goodid") Integer goodid, @RequestParam (value = "catid") Integer catid, Map<String, Object> map,  HttpSession sess, HttpServletRequest request) {

@@ -20,12 +20,12 @@
     					<table cellpadding="0" cellspacing="0" align="center" width="100%" border="0">
     						<tr>
     							<td align="center">
-    								<a rel="nofollow" href="${pageContext.request.contextPath}/good/${good.id}/all"><img src="<c:url value="/resources/images${good.thumb}" />" data-original="<c:url value="/resources/images${good.thumb}" />" width="90" alt="${good.name}"  /></a>
+    								<a rel="nofollow" href="${pageContext.request.contextPath}/catalog/${good.page.fullurl}/all"><img src="<c:url value="/resources/images${good.thumb}" />" data-original="<c:url value="/resources/images${good.thumb}" />" width="90" alt="${good.name}"  /></a>
     							</td>
     						</tr>
     					</table>
     				</div>
-                    <div style="height: 47px; overflow: hidden; text-align: left; font-size: 12px; margin-top: 5px;"><a rel="nofollow" href="${pageContext.request.contextPath}/good/${good.id}/all">${good.name}</a></div>
+                    <div style="height: 47px; overflow: hidden; text-align: left; font-size: 12px; margin-top: 5px;"><a rel="nofollow" href="${pageContext.request.contextPath}/catalog/${good.page.fullurl}/all">${good.name}</a></div>
                     <div style="text-align: left; font-size: 12px; margin-top: 0px; color: #939393;">
                         <img src="<c:url value="/resources/images/good/raiting${good.round_rating}.png" />" style="position: relative; top: 4px;"> ${good.votes_count} оценок
                     </div>
@@ -35,7 +35,7 @@
                                 ${good.price} грн.
                             </td>
                             <td valign="top" style="font-size: 16px; font-weight: bold; text-align: center;">
-                                <div class="btn_buy_other_sm" onclick="addtobuck('${pageContext.request.contextPath}/good/${good.id}/all',${good.id},${bucketsize})"></div>
+                                <div class="btn_buy_other_sm" onclick="addtobuck(${good.id},${bucketsize})"></div>
                             </td>
                         </tr>
                     </table>

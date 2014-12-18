@@ -92,7 +92,7 @@
         </td>
         <td rowspan="2">
           <a style="cursor:pointer">
-            <img id="buy" src="<c:url value = "/resources/images/good/buy1.png"/>" onclick="$('#popupbg').hide(); $('#dialog_wrapper').hide(); return addtobuck('${pageContext.request.contextPath}/good/${good.id}/${section}',${good.id},${bucketsize})">
+            <img id="buy" src="<c:url value = "/resources/images/good/buy1.png"/>" onclick="$('#popupbg').hide(); $('#dialog_wrapper').hide(); return addtobuck(${good.id},${bucketsize})">
           </a>
         </td>
       </tr>

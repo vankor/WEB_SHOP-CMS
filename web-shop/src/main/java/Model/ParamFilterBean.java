@@ -10,7 +10,6 @@ import java.util.TreeSet;
 
 import org.hibernate.Query;
 
-import additional.FastByteArrayOutputStream;
 
 public class ParamFilterBean implements Cloneable{
 	private List<ParamContainer> params = new ArrayList<ParamContainer>();

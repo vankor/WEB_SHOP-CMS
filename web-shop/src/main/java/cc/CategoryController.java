@@ -73,7 +73,7 @@ import Model.ValueBean;
 
 @Controller
 @RequestMapping(value = "/catalog/**/pagin/{pgnum}")
-public class CController {
+public class CategoryController {
 	public static final Integer PAGE_SIZE = 16;
 	
 	@Autowired

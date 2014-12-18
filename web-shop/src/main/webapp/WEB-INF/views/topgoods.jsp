@@ -108,9 +108,9 @@ var topgoodcount;
 								</div>
 							</div>
 							<div class="sat_img">
-								<a href="${pageContext.request.contextPath}/good/${good.id}/all"><img src="<c:url value="/resources/images${good.thumb}" />" width="89" style="padding-top: 2px"></a>
+								<a href="${pageContext.request.contextPath}/catalog/${good.page.fullurl}/all"><img src="<c:url value="/resources/images${good.thumb}" />" width="89" style="padding-top: 2px"></a>
 							</div>
-							<div class="s_title" style="height: 37px; margin-bottom: 5px;"><a href="${pageContext.request.contextPath}/good/${good.id}/all">${good.name}</a></div>
+							<div class="s_title" style="height: 37px; margin-bottom: 5px;"><a href="${pageContext.request.contextPath}/catalog/${good.page.fullurl}/all">${good.name}</a></div>
 							<div class="s_stars">
 								<div id="raiting_hover2" style="height: 16px;width: 83px;background: url(<c:url value="/resources/images/good/raiting${good.round_rating}.png" />) 0 -18px; float:left;"></div>
 								<p style="padding:0; margin:0;float:left">&nbsp;&nbsp;&nbsp;<a href="${pageContext.request.contextPath}/good/${good.id}/voices" target="_blank">${good.votes_count} оценок</a></p>
@@ -123,7 +123,7 @@ var topgoodcount;
 											${good.price} грн
 										</td>
 										<td rowspan="2" class="s_button">
-											<div class="s_but" onclick=" $(window).scrollTop(); addtobuck('${pageContext.request.contextPath}/good/${good.id}/all', ${good.id}, ${bucketsize})"></div>
+											<div class="s_but" onclick=" $(window).scrollTop(); addtobuck(${good.id}, ${bucketsize})"></div>
 										</td>
 									</tr>
 									<tr>

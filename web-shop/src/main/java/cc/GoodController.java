@@ -81,7 +81,7 @@ import Model.Vote;
 
 @Controller
 @RequestMapping(value = "/catalog/**/{section:(?:all|voices|features|media|others)}")
-public class GController {
+public class GoodController {
 	public static final Integer PAGE_SIZE = 16;
 	
 	@Autowired

@@ -1286,7 +1286,7 @@ $("img").lazyload({ threshold : 100, effect : "fadeIn", failurelimit : 100 });
 	                <div class="urtitle">Мой личный кабинет</div>
                 <div class="nezareg">
 										<br/>
-                    <form method="POST" action="/user_room.php" name="formuser" id="formuser" onsubmit="return test(0)"/>
+                    <form method="post" action="/user_room.php" name="formuser" id="formuser" onsubmit="return test(0)"/>
 					<input type="hidden" name="frsc" value="379zb6sl47"/>
 					<input type="hidden" name="action" value="discont"/>
 
@@ -1424,7 +1424,7 @@ $("img").lazyload({ threshold : 100, effect : "fadeIn", failurelimit : 100 });
 
 	</script>
     <div class="urtitle">Личные данные</div>
-                <form method="POST" action="${pageContext.request.contextPath}/cabinet/updateUser" name="formuser" id="formuser" onsubmit="return disctest3(1)">
+                <form method="post" action="${pageContext.request.contextPath}/cabinet/updateUser" name="formuser" id="formuser" onsubmit="return disctest3(1)">
 				<input type="hidden" name="frsc" value="379zb6sl47"/>
                 <input type="hidden" name="action" value="save_info"/>
 			    <input type="hidden" name="mode" value="personal_data"/>
@@ -1656,7 +1656,7 @@ $("img").lazyload({ threshold : 100, effect : "fadeIn", failurelimit : 100 });
 </div>
 <div style="overflow: hidden;">
 
-    <form action="${pageContext.request.contextPath}/cabinet?section=all_order" method="POST">
+    <form action="${pageContext.request.contextPath}/cabinet?section=all_order" method="post">
         <input type="hidden" value="379zb6sl47" name="frsc"></input>
         <div style="float: left; padding-top: 5px; margin-right: 10px;">
 
@@ -1731,13 +1731,13 @@ $("img").lazyload({ threshold : 100, effect : "fadeIn", failurelimit : 100 });
                                 <table width="130" height="130" cellspacing="0" cellpadding="0" border="0">
                                     <tbody><tr>
                                         <td class="wish_t_img">
-    										<a href="${pageContext.request.contextPath}/good/${good.id}/all" title="${good.name}"><img src="<c:url value="/resources/images${good.thumb}" />" width="95" height="67" border="0" alt="${good.name}"></a>
+    										<a href="${pageContext.request.contextPath}/catalog/${good.page.fullurl}/all" title="${good.name}"><img src="<c:url value="/resources/images${good.thumb}" />" width="95" height="67" border="0" alt="${good.name}"></a>
     									</td>
                                     </tr>
                                 </tbody></table>
                             </div>
                             <div class="wish_t_title" style="height: 41px;">
-                                <a href="${pageContext.request.contextPath}/good/${good.id}/all" title="${good.name}">${good.name}</a>
+                                <a href="${pageContext.request.contextPath}/catalog/${good.page.fullurl}/all" title="${good.name}">${good.name}</a>
                             </div>
                             <div style="overflow: hidden; width: 140px; height: 45px;">
                                 <table width="140" cellspacing="0" cellpadding="0" border="0">
@@ -1746,7 +1746,7 @@ $("img").lazyload({ threshold : 100, effect : "fadeIn", failurelimit : 100 });
 												
 												${good.price} грн</td>
     										<td align="right">
-                                                <div id="buy_btn_catalog" onclick="addtobuck('${pageContext.request.contextPath}/good/${good.id}/all',${good.id},${bucketsize})"></div>
+                                                <div id="buy_btn_catalog" onclick="addtobuck(${good.id},${bucketsize})"></div>
     										</td></tr>
                                 </tbody></table>
                             </div>
@@ -1773,18 +1773,18 @@ $("img").lazyload({ threshold : 100, effect : "fadeIn", failurelimit : 100 });
 								<table>
 									<tr>
 										<td>
-											<a href="${pageContext.request.contextPath}/good/${good.id}/all" title="${good.name}" target="_blank"><img src="<c:url value="/resources/images${good.thumb}" />"  width="150" height="85.344827586207" alt="Фото ${good.name}"  /></a>
+											<a href="${pageContext.request.contextPath}/catalog/${good.page.fullurl}/all" title="${good.name}" target="_blank"><img src="<c:url value="/resources/images${good.thumb}" />"  width="150" height="85.344827586207" alt="Фото ${good.name}"  /></a>
 										</td>
 									</tr>
 								</table>
 							</div>
 							<div class="cci2info">
-								<p class="cci2_mdl"><a href="${pageContext.request.contextPath}/good/${good.id}/all" title="${good.name}" target="_blank">${good.name}</a></p>
+								<p class="cci2_mdl"><a href="${pageContext.request.contextPath}/catalog/${good.page.fullurl}/all" title="${good.name}" target="_blank">${good.name}</a></p>
 								<table class="w100">
 									<tr>
 										<td colspan="2" style="height: 18px;">
 											<img src="<c:url value="/resources/images/good/raiting${good.round_rating}.png" />" class="float" alt="${average_rating}" />
-											<p>&nbsp;&nbsp;&nbsp;<a href="${pageContext.request.contextPath}/good/${good.id}/all" target="_blank">${good.votes_count} оценок</a></p>
+											<p>&nbsp;&nbsp;&nbsp;<a href="${pageContext.request.contextPath}/catalog/${good.page.fullurl}/all" target="_blank">${good.votes_count} оценок</a></p>
 										</td>
 									</tr>
 									<tr>
@@ -1792,7 +1792,7 @@ $("img").lazyload({ threshold : 100, effect : "fadeIn", failurelimit : 100 });
 										<p class="cci2_newprice" style="color: #bd9344">${good.price}</p>
 										<p><font color='green'>на складе</font></p>
 									</td>
-									<td><div class="buy_btn_catalog_new" onclick="addtobuck('${pageContext.request.contextPath}/good/${good.id}/all',${good.id},${bucketsize})" title="Добавить в корзину - купить ${good.name}"></div></td>
+									<td><div class="buy_btn_catalog_new" onclick="addtobuck(${good.id},${bucketsize})" title="Добавить в корзину - купить ${good.name}"></div></td>
                                 </tr></table>
 								<p class="cci2_add2" id="comprow${good.id}"><a href="#" onclick="addToCompare(${good.id},${good.category.id},'${pageContext.request.contextPath}');" class="mgtl_add2cmp">Добавить к сравнению</a></p>
 								<div style="padding: 15px 0 15px 0; clear: left;">
@@ -2225,7 +2225,7 @@ $("img").lazyload({ threshold : 100, effect : "fadeIn", failurelimit : 100 });
 													<td id="fl-six">
 								<p class="newsletters_title">Узнавайте первыми о распродажах</p>
 								<div class="newsletters">
-									<form class="newsletters-f" action="#" method="POST" onsubmit="return false">
+									<form class="newsletters-f" action="#" method="post" onsubmit="return false">
 										<input class="newslettersq" name="newslettersq" id="newslettersq" type="text" placeholder="Введите электронный адрес">
 										<label class="newsletters-q"><input type="submit"><p class="but_sub" onclick="return podpiska(this,'newslettersq')">Подписаться</p>
 										<label></label></label></form></div>

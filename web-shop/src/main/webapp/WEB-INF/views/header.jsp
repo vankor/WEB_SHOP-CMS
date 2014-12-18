@@ -279,7 +279,7 @@ function load_text(lnk, type, pid)
 	</tr>
 	<tr>
 		<td  width="500">
-			<form action="<c:url value = '/search'/>" method="GET" name="srch" id="srch">
+			<form action="<c:url value = '/search/pagin/1'/>" method="GET" name="srch" id="srch">
 			<table>
 			<tr>
 				<td>

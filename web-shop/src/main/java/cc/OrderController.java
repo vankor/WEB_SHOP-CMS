@@ -12,7 +12,7 @@ import Model.Order;
 import Model.OrderService;
 
 @Controller
-public class OrderServ {
+public class OrderController {
 	
 	@Autowired
 	private OrderService ordServ;

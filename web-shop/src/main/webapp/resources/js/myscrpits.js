@@ -1,7 +1,7 @@
-﻿function addtobuck(goodurl, goodid, bucksize){
+﻿function addtobuck(goodid, bucksize){
 				//	alert(goodurl+"/bucket");
 				//		alert(goodid);
-	 
+				 var goodurl = goodservurl;
 						$.ajax({
 						       type: "POST",
 						  	   url: goodurl+"/bucket",
@@ -240,13 +240,20 @@ function changecount(goodurl, goodid,bucksize){
 		
 }
 
+function addToCompare(pid, tid, baseurl)
+{
+	addCompare(pid, tid, baseurl);
+//	makeCmpButton(pid);
+//	updateCompareList();
+	return false;
+}
 
 function addCompare(pid, tid, baseurl){
 //	alert(pid + "     "+tid+"     "+baseurl);
 	
     if($("#cmprlnk"+pid).html()!='Сравнить')
     {
-    	url = baseurl+'/good/'+pid+'/all';
+    	url = goodservurl;
     	
         addtocompare(pid, tid, url);
         $("#cmprlnk"+pid).attr('href', baseurl+'/'+tid+'/comparegoods');
@@ -261,13 +268,45 @@ function addCompare(pid, tid, baseurl){
     }
 }
 
+/*
+function add_wishlist(prodid, section, lnk)
+{
+	alert("rehreh");
+/*	var ww = $(window).width(), wh = $(window).height();
+	var left = this.offsetLeft, top = this.offsetTop;
+	if (navigator.userAgent.toLowerCase().indexOf("msie") != -1){left += (ww-978)/2;}
+
+	var coor = getOffset( lnk );
+	left = coor.left;
+	top = coor.top;
+	alert(goodservurl+"/addwishgood");
+	$.ajax({
+        type: "POST",
+        url: goodservurl+"/addwishgood",
+        data: {"section": section, "goodid":prodid},
+//        dataType: "text",
+        success: function(data){
+       	alert(data);
+        	$("#dialog_title").html('Желаемые покупки');
+        	$("#dialog_content").html(data);
+			popup_position($("#dialog_wrapper"));
+			$("#dialog_wrapper").show();
+			showPopupDlg(left, top, 350);
+            $("#addwish").html("Все желаемые товары");
+            $("#addwish").attr("href", "<c:out value="${pageContext.request.contextPath}"/>"+"/reg");
+            $("#addwish").attr("onClick", "");
+			$("#addwish").attr("target", "_blank");
+        }
+    });
+}
+*/
 
 function addtocompare(goodid, catid, url){ 
 //	alert("#answertext"+parentcom_id);
 //	var text = $("#answertext"+parentcom_id).val();
 //    alert(url+"/tocompare");
 //	alert(goodid +","+catid);
-//	alert(url);
+	alert(url);
 	$.ajax({
 	       type: "POST",
 	  	   url: url+"/tocompare",

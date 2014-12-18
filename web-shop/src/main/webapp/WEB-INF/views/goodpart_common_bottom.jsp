@@ -21,12 +21,12 @@
     					<table cellpadding="0" cellspacing="0" align="center" width="100%" border="0">
     						<tr>
     							<td align="center">
-    								<a rel="nofollow" href="${pageContext.request.contextPath}/good/${othergood.id}/all"><img src="<c:url value="/resources/images${othergood.thumb}" />" data-original="<c:url value="/resources/images${othergood.thumb}" />" alt="${othergood.name}"  style="max-width:130px; max-height:130px;" /></a>
+    								<a rel="nofollow" href="${pageContext.request.contextPath}/catalog/${othergood.page.fullurl}/all"><img src="<c:url value="/resources/images${othergood.thumb}" />" data-original="<c:url value="/resources/images${othergood.thumb}" />" alt="${othergood.name}"  style="max-width:130px; max-height:130px;" /></a>
     							</td>
     						</tr>
     					</table>
     				</div>
-    				<div style="height: 32px; overflow: hidden; text-align: center; font-size: 12px; margin: 5px auto 0 auto; max-width: 130px;"><a rel="nofollow" href="${pageContext.request.contextPath}/good/${othergood.id}/all">${othergood.name}</a></div>
+    				<div style="height: 32px; overflow: hidden; text-align: center; font-size: 12px; margin: 5px auto 0 auto; max-width: 130px;"><a rel="nofollow" href="${pageContext.request.contextPath}/catalog/${othergood.page.fullurl}/all">${othergood.name}</a></div>
     				<div style="text-align: center; font-size: 12px; margin-top: 0px; color: #939393">
                         <img src="<c:url value="/resources/images/good/raiting${othergood.round_rating}.png" />" style="position: relative; top: 4px;"> ${othergood.votes_count} оценок
                     </div>
@@ -37,7 +37,7 @@
                                 ${othergood.price} грн 
                             </td>
                             <td valign="top" style="font-size: 16px; font-weight: bold; text-align: center;">
-                                <div class="s_but" onclick="addtobuck('${pageContext.request.contextPath}/good/${othergood.id}/all',${othergood.id},${bucketsize})"></div>
+                                <div class="s_but" onclick="addtobuck(${othergood.id},${bucketsize})"></div>
                             </td>
                         </tr>
                     </table>
@@ -64,7 +64,7 @@
         </td>
         <td rowspan="2">
           <a style="cursor:pointer">
-            <img id="buy" src="<c:url value = "/resources/images/good/buy1.png"/>" onclick="$('#popupbg').hide(); $('#dialog_wrapper').hide(); return addtobuck('${pageContext.request.contextPath}/good/${good.id}/${section}',${good.id},${bucketsize})">
+            <img id="buy" src="<c:url value = "/resources/images/good/buy1.png"/>" onclick="$('#popupbg').hide(); $('#dialog_wrapper').hide(); return addtobuck(${good.id},${bucketsize})">
           </a>
         </td>
       </tr>
@@ -134,5 +134,5 @@
 
 
 <div style="margin-top: 30px; margin-bottom: 30px;">
-                    <img src="http://www.mobilluck.com.ua/img/product/left_arrow.png"/> <a href="${pageContext.request.contextPath}/good/${good.id}/all" style="font-size: 16px;">Вернуться к подробной информации о ${good.name}</a>
+                    <img src="http://www.mobilluck.com.ua/img/product/left_arrow.png"/> <a href="${pageContext.request.contextPath}/catalog/${good.page.fullurl}/all" style="font-size: 16px;">Вернуться к подробной информации о ${good.name}</a>
                </div>
