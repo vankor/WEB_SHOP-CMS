@@ -146,7 +146,7 @@ import Model.VoteService;
 
 public class CommonController {
 	
-private Logger logger = LoggerFactory.getLogger(CommonController.class);
+	private Logger logger = LoggerFactory.getLogger(CommonController.class);
 	
 	public static final Integer PAGE_SIZE = 16;
 	
@@ -161,8 +161,10 @@ private Logger logger = LoggerFactory.getLogger(CommonController.class);
 	
 	@Autowired
 	private CategoryService catServ;
+	
 	@Autowired
 	private PropertyService propServ;
+	
 	@Autowired
 	private ValueService valServ;
 	
@@ -180,6 +182,7 @@ private Logger logger = LoggerFactory.getLogger(CommonController.class);
 	
 	@Autowired
 	private TownService twnServ;
+	
 	@Autowired
 	private PayTypeService ptpServ;
 	
@@ -1098,17 +1101,19 @@ private Logger logger = LoggerFactory.getLogger(CommonController.class);
 		return goods;
 	}
 	
-	@RequestMapping(value = "/search/pagin/${pgnum}", method = RequestMethod.GET)
-	public String searchGood(@RequestParam (value = "req") String val, @RequestParam (value = "pgnum") Integer pgnum, Map<String, Object> map){
+	@RequestMapping(value = "/search/pagin/{pgnum}", method = RequestMethod.GET)
+	public String searchGood(@RequestParam (value = "req") String val, @PathVariable (value = "pgnum") Integer pgnum, Map<String, Object> map){
+		
 		Integer end = pgnum*PAGE_SIZE;
 		Integer begin = end - PAGE_SIZE;
+		System.out.println("eeee "+val+"   "+begin+"   "+end);
 		List<GoodItem> goods = Serv.searchGood(val, begin, end);
 		map.put("goods", goods);
 		map.put("req", val);
 		Integer pagecount = Math.round(goods.size()/PAGE_SIZE);
 		map.put("pagecount", pagecount);
 		map.put("currentpage", pagecount);
-		
+		System.out.println(goods);
 		return "searchresults";
 	}
 	

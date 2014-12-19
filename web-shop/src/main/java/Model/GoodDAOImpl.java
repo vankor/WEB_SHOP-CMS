@@ -361,11 +361,12 @@ public class GoodDAOImpl extends GenericHibTemplateDAOImpl<GoodItem, Integer> im
 		
 		if(val !=null && !val.isEmpty()){
 			Session sess = template.getSessionFactory().openSession();
+			System.out.println("ffffff     select distinct g from GoodItem as g INNER JOIN g.vals as v INNER JOIN v.prop as p where g.name like :val or g.description like "+val+" or v.value like "+val+" or p.name like "+val);
 			Query query = sess.createQuery("select distinct g from GoodItem as g INNER JOIN g.vals as v INNER JOIN v.prop as p where g.name like :val or g.description like :val or v.value like :val or p.name like :val");
-			query.setParameter("val", val);
+			query.setString("val", "%"+val+"%");
 			query.setFirstResult(begin).setMaxResults(end);
 			list = query.list();
-		
+			
 		}   
 		
 		return toList(list);
