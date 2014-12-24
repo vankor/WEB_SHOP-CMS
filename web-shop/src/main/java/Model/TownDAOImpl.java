@@ -32,19 +32,32 @@ public class TownDAOImpl extends GenericHibTemplateDAOImpl<Town, Integer> implem
 		list = template.findByNamedParam("select g from Town as g where g.name like :val","val",value+'%');
 
 		}     
-//		Object[] params  = new Object[1];
-//		params[0] = value;
-//		List<Object> list = template.find("SELECT id FROM goods WHERE MATCH(name) AGAINST(?)", params);
-//		DetachedCriteria crit = DetachedCriteria.forClass(GoodItem.class,"g");
-//		crit.createAlias("g.vals", "vals");
-//		crit.add(Restrictions.disjunction()
-	//	        .add(Restrictions.like("vals", value))
-//		        .add(Restrictions.like("g.name", value))
-//		        .add(Restrictions.like("g.description", value))
-//		    );
-//		List<Object> list = template.findByCriteria(crit);
+
 		
 		return toSet(list);
+	}
+
+	@Transactional
+	public void deleteById(Integer id) {
+		Session session = template.getSessionFactory().openSession();
+		Transaction transaction = null;
+		try {
+			transaction = session.beginTransaction();
+			Town twn = (Town) session.get(Town.class, id);
+			session.delete(twn);
+			for(User usr:twn.getUsers()){
+				usr.setTown(null);
+			}
+			transaction.commit();
+			session.flush();
+		} catch (Exception exception) {
+		     if (transaction != null) transaction.rollback();
+		} finally {
+			session.close();
+		}
+		
+		
+	
 	}
 
 	@Override

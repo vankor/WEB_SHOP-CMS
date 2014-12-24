@@ -43,7 +43,7 @@ $("#buck_close").click(function(){
                                 <c:forEach items="${buckrows}" var="row">
                                     <tr>
                                         <td width="25" valign="top" align="center" style="padding: 5px;" rowspan="2">
-                                            <a onclick="return deletefrombuck('${pageContext.request.contextPath}/good/${row.good.id}/all',${row.good.id},${bucketsize})" role="button">
+                                            <a onclick="return deletefrombuck(${row.good.id},${bucketsize})" role="button">
                                                 <img src="http://www.mobilluck.com.ua/img/product/close.png"></img>
                                             </a>
                                         </td>
@@ -69,7 +69,7 @@ $("#buck_close").click(function(){
 
                                             <br></br>
                                             <div id="cit_recalc${row.good.id}" class="order3_hlink" style="display: none;">
-                                                <a onclick="return changecount('${pageContext.request.contextPath}/good/${row.good.id}/all',${row.good.id},${bucketsize})" role="button">
+                                                <a onclick="return changecount(${row.good.id},${bucketsize})" role="button">
 
                                                     пересчитать
 

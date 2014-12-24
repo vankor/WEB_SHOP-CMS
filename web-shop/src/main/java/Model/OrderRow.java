@@ -1,5 +1,6 @@
 package Model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -62,7 +63,7 @@ public class OrderRow  implements Model.Entity, Row{
 	}
 	
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "good_id")
 	@JsonBackReference
 	public GoodItem getGood() {

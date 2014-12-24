@@ -27,6 +27,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.core.GrantedAuthority;
@@ -90,6 +92,9 @@ import Model.VoteService;
 @Controller
 @RequestMapping("/goodservices")
 public class GoodServices {
+	
+	private Logger logger = LoggerFactory.getLogger(GoodServices.class);
+	
 	@Autowired
 	private GoodItemService Serv;
 	
@@ -163,8 +168,10 @@ public class GoodServices {
 		
 		
 		Country cntr = currenttown.getRegion().getCountry();
+		
 		List<Region> regions = cntr.getRegions();
-		System.out.println(currenttown.getName()+"      "+cntr.getName()+"      "+regions);
+	
+		 System.out.println(currenttown.getName()+"      "+cntr.getName()+"      "+regions);
 		map.put("regions", regions);
 		
 		map.put("section", "regions");

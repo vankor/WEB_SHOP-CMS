@@ -16,6 +16,8 @@ import java.util.TreeSet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.GrantedAuthority;
@@ -75,7 +77,7 @@ import Model.ValueBean;
 @RequestMapping(value = "/catalog/**/pagin/{pgnum}")
 public class CategoryController {
 	public static final Integer PAGE_SIZE = 16;
-	
+	private Logger logger = LoggerFactory.getLogger(CategoryController.class);
 	@Autowired
 	private GoodItemService Serv;
 	

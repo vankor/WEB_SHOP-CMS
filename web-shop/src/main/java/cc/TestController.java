@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,9 @@ import Model.SearchForm;
 @Controller
 @RequestMapping("/test")
 public class TestController {
+	
+	private Logger logger = LoggerFactory.getLogger(TestController.class);
+	
 	@Autowired
 	private BucketService buckServ;
 	

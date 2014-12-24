@@ -11,5 +11,5 @@ public interface CountryDAO extends GenericDAO<Country, Integer>{
 	public Country getCountryById(int id);
 	public void update(Country k);
 	*/
-
+	public Country getCountryByCode(String code);
 }

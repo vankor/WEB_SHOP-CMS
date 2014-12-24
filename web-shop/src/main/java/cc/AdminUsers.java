@@ -14,6 +14,8 @@ import java.util.Map.Entry;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -56,7 +58,7 @@ import Model.Video;
 public class AdminUsers {
 	
 	public static final Integer PAGE_SIZE = 8;
-	
+	private Logger logger = LoggerFactory.getLogger(AdminUsers.class);
 	@Autowired
 	private UserService usrServ;
 	

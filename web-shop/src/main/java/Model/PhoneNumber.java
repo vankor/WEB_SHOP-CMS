@@ -38,7 +38,9 @@ public class PhoneNumber implements Comparable, Model.Entity, Serializable{
 	
 	private Integer id;
 	private String numb;
-//	private User user;
+	private Country country;
+
+	//	private User user;
 	private Set<User> users = new TreeSet<User>();
 	private Town town;
 	
@@ -84,6 +86,15 @@ public class PhoneNumber implements Comparable, Model.Entity, Serializable{
 	}
 	public void setIsdeleted(Boolean isdeleted) {
 		this.isdeleted = isdeleted;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name="country_id")
+	public Country getCountry() {
+		return country;
+	}
+	public void setCountry(Country country) {
+		this.country = country;
 	}
 	
 	@Type(type = "boolean")

@@ -1248,16 +1248,17 @@ function clo(){
 							<p>Всего к оплате: <span id="cstall">${sum}</span> грн</p>
 						</td>
 					</tr></tbody></table>
+<!--  
 <form method="POST" action="https://merchant.webmoney.ru/lmi/payment.asp">
 <input name="LMI_PAYMENT_NO" value="1">
 <input name="LMI_PAYMENT_AMOUNT" value="${sum}">
 <input type = "hidden" name="LMI_PAYMENT_DESC_BASE64" value="${text}">
 <input type = "hidden" name="LMI_PAYEE_PURSE" value="U252091915788">
 <!--  <input type="hidden" name="id" value="345">
-Укажите email для отправки товара: <input type="text" name="email" size="15"> -->
+Укажите email для отправки товара: <input type="text" name="email" size="15"> 
 <input type="submit" value="Перейти к оплате через вебмани">
 </form>				
-					
+	-->				
 					</div>
 
 </c:if> 

@@ -17,7 +17,7 @@ function appendState(){
 	
 	div = document.createElement("div");
 	div.setAttribute("id", "state"+counter);
-	div.innerHTML = "<label id = 'countries"+counter+".name' name='countries["+counter+"]'> Название страны "+(counter+1)+": </label><input id='countries"+counter+".text' name='countries["+counter+"].name' type='text'/><a href = 'javascript:removeProperty("+counter+")'>Удалить страну</a>";
+	div.innerHTML = "<label id = 'countries"+counter+".name' name='countries["+counter+"]'> Название страны "+(counter+1)+": </label><input id='countries"+counter+".text' style = 'min-width:80px; width:80px;' name='countries["+counter+"].name' type='text'/><label id = 'countries"+counter+".phonecode' name='countries["+counter+"].phonecode'> Код страны "+(counter+1)+": </label><input style = 'min-width:30px; width:30px;' id='countries"+counter+".phonecode' name='countries["+counter+"].phonecode' type='text'/><label> Флаг-иконка: <label><input id = 'countries[${i.index}].newthumb' style = 'min-width:200px; width:200px;' type = 'file' text = 'Загрузить новую иконку' name='countries["+counter+"].newthumb'/><a href = 'javascript:removeProperty("+counter+")'>Удалить страну</a>";
 	counter++;
 	
 	document.getElementById("parentId").appendChild(div);
@@ -49,11 +49,30 @@ function removeProperty(id){
 <c:if test = "${result == 'success'}">
 <div id = "success"><p>Изменения сохранены!</p></div>
 </c:if>
-<form:form method="post" action="updatedCountries" modelAttribute="countrybean">
+<form:form method="post" action="updatedCountries" modelAttribute="countrybean" enctype="multipart/form-data">
 		<div id = "sector">
 		<c:if test = "${!empty countrybean.countries}">
 		<c:forEach items = "${countrybean.countries}" var = "country" varStatus = "i">
-		<form:label id = 'country${i.index}.name' path = 'countries[${i.index}].name' name='countryname'> Название страны ${i.index+1}: </form:label><form:input id = 'country${i.index}.id' type="hidden" path = 'countries[${i.index}].id' name = 'countries'/><form:input id = 'country${i.index}.name' path = 'countries[${i.index}].name' name = 'countries'/><a href = "${pageContext.request.contextPath}/admin/admincountry/${country.id}">Редактировать страну</a><a href = "${pageContext.request.contextPath}/admin/setdeleted/Country/${country.id}">Удалить страну</a>
+		<form:label id = 'country${i.index}.name' path = 'countries[${i.index}].name' name='countryname'> Название страны ${i.index+1}: </form:label>
+		<form:input  id = 'country${i.index}.id' type="hidden" path = 'countries[${i.index}].id' name = 'countries'/>
+		<form:input style = "min-width:80px; width:80px;" id = 'country${i.index}.name' path = 'countries[${i.index}].name' name = 'countries'/>
+		<form:errors path="countries[${i.index}].name" cssClass="error" />
+		
+		<form:label id = 'country${i.index}.phonecode' path = 'countries[${i.index}].phonecode' name='phonecode'>Код страны ${i.index+1}: </form:label>
+		<form:input style = "min-width:30px; width:30px;" id = 'country${i.index}.phonecode' path = 'countries[${i.index}].phonecode' name = 'phonecode'/>
+		<form:errors path="countries[${i.index}].phonecode" cssClass="error" />
+		
+		<form:input type = "hidden" path = "countries[${i.index}].thumb" id = "countries[${i.index}].thumb"/>
+		<c:choose>
+		<c:when test = "${!empty countrybean.countries[i.index].thumb}"><img src="<c:url value="/resources/images${countrybean.countries[i.index].thumb}" />" width="30" alt="${countrybean.countries[i.index].name}"  /></c:when>
+		<c:otherwise> Флаг-иконка: </c:otherwise></c:choose>
+		<form:input style = "min-width:200px; width:200px;" id = "countries[${i.index}].newthumb" type = "file" text = "Загрузить новую иконку" path="countries[${i.index}].newthumb"/>
+		
+		
+		
+		
+		
+		<a href = "${pageContext.request.contextPath}/admin/admincountry/${country.id}">Редактировать</a>  <a href = "${pageContext.request.contextPath}/admin/realdelete/Country/${country.id}">Удалить</a>
 		<br>
 		<script>counter = ${i.index + 1} </script>
 		</c:forEach>

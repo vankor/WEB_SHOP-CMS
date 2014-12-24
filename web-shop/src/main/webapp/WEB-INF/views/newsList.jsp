@@ -9,16 +9,8 @@
 
 
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
-<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
-<title>Интернет магазин МОБИЛЛАК - магазин бытовой техники, электроники, компьютерной техники, ноутбуков, телевизоров, компьютеров - Киев, Харьков, Днепропетровск, Львов, Донецк, Одесса</title>
-<meta name="keywords" content="интернет магазин, mobilluck, телевизоры, ноутбуки, техника, электроника, Харьков, Киев, Днепропетровск, интернет-магазин" />
-<meta name="description" content="MOBILLUCK - интернет-магазин техники с самыми лучшими ценами по всей Украине. Тел: 0-800-505-333. Наш интернет магазин выполняет доставку по территории Украины." />
-<meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
-<meta name="yandex-verification" content="657622478173aeb5" />
-<meta http-equiv='Content-Language' content='ru-RU'/>
-<meta property="fb:admins" content="100001023235388" />
-<META name="ROBOTS" content="index,follow"/>
+
+<title>Новости</title>
 <jsp:include page="/WEB-INF/views/head.jsp" />
 <script type="text/javascript">
 //var url = "<c:out value = "${pageContext.request.contextPath}"/>";
@@ -45,20 +37,7 @@ $(document).ready(function(){
 </head>
 <body >
 <div style="fixup" id="fixup" name="fixup"><div id="uplink">Наверх</div></div>
-<div id="searchdrop" style="visibility: hidden; display: none; width: 462px;">
-	<div class="searchdropcont">
-		<div id="searchdrop_btn"><a href="javascript:hideTooltip('searchdrop')" class="closebut">X</a></div><div id="searchdrop_body"></div>
-</div><!--[if lte IE 6.5]><iframe></iframe><![endif]--></div>
-<div id="popuptooltip" style="visibility: hidden; display: none;">
-	<div class="tooltipwndcont">
-		<div id="popuptooltip_btn"><a href="javascript:hideTooltip('popuptooltip')" class="closebut">X</a></div><div id="popuptooltip_body"></div>
-</div><!--[if lte IE 6.5]><iframe></iframe><![endif]--></div>
-<!-- Yandex.Metrika counter 10.10.2011-->
-<div style="display:none;"><script type="text/javascript">
-(function(w, c){
-    (w[c] = w[c] || []).push(function(){ try {w.yaCounter10254718 = new Ya.Metrika({id:10254718, enableAll: true});} catch(e) { } });
-})(window, "yandex_metrika_callbacks");
-</script></div>
+
 <script src="//mc.yandex.ru/metrika/watch_visor.js" type="text/javascript" defer="defer"></script>
 <noscript><div><img src="//mc.yandex.ru/watch/10254718" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->

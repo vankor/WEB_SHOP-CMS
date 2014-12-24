@@ -21,6 +21,8 @@ import javax.validation.Valid;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.reflections.Reflections;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -121,6 +123,8 @@ import java.lang.reflect.*;
 @RequestMapping(value = "/admin")
 public class AdminController {
 	public static final Integer PAGE_SIZE = 16;
+	
+	private Logger logger = LoggerFactory.getLogger(AdminController.class);
 	
 	@Autowired
 	private GoodItemService Serv;
@@ -2741,6 +2745,17 @@ System.out.println("Сортируется ли ?? "+filternodebean.getIssortcriteria());
     public String setEntityDeleted(@PathVariable (value = "id") Integer id, @PathVariable (value = "classname") String adminclassname, Map<String, Object> map, HttpServletRequest request, HttpSession sess) throws ClassNotFoundException{
 		ServiceImpl adminserv = getService(adminclassname);
 		adminserv.setDeleteById(id);
+		String referrer = request.getHeader("referer");
+		
+		return "redirect:"+referrer;
+		
+	}
+	
+	@RequestMapping(value = "/realdelete/{classname}/{id}", method = RequestMethod.GET)
+    public String delete(@PathVariable (value = "id") Integer id, @PathVariable (value = "classname") String adminclassname, Map<String, Object> map, HttpServletRequest request, HttpSession sess) throws ClassNotFoundException{
+		ServiceImpl adminserv = getService(adminclassname);
+		System.out.println("Id "+id);
+		adminserv.deleteById(id);
 		String referrer = request.getHeader("referer");
 		
 		return "redirect:"+referrer;

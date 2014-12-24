@@ -56,7 +56,8 @@ public class Town implements Comparable, Model.Entity, Serializable{
 	private transient List<Adress> userresidents = new ArrayList<Adress>();
 	private List<Town_Delivery> towndeliveries = new ArrayList<Town_Delivery>();
 	private Boolean isdefault = false;
-	
+	private Boolean isdeliverytown = false;
+
 
 	private Boolean isdeleted = false;
 	
@@ -77,6 +78,9 @@ public class Town implements Comparable, Model.Entity, Serializable{
 		this.region = twnbn.getRegion();
 		this.phonecode = twnbn.getPhonecode();
 		this.residents = twnbn.getResidents();
+		this.isdeliverytown = (!twnbn.getResidents().isEmpty())?true:false;
+		System.out.println("isdelivery  "+this.isdeliverytown);
+		
 	/*	this.shopdelresidents = twnbn.getShopdelresidents();*/
 		
 		
@@ -105,6 +109,17 @@ public class Town implements Comparable, Model.Entity, Serializable{
 	public void setShopresidents(List<Adress> shopresidents) {
 		this.shopresidents = shopresidents;
 	}
+	
+	@Column(name = "isdeliverytown")
+	@Type(type = "boolean")
+	public Boolean getIsdeliverytown() {
+		return isdeliverytown;
+	}
+	public void setIsdeliverytown(Boolean isdeliverytown) {
+		this.isdeliverytown = isdeliverytown;
+	}
+
+	
 	@Transient
 	public List<Adress> getDeliveryservices() {
 		List<Adress> shopaddr = new ArrayList<Adress>();
@@ -138,7 +153,7 @@ public class Town implements Comparable, Model.Entity, Serializable{
 	public void setUserresidents(List<Adress> userresidents) {
 		this.userresidents = userresidents;
 	}
-	@OneToMany(mappedBy="clienttown", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="clienttown", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST})
 	@JsonManagedReference
 	@Fetch(FetchMode.SELECT)
 
@@ -155,6 +170,7 @@ public class Town implements Comparable, Model.Entity, Serializable{
 	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 	@Fetch(FetchMode.SUBSELECT)
 		public List<Adress> getResidents() {
+	//	System.out.println("ddd");
 		return residents;
 	}
 	public void setResidents(List<Adress> residents) {
@@ -197,7 +213,7 @@ public class Town implements Comparable, Model.Entity, Serializable{
 		this.region = region;
 	}
 	
-	@OneToMany(mappedBy="town", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="town", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST})
 	@JsonManagedReference
 	public Set<User> getUsers() {
 		return users;
@@ -241,7 +257,7 @@ public class Town implements Comparable, Model.Entity, Serializable{
 		this.deltypes = deltypes;
 	}*/
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.town")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.town", cascade = CascadeType.ALL)
 	public List<Town_Delivery> getTowndeliveries() {
 		return towndeliveries;
 	}

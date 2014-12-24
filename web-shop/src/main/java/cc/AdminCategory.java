@@ -116,7 +116,7 @@ public class AdminCategory{
 	@Autowired
 	private PageService pageServ;
 	
-	private static final Logger logger = LoggerFactory.getLogger(Category.class);
+	private Logger logger = LoggerFactory.getLogger(AdminCategory.class);
 
 	@RequestMapping(method = RequestMethod.GET)
     public String listCategory(@PathVariable (value = "catId") Integer id, @RequestParam (value = "result", required = false) Integer result, Map<String, Object> map, HttpServletRequest request, HttpSession sess) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {

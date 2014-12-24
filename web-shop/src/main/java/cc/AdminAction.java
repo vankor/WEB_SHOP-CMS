@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -55,6 +57,8 @@ import Model.VoteService;
 @Controller
 @RequestMapping(value = {"/admin/adminactions/"})
 public class AdminAction {
+	
+	private Logger logger = LoggerFactory.getLogger(AdminAction.class);
 	
 	@Autowired
 	private GoodItemService Serv;

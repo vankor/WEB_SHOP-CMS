@@ -23,43 +23,6 @@ public class OrderService extends ServiceImpl<Order, Integer, OrderDAO>{
 	@Autowired
 	private AdressDAO adr;
 	
-	@Transactional
-	public void add(Order g){
-		
-	Adress adr1 =adr.getAdressByParams(g.getAdress().getTown(), g.getAdress().getStreet_type(), g.getAdress().getStreet_name(), g.getAdress().getHouse_num(), g.getAdress().getRoom_num());
-		if(adr1!=null){
-			g.setAdress(adr1);
-			
-	}
-		else{
-		adr.add(g.getAdress());
-		}
-		
-		
-	//		template.saveOrUpdate(adr);
-			
-//			adr.update(g.getAdress());
-			
-//			List<PhoneNumber> phones = new ArrayList<PhoneNumber>();
-//			PhoneNumber nmb1 = null;
-//			for(PhoneNumber nmb: g.getClient_phones()){
-				
-//				if((nmb1 = phn.getPhoneNumberByNum(nmb.getNumb()))!=null){
-	//				nmb=nmb1;
-//					System.out.println("numb exsts!!");
-	//				phn.update(nmb);
-					
-					
-//				}
-//				else{
-	//				phn.addPhoneNumber(nmb);
-					
-	//			}
-	//			phones.add(nmb);
-	//			}	
-	//		g.setClient_phones(phones);
-		ord.add(g);
-	}
 	
 /*	@Transactional
 	public void delete(Order g){

@@ -29,6 +29,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
@@ -44,11 +45,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 property = "@id")
 public class Order implements GoodCollection, Comparable, Model.Entity{
 
-
-
-
 	private Integer id;
-//	private List<GoodItem> goods = new ArrayList<GoodItem>();
 	private Set<OrderRow> orderrows = new TreeSet<OrderRow>();
 	private User usr;
 	private Date time;
@@ -58,7 +55,6 @@ public class Order implements GoodCollection, Comparable, Model.Entity{
 	private String cred_term;
 	private List<PhoneNumber> client_phones = new ArrayList<PhoneNumber>();
 	private String comment;
-//	private Date delivdate;
 	private Date delivtime;
 	private Town clienttown;
 	private PayType paytype;
@@ -67,15 +63,23 @@ public class Order implements GoodCollection, Comparable, Model.Entity{
 	private String sessid;
 	private String client_company;
 	private String client_okpo;
-	
 	private Boolean isdeleted = false;
+	
+	
 	
 	
 	@Override
 	public String toString() {
-		return id.toString();
+		return "Order [id=" + id + ", usr=" + usr + ", time=" + time
+				+ ", amount=" + amount + ", clientname=" + clientname
+				+ ", clientemail=" + clientemail + ", cred_term=" + cred_term
+				+ ", client_phones=" + client_phones + ", comment=" + comment
+				+ ", delivtime=" + delivtime + ", clienttown=" + clienttown
+				+ ", paytype=" + paytype + ", deliverytype=" + deliverytype
+				+ ", sessid=" + sessid + ", client_company=" + client_company
+				+ ", client_okpo=" + client_okpo + ", isdeleted=" + isdeleted
+				+ "]";
 	}
-	
 	@Column(name = "isdeleted")
 	@Type(type = "boolean")
 	public Boolean getIsdeleted() {
@@ -101,25 +105,6 @@ public class Order implements GoodCollection, Comparable, Model.Entity{
 
 	
 	
-//	@ManyToMany (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//	@JoinTable(name = "order_good", 
-//	joinColumns = {@JoinColumn(name = "order_id", nullable = false, updatable = false)}, 
-//	inverseJoinColumns = {@JoinColumn(name = "good_id", nullable = false, updatable = false)})
-//	@Fetch(value = FetchMode.SUBSELECT)
-	
-//	public List<GoodItem> getGoods() {
-//		return goods;
-//	}
-
-//	public void setGoods(List<GoodItem> goods) {
-//		this.goods = goods;
-//	}
-	
-//	public void addGood(GoodItem h){
-//		goods.add(h);
-//	}
-	
-	
 
 	@ManyToOne	
 	@JoinColumn(name = "user_id")
@@ -131,10 +116,6 @@ public class Order implements GoodCollection, Comparable, Model.Entity{
 	public void setUsr(User usr) {
 		this.usr = usr;
 	}
-		
-
-	
-	
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "time")
@@ -154,75 +135,7 @@ public class Order implements GoodCollection, Comparable, Model.Entity{
 	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
-	
-	
 
-	public static void main(String[] args) {
-		ArrayList <GoodItem> h = new ArrayList<GoodItem>();
-		GoodItem h1 = new GoodItem();
-		h1.setDescription("mob1");
-		h1.setName("mobile");
-		h1.setId(1);
-		h1.setPrice(240.0);
-		GoodItem h2 = new GoodItem();
-		h2.setDescription("mob1");
-		h2.setName("mobile");
-		h2.setId(1);
-		GoodItem h3 = new GoodItem();
-		h3.setDescription("mob2");
-		h3.setName("mobile");
-		h3.setId(2);
-		h3.setPrice(50.0);
-		GoodItem h4 = new GoodItem();
-		h4.setDescription("mob2");
-		h4.setName("mobile");
-		h4.setId(2);
-		GoodItem h5 = new GoodItem();
-		h5.setDescription("mob3");
-		h5.setName("mobile");
-		h5.setId(3);
-		h5.setPrice(150.0);
-		
-		h.add(h1);
-		h.add(h1);
-		h.add(h1);
-		h.add(h1);
-		h.add(h1);
-		h.add(h3);
-		h.add(h3);
-		h.add(h3);
-		h.add(h5);
-		h.add(h5);
-		h.add(h5);
-		Order g = new Order();
-//		g.setGoods(h);
-//		HashMap <GoodItem, Integer> o = g.createReport();
-//		Iterator i = o.entrySet().iterator();
-				
-//		while(i.hasNext()){
-//			Entry<GoodItem, Integer> entry = (Entry<GoodItem, Integer>) i.next();
-//			GoodItem j = entry.getKey();
-	//		Integer k = entry.getValue();
-			
-	//		System.out.println(j.getPrice()+"      "+k);
-	//	}
-		
-	//	System.out.println(g.getSumValue());
-	}
-
-
-	
-	
-	
-//	public List<Row> getRows() {
-//		return rows;
-//	}
-
-//	public void setRows(List<Row> rows) {
-//		this.rows = rows;
-//	}
-
-	
 	@OneToMany (mappedBy = "ord", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@Fetch(value = FetchMode.SUBSELECT)
 	@JsonManagedReference
@@ -272,7 +185,7 @@ public class Order implements GoodCollection, Comparable, Model.Entity{
 		this.clientname = clientname;
 	}
 	
-	@Column(name = "comment")
+	@Column(name = "comment",columnDefinition="TEXT", length = 5000)
 	public String getComment() {
 		return comment;
 	}
@@ -334,7 +247,7 @@ public class Order implements GoodCollection, Comparable, Model.Entity{
 		this.deliverytype = deliverytype;
 	}
 
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.MERGE})
 	@JoinColumn(name = "adress_id")
 	@JsonBackReference
 	public Adress getAdress() {
@@ -413,7 +326,10 @@ public class Order implements GoodCollection, Comparable, Model.Entity{
 			otherord = (Order)arg0;
 		}
 		else{throw new ClassCastException("Сравнивать необходимо обьекты одного класса!");}
+		if(this.time!=null && otherord.time!=null)
 		return this.time.compareTo(otherord.time);
+		else
+			return this.clientname.compareTo(otherord.clientname);	
 	}
 
 

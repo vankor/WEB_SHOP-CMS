@@ -11,7 +11,7 @@ import javax.validation.Payload;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Positive {
 
-	String message() default "{Positive}";
+	String message() default "{Значение должно быть позитивным}";
     
     Class<?>[] groups() default {};
       

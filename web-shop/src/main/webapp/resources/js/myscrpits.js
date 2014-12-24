@@ -182,9 +182,10 @@ function showmenu(sid, gid)
 	if(sid>5)	$("#li_"+sid+"_"+gid).addClass('lright_active');
 }
 
-function deletefrombuck(goodurl, goodid, bucksize){
+function deletefrombuck(goodid, bucksize){
 //	alert(goodurl+"/deletefrombuck");
 //	alert(goodid);
+	var goodurl = goodservurl;
 	$.ajax({
 	       type: "POST",
 	  	   url: goodurl+"/deletefrombuck",
@@ -208,10 +209,11 @@ function deletefrombuck(goodurl, goodid, bucksize){
 		
 }
 
-function changecount(goodurl, goodid,bucksize){
+function changecount(goodid,bucksize){
 //	alert(goodurl+"/deletefrombuck");
 //	alert(goodid);
 	var count = $("#goodcount_"+goodid).val();
+	var goodurl = goodservurl;
 //	alert(count);
 	$.ajax({
 	       type: "POST",

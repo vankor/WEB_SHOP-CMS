@@ -20,6 +20,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,7 +44,7 @@ import Model.CategoryCreateBean;
 import Model.CategoryService;
 import Model.CommentService;
 import Model.Country;
-import Model.CountryBean;
+import Model.CountriesBean;
 import Model.CountryService;
 import Model.DeliveryType;
 import Model.DeliveryTypeBean;
@@ -82,6 +84,9 @@ import Model.VoteService;
 @Controller
 @RequestMapping(value = {"/admin/admincountry/{countryId}"})
 public class AdminCountry{
+	
+	private Logger logger = LoggerFactory.getLogger(AdminCountry.class);
+	
 	@Autowired
 	private GoodItemService Serv;
 	
@@ -139,7 +144,6 @@ public class AdminCountry{
 		}
 		map.put("region", reg);
 		map.put("country", cntr);
-		System.out.println(reg.getCountry().getName());
 		map.put("type", "update");
 		return "adminRegions";
 		

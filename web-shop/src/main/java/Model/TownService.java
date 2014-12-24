@@ -261,30 +261,7 @@ public void fillnumber(PhoneNumber nphn){
 		}
 		
 		
-		town.getTowndeliveries().clear();
-		for(DeliveryTypeBean d: townbean.getDeltypes()){
-			Town_Delivery addrdel = new Town_Delivery();
-			if(d.getDeltype().getId()!=null){
-																	
-			
-			if(!((d.getDeltype()==null || d.getDeltype().getId()==null) && addrdel.getDeliveryType()!=null))
-				addrdel.setDeliveryType(d.getDeltype());
-			System.out.println(addrdel==null);
-			addrdel.setTown(town);
-			if(d.getIscostless()!=null && d.getIscostless()==true)
-			addrdel.setIscostless(true);
-			else
-				addrdel.setIscostless(false);	
-				
-			addrdel.setPrice(d.getPrice());
-	//		addrdel.se(d.getDays());
-			addrdel.setIscostless(d.getIscostless());
-	//		addrdel.setMindelterm(d.getMindays());
-			twndlvDAO.update(addrdel);
-			town.getTowndeliveries().add(addrdel);
-			}		
-					
-		}
+		
 		
 		System.out.println("хрнц он цнпндс");
 		
@@ -343,6 +320,33 @@ public void fillnumber(PhoneNumber nphn){
 			System.out.println(town.getId());		
 			if(town.getId()!=null)townDAO.update(town);
 			else townDAO.save(town);
+			
+			
+			town.getTowndeliveries().clear();
+			for(DeliveryTypeBean d: townbean.getDeltypes()){
+				Town_Delivery addrdel = new Town_Delivery();
+				if(d.getDeltype().getId()!=null){
+																		
+				
+				if(!((d.getDeltype()==null || d.getDeltype().getId()==null) && addrdel.getDeliveryType()!=null))
+					addrdel.setDeliveryType(d.getDeltype());
+				System.out.println(addrdel==null);
+				addrdel.setTown(town);
+				if(d.getIscostless()!=null && d.getIscostless()==true)
+				addrdel.setIscostless(true);
+				else
+					addrdel.setIscostless(false);	
+					
+				addrdel.setPrice(d.getPrice());
+		//		addrdel.se(d.getDays());
+				addrdel.setIscostless(d.getIscostless());
+		//		addrdel.setMindelterm(d.getMindays());
+				System.out.println(addrdel.getDeliveryType()+"   "+addrdel.getTown()+"    "+addrdel.getId());
+				twndlvDAO.update(addrdel);
+				town.getTowndeliveries().add(addrdel);
+				}		
+						
+			}
 		
 	}
 	

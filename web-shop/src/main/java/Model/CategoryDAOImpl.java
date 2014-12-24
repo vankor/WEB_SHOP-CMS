@@ -35,60 +35,6 @@ public class CategoryDAOImpl extends GenericHibTemplateDAOImpl<Category, Integer
 
 
 
-
-/*	@Transactional
-	public void addCategory(Category g) {
-		
-		template.save(g);
-		
-	}
-
-	@Transactional
-	public void deleteCategory(Category g) {
-		deleteCategoryById(g.getId());
-		
-	}
-
-	@Transactional
-	public void deleteCategoryById(Integer id) {
-		//Category c = getCategoryById(id);
-	//	template.merge(c);
-		Session session = template.getSessionFactory().openSession();
-		Transaction transaction = null;
-		try {
-			transaction = session.beginTransaction();
-			Category cat = (Category) session.get(Category.class, id);
-			session.delete(cat);
-			transaction.commit();
-		} catch (Exception exception) {
-		     if (transaction != null) transaction.rollback();
-		} finally {
-			session.close();
-		}
-//		template.delete(cat);
-		
-	}
-
-	@Transactional
-	public List<Category> getAllCategories() {
-		List<Object> list = template.findByCriteria(DetachedCriteria.forClass(Category.class));
-		List<Category> listcat = new ArrayList<Category>();
-		for(Object obj:list){
-			listcat.add((Category)obj);
-		}
-		return listcat;
-	}
-
-	@Transactional
-	public Category getCategoryById(Integer id) {
-		return (Category) template.get(Category.class, id);
-	}
-
-	@Transactional
-	public void update(Category k) {
-		template.update(k);
-	}
-*/
 	@Transactional
 	public List<Category> getRootCategories() {
 

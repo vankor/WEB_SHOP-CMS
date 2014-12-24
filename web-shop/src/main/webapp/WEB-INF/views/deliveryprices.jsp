@@ -131,7 +131,8 @@ function choisecurrentcity(cid){
         <table>
           <tbody>
             <tr>
-            <c:forEach items = "${selregion.deliverytowns}" var="town" varStatus ="i">
+            <c:forEach items = "${selregion.towns}" var="town" varStatus ="i">
+              <c:if test = "${town.isdeliverytown}">
               <td>
                 <ul>
                   <li <c:choose><c:when test = "${seltown.id == town.id}">class="base_c checkad"</c:when><c:otherwise>class="addit_c"</c:otherwise></c:choose> sid="${town.id}">
@@ -141,6 +142,7 @@ function choisecurrentcity(cid){
                   </li>
                 </ul>
               </td>
+              </c:if>
              </c:forEach>
              </tr>
           </tbody>

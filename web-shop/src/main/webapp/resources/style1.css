@@ -3544,3 +3544,28 @@ vertical-align: top;
 font: 24px "Trebuchet MS",serif;
 display: inline;
 }
+
+
+#success{
+
+	background: rgb(181, 232, 181);
+	font-size:16px;
+	font-weight:700;
+	color:#black;
+	text-align:center;
+	border: solid 1px gray;
+	border-radius:2px;
+	height:25px;
+}
+
+#fail{
+
+	background: #FF5858;
+	font-size:16px;
+	font-weight:700;
+	color:#black;
+	text-align:center;
+	border: solid 1px gray;
+	border-radius:2px;
+	height:25px;
+}

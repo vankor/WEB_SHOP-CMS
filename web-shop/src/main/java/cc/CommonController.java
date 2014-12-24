@@ -86,6 +86,7 @@ import Model.CompareGoodsSet;
 import Model.Configuration;
 import Model.ConfigurationService;
 import Model.Country;
+import Model.CountriesBean;
 import Model.CountryBean;
 import Model.CountryService;
 import Model.DeliveryType;
@@ -100,6 +101,7 @@ import Model.GoodStateService;
 import Model.GoodStatesBean;
 import Model.GoodUpdateBean;
 import Model.Image;
+import Model.ImageLoader;
 import Model.ImageService;
 import Model.Item;
 import Model.LoginBean;
@@ -109,6 +111,7 @@ import Model.NewsService;
 import Model.NewsType;
 import Model.NewsTypeService;
 import Model.Order;
+import Model.OrderBean;
 import Model.OrderRow;
 import Model.OrderService;
 import Model.OrderSumCalculator;
@@ -250,41 +253,13 @@ public class CommonController {
 			sess.setAttribute("usr", t);
 			map.put("buck", new Bucket());
 			map.put("buckList", t.getBuck());
-			System.out.println(t.getBuck().get(0).getGoods().get(0).getName());
+
 		}
 		
 		return "bucks";
 	}
 	
 
-	
-	@RequestMapping("/addgood/{goodid}")
-	public String addGood(@PathVariable (value="goodid") Integer id, HttpSession sess, Map<String, Object> map, HttpServletRequest request){
-		User t = (User) request.getAttribute("user");
-		GoodItem good = Serv.getById(id);
-//		Hibernate.initialize(t);
-//		List bucks = t.getBuck();
-//		if(!bucks.isEmpty()){
-//			b = (Bucket) bucks.get(0);
-//			b.addGood(good);
-//		}
-//		ArrayList<GoodItem> usergoods = (ArrayList<GoodItem>)sess.getAttribute("currgoods");
-//		usergoods.add(good);
-		AnonimBuck buck = (AnonimBuck)sess.getAttribute("currbuck");
-		List <AnonimBuck> bucks = new ArrayList<AnonimBuck>();
-
-		bucks.add(buck);
-
-		map.put("buckList", bucks);
-		sess.setAttribute("usr", t);
-		sess.setAttribute("currbuck", buck);
-
-		return "bucks";
-	}
-
-
-
-	
 	
 	@RequestMapping(value = "/settown", method = RequestMethod.GET)
 	public String setCity(@RequestParam (value = "cid") Integer id,HttpServletRequest request, Map<String, Object> map, HttpSession sess) {
@@ -300,17 +275,9 @@ public class CommonController {
 	
 	@RequestMapping("/index")
 	public String listGoods(Map<String, Object> map, HttpServletRequest request, HttpSession sess) {
-		
-		
-		
-		
-		
 		map.put("goodList", Serv.getTopGoods());
-		
-//		setSubCategs(roots,4);
-//		printSubCategs(roots,4);
+
 		List<Action> allactions = actServ.getTopActions();
-	
 		Set<Action> randomtopactions = new TreeSet<Action>();
 		Integer actsize = (allactions.size()>=4)?4:allactions.size();
 		
@@ -318,53 +285,23 @@ public class CommonController {
 		Set<Integer> randomid = new TreeSet<Integer>();
 		while(randomtopactions.size()<actsize){
 			Integer o = rand.nextInt(allactions.size());
-
 			randomtopactions.add(allactions.get(o));
-			
-		}
-		
+			}
 		
 		Configuration config = confServ.getActiveConfiguration();
 		map.put("config", config);
 		Set<Category> topcategories = catServ.getTopCategories();
 
 		map.put("topcatcount", topcategories.size());
-		
 		map.put("topcategories", topcategories);
-		System.out.println("Топ категории "+topcategories);
-		
 		map.put("mainnews", nwsServ.getTopNews());
 		map.put("seasongoods", Serv.getSeasonGoods());
 		map.put("actions", randomtopactions);
-		
-		
-//		map.put("currenttown", currenttown);
 		map.put("residenttowns", twnServ.getResidentTowns());
-		
 		map.put("searchForm", new SearchForm());
 		return "start";
 	}
 	
-	@RequestMapping("/loadheader")
-	public String loadheader(Map<String, Object> map, HttpServletRequest request, HttpSession sess) {
-		map.put("section", "header");
-		System.out.println("/loadheader");
-		return "header";
-		
-	}
-	
-
-	
-	@RequestMapping("/loadmenu")
-	public String loadmenu(Map<String, Object> map, HttpServletRequest request, HttpSession sess) {
-		List<Category> roots = catServ.getRootCategories();
-	//	setSubCategs(roots,4);
-		printSubCategs(roots,4);
-		map.put("currentCatList", roots);
-		map.put("section", "menu");
-		System.out.println("/loadmenu");
-		return "header";
-	}
 
 	public void printSubCategs(List<Category> cats, int levels){
 		if(levels == 0){return;}
@@ -375,31 +312,15 @@ public class CommonController {
 		}
 		
 	}
-	
-/*	public void setSubCategs(List<Category> cats, int levels){
-		if(levels == 0){return;}
-		if(cats == null && cats.isEmpty() ){return;}
-		for(Category cat : cats){
-			List<Category> subcats = catServ.listCategory(cat);
-			cat.setSubcategs(subcats);
-			setSubCategs(subcats, levels-1);
-		}
-		
-	}*/
 
-	
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
     public String addContact(@ModelAttribute("good") GoodItem good,
             BindingResult result) {
 
         Serv.add(good);
-
         return "redirect:/index";
     }
-	
-	
 
-	
 	@RequestMapping(value = "/deleteState/{stateId}")
 	public String deleteGoodState(@PathVariable("stateId") Integer id){
 		gstServ.deleteById(id);
@@ -411,12 +332,9 @@ public class CommonController {
 	
 	@RequestMapping(value = "/choiseWindow", method = RequestMethod.POST)
 	public String choiseWindow( Map <String, Object> map, @RequestParam(value="idfld") String idfld, @RequestParam(value="section") String section){
-//		System.out.println("regbreg");
+
 		List<Category> roots = catServ.getRootCategories();
-//		setSubCategs(roots,4);
 		section = section.toLowerCase();
-		System.out.println("hhhhhhhhh"+"   "+section+"   "+idfld+roots);
-		
 		map.put("catList", roots);
 		map.put("section", section);
 		map.put("idfld", idfld);
@@ -427,9 +345,9 @@ public class CommonController {
 
 	@RequestMapping(value = "/choiseCategory", method = RequestMethod.POST)
 	public String choiseGood( Map <String, Object> map, @RequestParam(value="idfld") String idfld, @RequestParam(value="section") String section){
-//		System.out.println("regbreg");
+
 		List<Category> roots = catServ.getRootCategories();
-	//	setSubCategs(roots,4);
+
 		System.out.println("hhhhhhhhh"+"   "+section+"   "+idfld+roots);
 		map.put("catList", roots);
 		map.put("section", section);
@@ -448,7 +366,6 @@ public class CommonController {
 			, @RequestParam(value="lval") Integer lval
 			, @RequestParam(value="lprop") Integer lprop
 			, @RequestParam(value="lsegm") Integer lsegm){
-//		System.out.println("regbreg");
 		Property prop = propServ.getById(propid);
 		map.put("propvals", prop.getVal());
 		map.put("section", section);
@@ -472,13 +389,12 @@ public class CommonController {
 		GoodCollection g = (GoodCollection)buck;
 		OrderSumCalculator calc = new OrderSumCalculator(g);
 		double sum = calc.getSumValue();
-		System.out.println("Сумма: "+ sum);
+		logger.info("Сумма товаров в корзине: "+ sum);
 		map.put("buckrows", buck.getRows());
 		map.put("buck", buck);
 		map.put("sum", sum);
 		sess.setAttribute("currbuck", buck);
 		map.put("bucketsize", buck.getSize());
-	//	map.put("section", "bucket");
 		return "bucket";
 		
 	}
@@ -486,27 +402,20 @@ public class CommonController {
 	
 	@RequestMapping(value = "/choisePropValue", method = RequestMethod.POST)
 	public @ResponseBody Value choisePropValue (@RequestParam(value="id") Integer valid){
-//		System.out.println("regbreg");
 		System.out.println(valid);
 		Value val = valServ.getById(valid);
-		System.out.println("eeeeeeeeeeee");
 		return val;
-		
 	}
 	
 	
 	@RequestMapping(value = "/choiseGood", method = RequestMethod.POST)
 	public @ResponseBody GoodItem choiseGood(@RequestParam(value="id") Integer goodid){
-		
 		return Serv.getById(goodid);
-		
 	}
 	
 	@RequestMapping(value = "/choiseCat", method = RequestMethod.POST)
 	public @ResponseBody Category choiseCategory(@RequestParam(value="id") Integer catid){
-	//	System.out.println(catid);
-		return catServ.getById(catid);
-		
+			return catServ.getById(catid);
 	}
 	
 		
@@ -515,62 +424,37 @@ public class CommonController {
 		List<Vote> votelst = new ArrayList<Vote>();
 		VoteBean votes = new VoteBean();
 		votelst = voteServ.getAll();
-   //  	if(!states.isEmpty()){
-	//	map.put("states", states);
-	//	}
-		votes.setvotes(votelst);
-  //   	map.put("states", new ArrayList<GoodState>());
-		map.put("votes", votes);
-//		model.addAttribute("type", "create");
+  		votes.setvotes(votelst);
+  		map.put("votes", votes);
         return "addVotes";
 		
 	}
 	
 	  @RequestMapping(value = "/logindialog",method = RequestMethod.POST)
       public String logindialog(@RequestParam (value = "section") String section, Map <String, Object> map, HttpServletRequest req) {
-		  
-		  System.out.println(section);
-          map.put("login", new LoginBean());
+		  map.put("login", new LoginBean());
           map.put("section", section);
           return "login";
       }
 	
 	@RequestMapping(value = "/addedVote",method = RequestMethod.POST)
     public String addedVote(@ModelAttribute(value = "votes") VoteBean votes, Map<String, Object> map,HttpServletRequest request) {
-		
-		System.out.println(votes.getvotes().size());
-		
 		for(Vote vote: votes.getvotes()){
-		System.out.println("Айди:"+vote.getId());
-		if(vote.getId()!=null){
-		voteServ.update(vote);
+			if(vote.getId()!=null){
+				voteServ.update(vote);
+			}
+			else{voteServ.update(vote);}
 		}
-		else{voteServ.update(vote);}
-		}
-		
-		
+
         return "redirect:/addVote";
     }
-	
-	
 
-
-	
-	
-
-	
-	@RequestMapping(value = "/nd/img/ul/active_li.gif", method = RequestMethod.GET)
-	public String blabla(@PathVariable(value = "catid") Integer catid, Model model){
-		 return null;
-		
-	}
 	
 	
 	@RequestMapping("/order")
     public String order(Map<String, Object> map, HttpSession sess, ServletRequest request) {
-		User t = (User) request.getAttribute("user");
+		User t = (User) sess.getAttribute("user");
 		if(t!=null){
-			map.put("user", t);
 			Town town = t.getTown();
 //			List<DeliveryType> towndtp = new ArrayList<DeliveryType>();
 			if(town!=null){
@@ -582,6 +466,7 @@ public class CommonController {
 			}
 			
 		}
+		map.put("order", new OrderBean());
 		map.put("paytypes", ptpServ.getAll());
 		map.put("deliverytypes", dlvServ.getAll());
 		map.put("sessid", sess.getId());
@@ -600,7 +485,7 @@ public class CommonController {
 		map.put("bucket", buck);
 		OrderSumCalculator calc = new OrderSumCalculator(buck);
 		double sum = calc.getSumValue();
-		System.out.println("Сумма: "+ sum);
+		logger.info("Сумма заказа: "+ sum);
 		map.put("buckrows", buck.getRows());
 		map.put("buck", buck);
 		map.put("sum", sum);
@@ -611,13 +496,10 @@ public class CommonController {
 			text = Base64.encode("оплата за заказ с интернет-магазина".getBytes("UTF-8"));
 			
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		map.put("text", text);
-		
 		return "commsection";
-		
 	}
 	
 	
@@ -632,9 +514,6 @@ public class CommonController {
 			e.printStackTrace();
 		}
 		ObjectMapper mapper = new ObjectMapper();
-		
-		
-		
 		Set<Town> towns = twnServ.getTownsByName(name);
 		List<ChoiseItem> ff = new ArrayList<ChoiseItem>();
 		for(Town t: towns){
@@ -644,11 +523,6 @@ public class CommonController {
 		map.put("section", "towns");
 		String g = "";
 		try {
-			 
-			// convert user object to json string, and save to a file
-	//		mapper.writeValue(new File("d:\\towns.json"), towns);
-	 
-			// display to console
 			g = mapper.writeValueAsString(ff);
 	 
 		} catch (JsonGenerationException e) {
@@ -664,102 +538,74 @@ public class CommonController {
 			e.printStackTrace();
 	 
 		}
-			System.out.println(g);
-		
+				
 		return "autocomplete";
 		
 	}
 	
-	
+
 	@RequestMapping(value = "/send", method = RequestMethod.POST)
-	@ResponseBody
-	public String sendGoods(Map <String, Object> map, HttpSession sess, 
-			@RequestParam(value="clientname") String clientname, 
-			@RequestParam(value="clientphone_number[]") String clientphone_number,
-			@RequestParam(value="clientemail") String clientemail,
-			@RequestParam(value="clientcomment") String clientcomment,
-			@RequestParam(value="clientsrochnost") String clientsrochnost,
-			@RequestParam(value="client_delivdate") String client_delivdate,
-			@RequestParam(value="client_delivtime") String client_delivtime,
-			@RequestParam(value="clienttown_f") String clienttown_name,
-			@RequestParam(value="clienttown") String clienttown_id,
-			@RequestParam(value="clientoplata") Integer clientoplata,
-			@RequestParam(value="clientdeliverytype") Integer clientdeliverytype,
-			@RequestParam(value="type_street") String type_street,
-			@RequestParam(value="street") String street,
-			@RequestParam(value="house") String house,
-			@RequestParam(value="flor") String flor,
-			@RequestParam(value="room") String room,
-			@RequestParam(value="nzanos") String nzanos,
-			@RequestParam(value="netaj") String netaj,
-			@RequestParam(value="nlift") String nlift,
-			@RequestParam(value="sessid") String sessid,
-			@RequestParam(value="action") String action,
-			@RequestParam(value="srok_cred") String srok_cred,
-			@RequestParam(value="client_company") String client_company,
-			@RequestParam(value="client_okpo") String client_okpo,
-			@RequestParam(value="filial_adress") Integer filial_adress,
-			ServletRequest request
-						
-			){
+	public String sendGoods(Map <String, Object> map, HttpSession sess, @ModelAttribute (value = "order") OrderBean orderbean, HttpServletRequest request){
 		
-		System.out.println("clientname "+clientname.split(",")[0]);
-		System.out.println("clientphone_number "+clientphone_number.split(","));
-		System.out.println("clientemail "+clientemail.split(",")[0]);
-		System.out.println("clientcomment "+clientcomment.split(",")[0]);
-		System.out.println("clientsrochnost "+clientsrochnost);
-		System.out.println("client_delivdate "+client_delivdate.split(",")[0]);
-		System.out.println("client_delivtime "+client_delivtime.split(",")[0]);
-		System.out.println("clienttown_name "+clienttown_name);
-		System.out.println("clienttown_id "+clienttown_id);
-		System.out.println("clientoplata "+clientoplata);
-		System.out.println("clientdeliverytype "+clientdeliverytype);
-		System.out.println("type_street "+type_street.split(",")[0]);
-		System.out.println("street "+street.split(",")[0]);
-		System.out.println("house "+house.split(",")[0]);
-		System.out.println("flor "+flor.split(",")[0]);
-		System.out.println("room "+room.split(",")[0]);
-		System.out.println("nzanos "+nzanos);
-		System.out.println("netaj "+netaj.split(",")[0]);
-		System.out.println("nlift "+nlift.split(",")[0]);
-		System.out.println("sessid "+sessid.split(",")[0]);
-		System.out.println("srok_cred "+srok_cred.split(",")[0]);
-		System.out.println("client_company "+client_company.split(",")[0]);
-		System.out.println("client_okpo "+client_okpo.split(",")[0]);
+		System.out.println("clientname "+orderbean.getClientname());
+		System.out.println("clientphone_number "+orderbean.getClientphones());
+		System.out.println("clientemail "+orderbean.getClientemail());
+		System.out.println("clientcomment "+orderbean.getClientcomment());
+		System.out.println("clientsrochnost "+orderbean.getClientsrochnost());
+		System.out.println("client_delivdate "+orderbean.getClient_delivdate());
+		System.out.println("client_delivtime "+orderbean.getClient_delivtime());
+		System.out.println("clienttown_name "+orderbean.getClienttown_name());
+		System.out.println("clienttown_id "+orderbean.getClienttown());
+		System.out.println("clientoplata "+orderbean.getClientoplata());
+		System.out.println("clientdeliverytype "+orderbean.getClientdeliverytype());
+		System.out.println("type_street "+orderbean.getType_street());
+		System.out.println("street "+orderbean.getStreet());
+		System.out.println("house "+orderbean.getHouse());
+		System.out.println("flor "+orderbean.getFlor());
+		System.out.println("room "+orderbean.getRoom());
+		System.out.println("nzanos "+orderbean.getNzanos());
+		System.out.println("netaj "+orderbean.getNetaj());
+		System.out.println("nlift "+orderbean.getNlift());
+		System.out.println("sessid "+orderbean.getSessid());
+		System.out.println("srok_cred "+orderbean.getSrok_cred());
+		System.out.println("client_company "+orderbean.getClient_company());
+		System.out.println("client_okpo "+orderbean.getClient_okpo());
 		
-		
-	
-		String[] phones = clientphone_number.split(",");
-		
-		User t = (User) request.getAttribute("user");
+		String referer = request.getHeader("referer");		
+		User t = (User) sess.getAttribute("user");
 		AnonimBuck c = (AnonimBuck) sess.getAttribute("currbuck");
 		if(c==null){
-			return "NO GOODS in Bucket";
-//			c = new AnonimBuck();
+			map.put("result", "nogoods");
+			return "redirect:"+referer;
 		}
 		Order ord = new Order();
-		
 		ord.setTime(new Date(System.currentTimeMillis()));
 		ord.setRows(c.getRows());
 		OrderSumCalculator calc = new OrderSumCalculator(c);
 		ord.setAmount(calc.getSumValue());
-		ord.setSessid(sessid);
-		Town town = twnServ.getById(Integer.parseInt(clienttown_id));
+		ord.setSessid(orderbean.getSessid());
+		
+		Town town = twnServ.getById(orderbean.getClienttown());
 		if(t!=null){
 			ord.setUsr(t);
 		
 		}
 		
-			ord.setClientname(clientname);
-			ord.setClientemail(clientemail);
-			
+			ord.setClientname(orderbean.getClientname());
+			ord.setClientemail(orderbean.getClientemail());
 			ord.setClienttown(town);
-			ord.setComment(clientcomment);
-			for(int i = 0; i< phones.length; i++){
-				PhoneNumber phn = new PhoneNumber();
-				String code = phones[i].substring(phones[i].indexOf("(")+1,phones[i].indexOf(")"));
+			ord.setComment(orderbean.getClientcomment());
+			for(PhoneNumber phone:orderbean.getClientphones()){
+				PhoneNumber phn = phnServ.getPhoneNumberByNum(phone.getNumb());
+				if(phn==null)
+				phn = new PhoneNumber();
+				
+				String numb = phone.getNumb();
+				String code = numb.substring(numb.indexOf("(")+1,numb.indexOf(")"));
 				System.out.println(code);
-				phn.setNumb(phones[i]);
+				phn.setNumb(numb);
+				Country cntr = ctrServ.getCountryByCode(code);
+				phn.setCountry(cntr);
 				Town twn = twnServ.getTownsByCode(Integer.parseInt(code));
 				if(twn != null){
 					phn.setTown(twn);
@@ -773,63 +619,58 @@ public class CommonController {
 				
 			}
 		
-		PayType ptp = ptpServ.getById(clientoplata);
-		DeliveryType dlv = dlvServ.getById(clientdeliverytype);
+		PayType ptp = ptpServ.getById(orderbean.getClientoplata());
+		DeliveryType dlv = dlvServ.getById(orderbean.getClientdeliverytype());
 		ord.setPaytype(ptp);
 		ord.setDeliverytype(dlv);
 		StringBuilder adress = new StringBuilder();
-		Adress adr = new Adress();
-//		Adress adrexist = adrServ.getAdressByParams(town, type_street.split(",")[0], street.split(",")[0], house.split(",")[0], room.split(",")[0]);
-//		if(adrexist!=null){
-//			System.out.println("ADRESS EXSTTTTTTT");
-//			adr = adrexist;
-//		}
-	//	else{
+		
+		Adress adr =adrServ.getAdressByParams(town, orderbean.getType_street(), orderbean.getStreet(), orderbean.getHouse(), orderbean.getRoom());
+		if(adr==null)
+		adr = new Adress();
 		if(dlv.getShortname().equals("adress")){
-			adress.append(""+type_street.split(",")[0]+" "+street.split(",")[0]+" "+house.split(",")[0]+", этаж "+flor.split(",")[0]+", квартира "+room.split(",")[0]);
 			
-			adr.setStreet_type(type_street.split(",")[0]);
-			adr.setStreet_name(street.split(",")[0]);
-			adr.setHouse_num(house.split(",")[0]);
-			adr.setLevel(flor.split(",")[0]);
-			adr.setRoom_num(room.split(",")[0]);
+			adr.setStreet_type(orderbean.getType_street());
+			adr.setStreet_name(orderbean.getStreet());
+			adr.setHouse_num(orderbean.getHouse());
+			adr.setLevel(orderbean.getFlor());
+			adr.setRoom_num(orderbean.getRoom());
 			adr.setAdresstype(AdressType.CLIENT);
-//		}
+
 		
 		if(dlv.getShortname().equals("samovyvoz")){
-			adr = adrServ.getById(filial_adress);
-	//		adress.append("Самовывоз по адресу: "+filial_adress.split(",")[0]);
+			adr = adrServ.getById(orderbean.getFilial_adress());
+			if(adr!=null)
 			adr.setAdresstype(AdressType.RESIDENT);
-			
 		}
 		}
 
 		adr.setTown(town);
 		ord.setAdress(adr);
+		adr.getOrders().add(ord);
 		
 		if(ptp.getShortname().equals("nocash")){
-			ord.setClient_company(client_company.split(",")[0]);
-			ord.setClient_okpo(client_okpo.split(",")[0]);
+			ord.setClient_company(orderbean.getClient_company());
+			ord.setClient_okpo(orderbean.getClient_okpo());
 		}
 		
 		if(ptp.getShortname().equals("onlinecred")){
-			ord.setCred_term(srok_cred.split(",")[0]);
+			ord.setCred_term(orderbean.getSrok_cred());
 		}
 		
-		if(clientsrochnost.split(",").length==2 && clientsrochnost.split(",")[1].equals("1")){
+		System.out.println("Срочность "+orderbean.getClientsrochnost());
+		if(orderbean.getClientsrochnost()!=null && orderbean.getClientsrochnost().equals("on")){
 			System.out.println("Срочнооооо!");
-			String str_date = client_delivdate.split(",")[0]+" "+client_delivtime.split(",")[0];
+			String str_date = orderbean.getClient_delivdate()+" "+orderbean.getClient_delivtime();
 			try {
 				Date del_time = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.ENGLISH).parse(str_date);
 				ord.setDelivtime(del_time);
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
 		}
 		ordServ.add(ord);
-//		ord = ordServ.getOrderById(ord.getId());
 		System.out.println("Заказчик: "+ord.getClientname());
 		System.out.println("Сeccия: " + ord.getSessid());
 		System.out.println("Пользователь: " + ord.getUsr());
@@ -854,19 +695,9 @@ public class CommonController {
 			 System.out.println(""+i+")"+r.getGood().getName()+". Цена: "+r.getGood().getPrice()+". Количество: "+r.getGoodcount());
 			 i++;
 		 }
+		map.put("result", "success");
 		
-		
-		
-//		OrderSender sender = new OrderSender();
-		
-//		try {
-//			sender.send(ord);
-//		} catch (MessagingException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-
-		return "YES";
+		return "redirect:"+referer;
 		
 	}
 	
@@ -877,7 +708,7 @@ public class CommonController {
 			@RequestParam(value="payment_id") Integer payment_id,
 			@RequestParam(value="delivery_id") Integer delivery_id){
 		
-		System.out.println(city_id+"   "+payment_id+"    "+delivery_id);
+		logger.info("ИД города = "+city_id+"; ИД вида оплаты = "+payment_id+" ; ИД вида доставки = "+delivery_id);
 		Town t =new Town();
 		List<DeliveryType> deltypes = new ArrayList<DeliveryType>();
 		if(city_id!=null){
@@ -893,9 +724,8 @@ public class CommonController {
 		
 		PayType ptype = ptpServ.getById(payment_id);
 		DeliveryType d = dlvServ.getById(delivery_id);
-		System.out.println(d.getName());
+	
 		if(d.getShortname().equals("samovyvoz")){
-//			Set<Adress> residents = adrServ.getAdressByType(AdressType.RESIDENT);
 			List<Adress> residents = t.getResidents();
 			map.put("residents", residents);
 		}
@@ -903,7 +733,6 @@ public class CommonController {
 		if(deltypes.contains(d)){
 			map.put("deliverytype", d);
 			System.out.println(d.getShortname());
-	//		map.put("deliverytype", dlvServ.getDeliveryTypeById(delivery_id));
 		}
 				
 		else{
@@ -922,8 +751,6 @@ public class CommonController {
 		map.put("deliverytypes", deltypes);
 		map.put("section", "orderparams");
 		
-		System.out.println(t.getName());
-		
 		return "commsection";
 		
 	}
@@ -932,8 +759,6 @@ public class CommonController {
 	
 	@RequestMapping("/popup")
     public String popupBucket(@RequestParam (value = "section") String section, @RequestParam (value = "colid") Integer colid, Map<String, Object> map, HttpSession sess) {
-
-		System.out.println(section + "  "+colid);
 		OrderSumCalculator calc = null;
 		
 		if(section.equals("bucket") && colid==-1){
@@ -959,9 +784,7 @@ public class CommonController {
 			double sum = calc.getSumValue();
 			map.put("sum", sum);
 		}
-		
-		
-		
+	
 		map.put("section", section);
 		return "commsection";
 		
@@ -1302,8 +1125,14 @@ public class CommonController {
 	
 	@RequestMapping(value = "/admin/adminCountry", method = RequestMethod.GET)
     public String listCountries(Map<String, Object> map, HttpServletRequest request, HttpSession sess) {
-		CountryBean countrybean = new CountryBean();
-		countrybean.setCountries(cntrServ.getAll());
+		CountriesBean countrybean = new CountriesBean();
+		List<CountryBean> ctrbeans = new ArrayList<CountryBean>();
+		for(Country ctr: cntrServ.getAll()){
+			CountryBean ctrbn = new CountryBean();
+			ctrbn.constructFromEntity(ctr);
+			ctrbeans.add(ctrbn);
+		}
+		countrybean.setCountries(ctrbeans);
 		System.out.println(countrybean.getCountries().get(0).getName());
 		map.put("countrybean", countrybean);
 		return "adminCountries";
@@ -1312,24 +1141,48 @@ public class CommonController {
 	
 	
 	@RequestMapping(value = "/admin/updatedCountries", method = RequestMethod.POST)
-	public String updatedCountries(@ModelAttribute (value = "countrybean") @Valid CountryBean countrybean, HttpServletRequest req, BindingResult bindingResult, Map<String, Object> map){
+	public String updatedCountries(@ModelAttribute (value = "countrybean") @Valid CountriesBean countrybean, HttpServletRequest req, BindingResult bindingResult, Map<String, Object> map){
 		
 		if(bindingResult.hasErrors()){
 			map.put("countrybean", countrybean);
 			return "adminCountries";
 		}
-		for(Country cntr:countrybean.getCountries()){
+		for(CountryBean cntr:countrybean.getCountries()){
 			if(cntr.getId()!=null){
 				Country country = ctrServ.getById(cntr.getId());
 				country.setName(cntr.getName());
+				country.setPhonecode(cntr.getPhonecode());
+				if(cntr.getNewthumb()!=null){
+					Integer fldrid = cntr.getId();
+					country.setFlagicon(ImageLoader.loadthumb(cntr.getNewthumb(), fldrid, "countries"));
+					}
 				ctrServ.update(country);
 			}
 			else{
+				Country country = new Country();
 				if(cntr.getName()!=null && cntr.getName()!="")
-				ctrServ.add(cntr);
+					country.setName(cntr.getName());
+				if(cntr.getPhonecode()!=null && cntr.getPhonecode()!="")
+					country.setPhonecode(cntr.getPhonecode());
+					System.out.println("newtumb!!   "+cntr.getNewthumb());
+					if(cntr.getNewthumb()!=null){
+						Integer last = ctrServ.getLastId();
+						if(last==null) last = 0;
+						Integer fldrid =last+1;
+						fldrid++;
+						System.out.println(fldrid+ "  eeeerrr");
+						country.setFlagicon(ImageLoader.loadthumb(cntr.getNewthumb(), fldrid, "countries"));
+					}	
+				ctrServ.add(country);
 			}
 		}
-		countrybean.setCountries(ctrServ.getAll());
+		List<CountryBean> ctrbeans = new ArrayList<CountryBean>();
+		for(Country ctr: cntrServ.getAll()){
+			CountryBean ctrbn = new CountryBean();
+			ctrbn.constructFromEntity(ctr);
+			ctrbeans.add(ctrbn);
+		}
+		countrybean.setCountries(ctrbeans);
 		map.put("countrybean", countrybean);
 		map.put("result", "success");
 		return "adminCountries";

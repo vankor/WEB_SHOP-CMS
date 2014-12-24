@@ -13,6 +13,8 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpRequest;
@@ -58,6 +60,8 @@ import Model.UserService;
 @Scope("session")
 public class LoginController {
 	
+	private Logger logger = LoggerFactory.getLogger(LoginController.class);
+	
 	@Autowired
 	private UserService usrServ;
 	
@@ -101,7 +105,7 @@ public class LoginController {
 	
       
       @RequestMapping(value = "/reg",method = RequestMethod.GET)
-      public String addUser(@RequestParam(value = "logresult") String logresult, Map <String, Object> map, HttpServletRequest req, HttpSession sess) {
+      public String addUser(@RequestParam(value = "logresult", required = false) String logresult, Map <String, Object> map, HttpServletRequest req, HttpSession sess) {
          
     	AnonimBuck bucket = (AnonimBuck) sess.getAttribute("currbuck");
   		if(bucket==null){bucket = new AnonimBuck();}

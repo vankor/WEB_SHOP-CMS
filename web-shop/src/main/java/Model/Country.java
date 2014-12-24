@@ -41,6 +41,9 @@ public class Country implements Serializable,  Comparable, Model.Entity{
 	
 	private Integer id;
 	private String name;
+	private String phonecode;
+	private String flagicon;
+	
 	private List<Region> regions = new ArrayList<Region>();
 	
 	
@@ -65,6 +68,24 @@ public class Country implements Serializable,  Comparable, Model.Entity{
 	}
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	
+	@Column(name = "phonecode", unique = true)
+	@NotNull(message = "*Код страны должен быть заполнен!")
+	@NotEmpty(message = "*Код страны должен быть заполнен!")
+	public String getPhonecode() {
+		return phonecode;
+	}
+	public void setPhonecode(String phonecode) {
+		this.phonecode = phonecode;
+	}
+	
+	@Column(name = "flagicon")
+	public String getFlagicon() {
+		return flagicon;
+	}
+	public void setFlagicon(String flagicon) {
+		this.flagicon = flagicon;
 	}
 	
 	@Column(name = "name")
@@ -94,6 +115,11 @@ public class Country implements Serializable,  Comparable, Model.Entity{
 	public int compareTo(Object o) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	
+	public void constructFromBean(CountryBean cntr){
+		this.name = cntr.getName();
+		this.phonecode = cntr.getPhonecode();
 	}
 
 }

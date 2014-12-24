@@ -170,7 +170,7 @@ function changename(){
 			<td><label id = 'town${j.index}.phonecode'  >${town.phonecode}</label></td>
 			
 			<td><a href = "${pageContext.request.contextPath}/admin/admincountry/${town.region.country.id}/adminTown/${town.id}">Вести данные для города</a></td>
-			<td><a href = "${pageContext.request.contextPath}/admin/setdeleted/Town/${town.id}">Удалить город</a></td>
+			<td><a href = "${pageContext.request.contextPath}/admin/realdelete/Town/${town.id}">Удалить город</a></td>
 			</tr>
 			</c:if>
 			<script>cc[counter] = ${j.index + 1} </script>

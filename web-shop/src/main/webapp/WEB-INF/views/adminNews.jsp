@@ -23,7 +23,7 @@
 
 
 <link type="text/css" rel="stylesheet" href="<c:url value="/resources/date_style.css" />">
-<script type="text/javascript" src="http://www.mobilluck.com.ua/js/ui.datepicker.js"></script>
+
 
 	<script src="<c:url value="/resources/js/mascedinput.js" />"></script>
 	<script src="<c:url value="/resources/js/combobox.js" />"></script>

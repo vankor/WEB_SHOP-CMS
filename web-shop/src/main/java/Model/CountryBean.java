@@ -1,22 +1,59 @@
 package Model;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.validation.constraints.NotNull;
 
-import javax.validation.Valid;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 public class CountryBean {
+	private Integer id;
+	private String name;
+	private String phonecode;
+	private String thumb;
+	private CommonsMultipartFile newthumb;
 	
-	private List<Country> countries = new ArrayList<Country>();
-
-	@Valid
-	public List<Country> getCountries() {
-		return countries;
+	public Integer getId() {
+		return id;
 	}
-
-	public void setCountries(List<Country> countries) {
-		this.countries = countries;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	
-
+	@NotNull(message = "*Имя страны должно быть заполнено!")
+	@NotEmpty(message = "*Имя страны должно быть заполнено!")
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	@NotNull(message = "*Код страны должен быть заполнен!")
+	@NotEmpty(message = "*Код страны должен быть заполнен!")
+	public String getPhonecode() {
+		return phonecode;
+	}
+	public void setPhonecode(String phonecode) {
+		this.phonecode = phonecode;
+	}
+	public String getThumb() {
+		return thumb;
+	}
+	public void setThumb(String thumb) {
+		this.thumb = thumb;
+	}
+	public CommonsMultipartFile getNewthumb() {
+		return newthumb;
+	}
+	public void setNewthumb(CommonsMultipartFile newthumb) {
+		this.newthumb = newthumb;
+	}
+	
+	public void constructFromEntity(Country cntr){
+		this.id = cntr.getId();
+		this.name = cntr.getName();
+		this.phonecode = cntr.getPhonecode();
+		this.thumb = cntr.getFlagicon();
+		
+	}
 }

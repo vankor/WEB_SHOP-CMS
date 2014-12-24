@@ -17,6 +17,8 @@ public class TownBean {
 	private List<Adress> shopresidents = new ArrayList<Adress>();
 	private List<Adress> shopdelresidents = new ArrayList<Adress>();
 	private Boolean isdefault;
+	private Boolean isdeliverytown;
+	
 	
 	public Boolean getIsdefault() {
 		return isdefault;
@@ -64,6 +66,12 @@ public class TownBean {
 		this.name = name;
 	}
 
+	public Boolean getIsdeliverytown() {
+		return isdeliverytown;
+	}
+	public void setIsdeliverytown(Boolean isdeliverytown) {
+		this.isdeliverytown = isdeliverytown;
+	}
 	
 	public List<Adress> getResidents() {
 		return residents;

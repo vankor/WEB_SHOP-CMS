@@ -76,7 +76,7 @@ import Model.UserService;
 @Controller
 public class UserController {
 
-	private Logger logger = LoggerFactory.getLogger(CommonController.class);
+	private Logger logger = LoggerFactory.getLogger(UserController.class);
 	
 	@Autowired
 	private UserService usrServ;

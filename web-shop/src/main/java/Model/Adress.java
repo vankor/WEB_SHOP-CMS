@@ -79,7 +79,7 @@ public class Adress implements Comparable, Model.Entity{
 	private String level;
 	private String room_num;
 	private AdressType adresstype;
-	private Set<Order> orders = new TreeSet<Order>();
+	private List<Order> orders = new ArrayList<Order>();
 	private Set<User> users = new TreeSet<User>();
 	private List<PhoneNumber> phnnumbers = new ArrayList<PhoneNumber>();
 	private List<Adress_Delivery> addrdel = new ArrayList<Adress_Delivery>();
@@ -241,13 +241,13 @@ public class Adress implements Comparable, Model.Entity{
 		this.town = town;
 	}
 	
-	@OneToMany(mappedBy = "adress", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "adress", fetch = FetchType.LAZY)
 	@Fetch(value = FetchMode.SUBSELECT)
 	@JsonManagedReference
-	public Set<Order> getOrders() {
+	public List<Order> getOrders() {
 		return orders;
 	}
-	public void setOrders(Set<Order> orders) {
+	public void setOrders(List<Order> orders) {
 		this.orders = orders;
 	}
 	
@@ -260,7 +260,7 @@ public class Adress implements Comparable, Model.Entity{
 		this.adresstype = adresstype;
 	}
 
-	@OneToMany(mappedBy = "adress", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "adress", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST})
 	@Fetch(value = FetchMode.SELECT)
 	@JsonManagedReference
 	public Set<User> getUsers() {

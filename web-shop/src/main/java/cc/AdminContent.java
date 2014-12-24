@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -33,7 +35,7 @@ import Model.Configuration;
 import Model.ConfigurationBean;
 import Model.ConfigurationService;
 import Model.Country;
-import Model.CountryBean;
+import Model.CountriesBean;
 import Model.CountryService;
 import Model.DeliveryTypeService;
 import Model.GoodItem;
@@ -89,6 +91,8 @@ import Model.VoteService;
 @Controller
 @RequestMapping(value = {"/admin/admincontent/"})
 public class AdminContent {
+	
+	private Logger logger = LoggerFactory.getLogger(AdminContent.class);
 	
 	@Autowired
 	private GoodItemService Serv;
