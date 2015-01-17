@@ -141,7 +141,7 @@ public class User implements UserDetails, Comparable, Model.Entity{
 		this.originpassword = originpassword;
 	}
 	
-	@Column (name = "regprovehash", nullable = false, unique = true)
+	@Column (name = "regprovehash", unique = true)
 	public String getRegprovehash() {
 		return regprovehash;
 	}

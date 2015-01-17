@@ -91,9 +91,13 @@ public class SessionParamsFilter implements Filter {
 		
 		HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
+		String fullpath = ((HttpServletRequest) request).getRequestURI();
+		String path = fullpath.split(request.getContextPath())[1];
+		System.out.println("gpath "+path);
+		if (path.contains("/resources/") ||path.equals("/") ||  request.getMethod().equals("POST") || path.matches("([^\\s]+(\\.(?i)(js|css|jpg|png|gif|bmp))$)") || path.startsWith("/index") || path.startsWith("/install")) {
+		    chain.doFilter(request, response); 
+		} else {
         String url = request.getServletPath();
-		
-       
 		HttpSession sess = request.getSession(false);
 		User user = (User)sess.getAttribute("user");
 		
@@ -133,6 +137,7 @@ public class SessionParamsFilter implements Filter {
 		sess.setAttribute("currentCatList", roots);
 		
 		chain.doFilter(request, response);
+		}
 	}
 
 	@Override
