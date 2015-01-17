@@ -21,27 +21,27 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import Model.AdressService;
-import Model.Bucket;
-import Model.BucketService;
-import Model.Comment;
-import Model.CommentService;
-import Model.CommonUtilsService;
+import Model.service.AdressService;
+import Model.entity.Bucket;
+import Model.service.BucketService;
+import Model.entity.Comment;
+import Model.service.CommentService;
+import Model.service.CommonUtilsService;
 import Model.EntityField;
-import Model.EntityFieldService;
-import Model.GoodItem;
-import Model.GoodItemService;
-import Model.ObjectFieldContainer;
-import Model.Order;
-import Model.OrderService;
-import Model.PhoneNumber;
-import Model.PhoneService;
-import Model.RoleService;
-import Model.TownService;
-import Model.User;
-import Model.UserBean;
-import Model.UserService;
-import Model.Role;
+import Model.service.EntityFieldService;
+import Model.entity.GoodItem;
+import Model.service.GoodItemService;
+import Model.others.ObjectFieldContainer;
+import Model.entity.Order;
+import Model.service.OrderService;
+import Model.entity.PhoneNumber;
+import Model.service.PhoneService;
+import Model.service.RoleService;
+import Model.service.TownService;
+import Model.entity.User;
+import Model.dto_beans.UserBean;
+import Model.service.UserService;
+import Model.entity.Role;
 
 @Controller
 @RequestMapping(value = "/admin/adminusers/{userId}")

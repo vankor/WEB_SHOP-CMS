@@ -1,4 +1,4 @@
-package controllers;
+/*package controllers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,67 +45,67 @@ import utils.Installator;
 
 import com.sun.org.apache.xml.internal.security.utils.Base64;
 
-import Model.Action;
-import Model.ActionService;
-import Model.Adress;
-import Model.AdressService;
-import Model.AdressType;
-import Model.AnonimBuck;
-import Model.BasicConfigurationService;
-import Model.Bucket;
-import Model.Category;
-import Model.CategoryService;
-import Model.ChoiseItem;
-import Model.CommentService;
-import Model.Configuration;
-import Model.ConfigurationService;
-import Model.Country;
-import Model.CountriesBean;
-import Model.CountryBean;
-import Model.CountryService;
-import Model.DeliveryType;
-import Model.DeliveryTypeService;
-import Model.GoodCollection;
-import Model.GoodItem;
-import Model.GoodItemService;
-import Model.GoodStateService;
-import Model.ImageLoader;
-import Model.ImageService;
-import Model.LoginBean;
-import Model.News;
-import Model.NewsPart;
-import Model.NewsService;
-import Model.NewsType;
-import Model.NewsTypeService;
-import Model.Order;
-import Model.OrderBean;
-import Model.OrderService;
-import Model.OrderSumCalculator;
-import Model.PageGroupService;
-import Model.PageService;
-import Model.ParamContainer;
-import Model.ParamFilterBean;
-import Model.PayType;
-import Model.PayTypeService;
-import Model.PhoneNumber;
-import Model.PhoneNumberType;
-import Model.PhoneService;
-import Model.PropSegment;
-import Model.Property;
-import Model.PropertyService;
-import Model.Row;
-import Model.SearchForm;
-import Model.Town;
-import Model.TownService;
-import Model.Town_Delivery;
-import Model.User;
-import Model.UserService;
-import Model.Value;
-import Model.ValueBean;
-import Model.ValueService;
-import Model.Vote;
-import Model.VoteBean;
-import Model.VoteService;
+import Model.entity.Action;
+import Model.service.ActionService;
+import Model.entity.Adress;
+import Model.service.AdressService;
+import Model.others.AdressType;
+import Model.others.AnonimBuck;
+import Model.service.BasicConfigurationService;
+import Model.entity.Bucket;
+import Model.entity.Category;
+import Model.service.CategoryService;
+import Model.others.ChoiseItem;
+import Model.service.CommentService;
+import Model.entity.Configuration;
+import Model.service.ConfigurationService;
+import Model.entity.Country;
+import Model.dto_beans.CountriesBean;
+import Model.dto_beans.CountryBean;
+import Model.service.CountryService;
+import Model.entity.DeliveryType;
+import Model.service.DeliveryTypeService;
+import Model.others.GoodCollection;
+import Model.entity.GoodItem;
+import Model.service.GoodItemService;
+import Model.service.GoodStateService;
+import Model.others.ImageLoader;
+import Model.service.ImageService;
+import Model.dto_beans.LoginBean;
+import Model.entity.News;
+import Model.others.NewsPart;
+import Model.service.NewsService;
+import Model.entity.NewsType;
+import Model.service.NewsTypeService;
+import Model.entity.Order;
+import Model.dto_beans.OrderBean;
+import Model.service.OrderService;
+import Model.service.OrderSumCalculator;
+import Model.service.PageGroupService;
+import Model.service.PageService;
+import Model.others.ParamContainer;
+import Model.dto_beans.ParamFilterBean;
+import Model.entity.PayType;
+import Model.service.PayTypeService;
+import Model.entity.PhoneNumber;
+import Model.others.PhoneNumberType;
+import Model.service.PhoneService;
+import Model.entity.PropSegment;
+import Model.entity.Property;
+import Model.service.PropertyService;
+import Model.others.Row;
+import Model.others.SearchForm;
+import Model.entity.Town;
+import Model.service.TownService;
+import Model.others.Town_Delivery;
+import Model.entity.User;
+import Model.service.UserService;
+import Model.entity.Value;
+import Model.dto_beans.ValueBean;
+import Model.service.ValueService;
+import Model.entity.Vote;
+import Model.dto_beans.VoteBean;
+import Model.service.VoteService;
 
 @Controller
 
@@ -976,7 +976,7 @@ public class CommonController {
 		/*	else{
 			pgnum = Integer.parseInt(urlparts[i]);
 			
-			}	*/
+			}
 		}
 		List<Category> categories = catServ.getRootCategories();
 		Map<Category, Long> catactions = new TreeMap<Category, Long>();
@@ -1005,7 +1005,7 @@ public class CommonController {
 		/*	else{
 			pgnum = Integer.parseInt(urlparts[i]);
 			
-			}	*/
+			}
 		}
 		
 		Category cat = catServ.getById(catid);
@@ -1069,22 +1069,16 @@ public class CommonController {
 		String slash = "/";
 		for(int i =0; i<urlparts.length; i++){
 			if(i<urlparts.length-1){
-	//			if(i==urlparts.length-2)slash = "";
 			entityurl.append(urlparts[i]+slash);}
-		/*	else{
-			pgnum = Integer.parseInt(urlparts[i]);
-			
-			}	*/
+
 		}
 		NewsType nwstp = ntpServ.getById(nwstp_id);
 		
 		Map<Category, Long> catactions = new TreeMap<Category, Long>();
-//		fillsubcategoryactions(catactions, categories);
 		Category cat = catServ.getById(catid);
 		Integer end = pgnum*PAGE_SIZE;
 		Integer begin = end - PAGE_SIZE;
 		Integer pagecount = actServ.getCount()/PAGE_SIZE;
-//		Set<News> news = nwsServ.listNewsPageByType(nwstp, begin, end);
 		Set<News> news = nwsServ.listCtegoryNewsPageByType(cat,nwstp, begin, end);
 		Map<NewsType, Long> newstypeList = ntpServ.getAllNewsTypeNewsCount();
 		map.put("pagecount", pagecount);
@@ -1092,7 +1086,6 @@ public class CommonController {
 		map.put("newsTypes", newstypeList);
 		map.put("currnewstype", nwstp);
 		map.put("entityurl", entityurl.toString());
-//		map.put("currentCatList", catServ.getRootCategories());
 		return "template/newsList";
 		
 	}
@@ -1194,21 +1187,13 @@ public class CommonController {
 		if(bucket==null){bucket = new AnonimBuck();}
 		map.put("bucketsize", bucket.getSize());
 		List<Category> roots = catServ.getRootCategories();
-//		setSubCategs(roots,4);
 		News n = nwsServ.getById(newsid);
 		Category cat = catServ.getById(catid);
 		map.put("currentCatList", roots);
 		map.put("news", n);
 		Set<NewsPart> parts = new TreeSet<NewsPart>();
 		int i = 0;
-	/*	for(TextPart h: n.getTextparts()){
-			
-			parts.add(h);
-			if((i<n.getImages().size())){
-			parts.add(n.getImages().get(i++));
-			}
-			
-		}*/
+
 		for(NewsPart y:parts){
 			System.out.println(y.getValue());
 		}
@@ -1225,8 +1210,6 @@ public class CommonController {
 			if(!nn.equals(n))othernews.add(nn);
 		}
 		}
-	/*	map.put("news", nwsServ.getAll());
-		map.put("topnews", nwsServ.getTopNews());*/
 		Map<NewsType, Long> newstypeList = ntpServ.getAllNewsTypeNewsCount();
 		map.put("newsTypes", newstypeList);
 		map.put("parts", parts);
@@ -1245,17 +1228,13 @@ public class CommonController {
 		if(bucket==null){bucket = new AnonimBuck();}
 		map.put("bucketsize", bucket.getSize());
 		List<Category> roots = catServ.getRootCategories();
-//		setSubCategs(roots,4);
+
 		Action act = actServ.getById(actid);
 		Map<Category, Long> catactions = new TreeMap<Category, Long>();
 		fillsubcategoryactions(catactions, roots);
 		map.put("catactions", catactions);
 		map.put("currentCatList", roots);
 		map.put("action", act);
-		
-		Set<GoodItem> leaders = Serv.getSalesLeaders(5);
-	//	map.put("leaders", leaders);
-	//	map.put("othernews", othernews);
 		return "template/action";
 		
 	}
@@ -1278,3 +1257,4 @@ public class CommonController {
 	
 	
 }
+*/

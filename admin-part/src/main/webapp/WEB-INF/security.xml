@@ -12,7 +12,7 @@
                  
 
 
-<beans:bean id="MyUserDetailsService" class="Model.MyUserDetailsService">
+<beans:bean id="MyUserDetailsService" class="Model.service.MyUserDetailsService">
 	</beans:bean>
 	
 <http pattern = "*/resources/**" security = "none"/>	
@@ -73,7 +73,7 @@
 
 
 
-<beans:bean id="failureAuthentificationStrategy" class="Model.FailureAuthentificationStrategy">
+<beans:bean id="failureAuthentificationStrategy" class="Model.others.FailureAuthentificationStrategy">
 </beans:bean>
 
 </beans:beans> 

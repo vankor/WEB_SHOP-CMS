@@ -7,6 +7,20 @@
     <groupId>WS_CMS</groupId>
     <artifactId>WEB_SHOP_CMS</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <modules>
+        <module>commons</module>
+        <module>web-part</module>
+        <module>admin-part</module>
+    </modules>
+    <build>
+        <plugins>
+    <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-jar-plugin</artifactId>
+        <version>2.3.2</version>
+    </plugin>
+        </plugins>
+    </build>
 
-    
 </project>

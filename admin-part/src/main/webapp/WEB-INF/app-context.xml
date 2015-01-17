@@ -11,10 +11,15 @@
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
-  
-  <mvc:annotation-driven ignore-default-model-on-redirect="true" />
-  <context:annotation-config/> 
-  <context:component-scan base-package="Model" />
+
+
+    <context:annotation-config/>
+    <mvc:annotation-driven/>
+    <context:component-scan base-package="Model.entity" />
+    <context:component-scan base-package="Model.repository" />
+    <context:component-scan base-package="Model.service" />
+    <context:component-scan base-package="Model.filters" />
+    <context:component-scan base-package="Model.aspects" />
   
  
   <bean id="multipartResolver" 
@@ -32,20 +37,8 @@
         </property>
    </bean>   
 
-<!-- Validation  -->
-	<bean id="messageSource"
-        class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-        <property name="basename" value="classpath:message" />
-        <property name="defaultEncoding" value="UTF-8" />
-    </bean>
 
 
-
-   
-   <mvc:resources mapping="/resources/**" location="/resources/" />
-   
-
-        
    <import resource="data.xml" /> 
 
    

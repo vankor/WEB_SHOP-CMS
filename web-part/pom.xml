@@ -1,9 +1,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>web-shop</groupId>
-  <artifactId>web-shop</artifactId>
+  <groupId>web-part</groupId>
+  <artifactId>web-part</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
+
+	<parent>
+		<groupId>WS_CMS</groupId>
+		<artifactId>WEB_SHOP_CMS</artifactId>
+		<version>1.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
   
  <repositories>
     <repository>
@@ -27,18 +34,7 @@
  				<configuration>
     				<webappDirectory>/src/main/webapp</webappDirectory>      
   				</configuration>
-			</plugin>
 
-<!-- 
-Для того чтобы проект мавен заработал в елипс следующий плагин + mvn eclipse:eclipse -Dwtpversion=2.0 а ком. строке
-   |-->			
-			<plugin>
-      			<groupId>org.apache.maven.plugins</groupId>
-      			<artifactId>maven-eclipse-plugin</artifactId>
-      			<version>2.5</version>
-	  			<configuration>
-					<wtpversion>1.5</wtpversion>
-	  			</configuration>
 			</plugin>
 
 			<plugin>
@@ -61,9 +57,7 @@
 					<target>1.7</target>
 				</configuration>
 			</plugin>
-			
 
-			
 </plugins>
 
  </build>
@@ -85,9 +79,10 @@
  
 
   <dependencies>
-	
 
-<dependency>
+
+
+		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-c3p0</artifactId>
 			<version>3.6.3.Final</version>
@@ -228,12 +223,6 @@
 	<version>2.3.3</version>
 </dependency>
 
-<dependency>
-	<groupId>javax.servlet</groupId>
-	<artifactId>servlet-api</artifactId>
-	<version>2.5</version>
-	<scope>provided</scope>
-</dependency>
 
 <dependency>
 	<groupId>javax.servlet.jsp</groupId>
@@ -259,6 +248,12 @@
   		<artifactId>spring-beans</artifactId>
   		<version>4.0.0.RELEASE</version>
   	</dependency>
+
+	  <dependency>
+		  <groupId>WS_CMS.commons</groupId>
+		  <artifactId>commons</artifactId>
+		  <version>0.0.1-SNAPSHOT</version>
+	  </dependency>
   	
   	<dependency>
 		<groupId>org.springframework</groupId>

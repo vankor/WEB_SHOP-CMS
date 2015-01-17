@@ -400,7 +400,7 @@ function addValue(){
 
 	var div;
 	var id = '"'+'val'+count+'"';
-//	cc[counter]=0;
+//	controllers[counter]=0;
 	div = document.createElement("div");
 //		var idfld = '"'+'video'+counter2+'"';
 //		var sect = '"'+'choisecategory'+'"';

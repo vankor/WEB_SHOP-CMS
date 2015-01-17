@@ -27,7 +27,7 @@
    <!-- Конфигурационные файлы для DispatcherServlet  -->
    
     <servlet>
-            <servlet-name>web-shop</servlet-name>
+            <servlet-name>admin-part</servlet-name>
             <servlet-class>
               org.springframework.web.servlet.DispatcherServlet
             </servlet-class>
@@ -37,7 +37,7 @@
       
       
       <servlet-mapping>
-            <servlet-name>web-shop</servlet-name>
+            <servlet-name>admin-part</servlet-name>
             <url-pattern>/</url-pattern>
       </servlet-mapping>
       
@@ -104,7 +104,7 @@
 
 		<filter-mapping>
  		 <filter-name>authFilter</filter-name>
- 		 <servlet-name>web-shop</servlet-name>
+ 		 <servlet-name>admin-part</servlet-name>
 		</filter-mapping>
 		
 		
@@ -115,7 +115,7 @@
 
 		<filter-mapping>
  		 <filter-name>sessionParamsFilter</filter-name>
- 		 <servlet-name>web-shop</servlet-name>
+ 		 <servlet-name>admin-part</servlet-name>
 		</filter-mapping>
 
   

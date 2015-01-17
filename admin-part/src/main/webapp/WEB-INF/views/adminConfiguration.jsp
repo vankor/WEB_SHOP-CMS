@@ -65,8 +65,8 @@
 	var counter1 = [];
 
 	cc=[];
-//	cc[counter1] = 0;
-//	cc1[cc[counter1]] =0;
+//	controllers[counter1] = 0;
+//	cc1[controllers[counter1]] =0;
 	function appendImage(){
 		var div;
 		

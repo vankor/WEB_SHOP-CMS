@@ -174,7 +174,7 @@ function addField(){
 				Родительская страница:
 			</form:label></div>
 			<form:input type = "hidden" id = "parentpage_id" path="parent_page.id"/>
-			<div id = "col2"><form:input id = "parentpage_text" path="parent_page.name" onclick = "load_entitychoise('${pageContext.request.contextPath}','parentpage','Model.Page', -1)"/><form:errors path="parent_page" cssClass="error" /></div>
+			<div id = "col2"><form:input id = "parentpage_text" path="parent_page.name" onclick = "load_entitychoise('${pageContext.request.contextPath}','parentpage','Model.entity.Page', -1)"/><form:errors path="parent_page" cssClass="error" /></div>
 
 		</div>
 		</li>
@@ -187,7 +187,7 @@ function addField(){
 				Группа страниц:
 			</form:label></div>
 			<form:input type = "hidden" id = "pagegroup_id" path="pagegroup.id"/>
-			<div id = "col2"><form:input id = "pagegroup_text" path="pagegroup.name" onclick = "load_entitychoise('${pageContext.request.contextPath}','pagegroup','Model.PageGroup', -1)"/><form:errors path="pagegroup" cssClass="error" /></div>
+			<div id = "col2"><form:input id = "pagegroup_text" path="pagegroup.name" onclick = "load_entitychoise('${pageContext.request.contextPath}','pagegroup','Model.entity.PageGroup', -1)"/><form:errors path="pagegroup" cssClass="error" /></div>
 
 		</div>
 		</li>

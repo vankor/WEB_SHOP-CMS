@@ -27,30 +27,30 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
-import Model.Adress;
-import Model.AdressService;
-import Model.AdressType;
-import Model.AnonimBuck;
-import Model.BasicConfiguration;
-import Model.BasicConfigurationService;
-import Model.Bucket;
-import Model.Category;
-import Model.CategoryService;
-import Model.CommentService;
-import Model.GoodItem;
-import Model.GoodItemService;
-import Model.Order;
-import Model.OrderService;
-import Model.Page;
-import Model.PageGroup;
-import Model.PageGroupService;
-import Model.PageService;
-import Model.PhoneNumber;
-import Model.PhoneService;
-import Model.Town;
-import Model.TownService;
-import Model.User;
-import Model.UserService;
+import Model.entity.Adress;
+import Model.service.AdressService;
+import Model.others.AdressType;
+import Model.others.AnonimBuck;
+import Model.entity.BasicConfiguration;
+import Model.service.BasicConfigurationService;
+import Model.entity.Bucket;
+import Model.entity.Category;
+import Model.service.CategoryService;
+import Model.service.CommentService;
+import Model.entity.GoodItem;
+import Model.service.GoodItemService;
+import Model.entity.Order;
+import Model.service.OrderService;
+import Model.entity.Page;
+import Model.entity.PageGroup;
+import Model.service.PageGroupService;
+import Model.service.PageService;
+import Model.entity.PhoneNumber;
+import Model.service.PhoneService;
+import Model.entity.Town;
+import Model.service.TownService;
+import Model.entity.User;
+import Model.service.UserService;
 
 @Controller
 public class UserController {

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/WS_CMS.iml" filepath="$PROJECT_DIR$/WS_CMS.iml" />
+      <module fileurl="file://$PROJECT_DIR$/WEB_SHOP_CMS.iml" filepath="$PROJECT_DIR$/WEB_SHOP_CMS.iml" />
       <module fileurl="file://$PROJECT_DIR$/admin-part/admin-part.iml" filepath="$PROJECT_DIR$/admin-part/admin-part.iml" />
       <module fileurl="file://$PROJECT_DIR$/commons/commons.iml" filepath="$PROJECT_DIR$/commons/commons.iml" />
       <module fileurl="file://$PROJECT_DIR$/web-part/web-part.iml" filepath="$PROJECT_DIR$/web-part/web-part.iml" />

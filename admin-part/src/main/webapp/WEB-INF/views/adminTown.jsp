@@ -77,7 +77,7 @@ function appendState(){
 	});
 //	div.innerHTML = "";
 		
-//	alert("cc["+counter+"]=0");
+//	alert("controllers["+counter+"]=0");
 	
 	
 

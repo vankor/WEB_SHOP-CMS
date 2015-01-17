@@ -22,22 +22,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import Model.AnonimBuck;
-import Model.Category;
-import Model.CategoryService;
-import Model.CommentService;
+import Model.others.AnonimBuck;
+import Model.entity.Category;
+import Model.service.CategoryService;
+import Model.service.CommentService;
 
-import Model.GoodCollection;
-import Model.GoodItem;
-import Model.GoodItemService;
-import Model.Item;
-import Model.News;
-import Model.OrderSumCalculator;
-import Model.ParamFilterBean;
-import Model.PhoneService;
-import Model.TownService;
-import Model.User;
-import Model.UserService;
+import Model.others.GoodCollection;
+import Model.entity.GoodItem;
+import Model.service.GoodItemService;
+import Model.others.Item;
+import Model.entity.News;
+import Model.service.OrderSumCalculator;
+import Model.dto_beans.ParamFilterBean;
+import Model.service.PhoneService;
+import Model.service.TownService;
+import Model.entity.User;
+import Model.service.UserService;
 
 @Controller
 @RequestMapping(value = {"/category/{catId}/pagin/{pgnum}"})

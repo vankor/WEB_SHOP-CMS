@@ -57,7 +57,7 @@
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hibernate.dialect">Model.CustomMySQLDialect</prop>
+				<prop key="hibernate.dialect">Model.others.CustomMySQLDialect</prop>
 				<prop key="hibernate.connection.charSet">UTF-8</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
 				<prop key="hibernate.connection.CharacterEncoding">UTF-8</prop>
@@ -91,12 +91,12 @@
     </bean>
 	
 	
-	<bean id="authFilter" class="Model.AuthorizeFilter">
+	<bean id="authFilter" class="Model.others.AuthorizeFilter">
    	<property name = "userService" ref = "userService"></property>
   	 </bean>
   	 
   	    
-      <bean id="sessionParamsFilter" class="Model.SessionParamsFilter" autowire="byType">
+      <bean id="sessionParamsFilter" class="Model.others.SessionParamsFilter" autowire="byType">
    	 </bean>
   
    

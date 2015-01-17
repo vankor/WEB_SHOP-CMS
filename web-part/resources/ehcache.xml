@@ -37,7 +37,7 @@
  
 
     <cache
-    name="Model.Category"
+    name="Model.entity.Category"
     maxElementsInMemory="100000"
     eternal="false"
     timeToIdleSeconds="300"

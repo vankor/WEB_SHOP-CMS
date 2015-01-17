@@ -250,7 +250,7 @@ function addField(){
 			var div;
 			var url = '"'+"<c:out value="${pageContext.request.contextPath}"/>" +"/choiseCategory"+'"';
 			var id = "ngift"+counter;
-		//	cc[counter]=0;
+		//	controllers[counter]=0;
 			div = document.createElement("div");
 			var idfld = '"'+'ngift'+counter+'"';
 			var sect = '"'+'choisegood'+'"';
@@ -266,7 +266,7 @@ function addField(){
 			var div;
 			var url = '"'+'<c:out value="${pageContext.request.contextPath}"/>' +'/choiseCategory'+'"';
 			var id = "newactiongood"+counter1;
-		//	cc[counter]=0;
+		//	controllers[counter]=0;
 			div = document.createElement("div");
 			var idfld = '"'+'actiongood'+counter1+'"';
 			var sect = '"'+'choisegood'+'"';

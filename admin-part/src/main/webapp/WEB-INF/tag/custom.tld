@@ -7,35 +7,35 @@
     <uri>http://samplefn</uri>
     <function>
       <name>contains</name>
-      <function-class>Model.Util</function-class>
+      <function-class>Model.others.Util</function-class>
       <function-signature>boolean contains(java.util.Collection,
           java.lang.Object)</function-signature>
   </function>
   
   <function>
       <name>containsdt</name>
-      <function-class>Model.Util</function-class>
+      <function-class>Model.others.Util</function-class>
       <function-signature>boolean containsdt(java.util.Collection,
           java.lang.Object)</function-signature>
   </function>
   
   <function>
       <name>containsval</name>
-      <function-class>Model.Util</function-class>
+      <function-class>Model.others.Util</function-class>
       <function-signature>boolean containsval(Model.Filter,
           java.lang.Object)</function-signature>
   </function>
   
   <function>
       <name>getvalue</name>
-      <function-class>Model.CommonUtilsService</function-class>
+      <function-class>Model.service.CommonUtilsService</function-class>
       <function-signature>java.lang.Object getValue(java.lang.Object, java.lang.reflect.Field)</function-signature>
   </function>
   
   
   <function>
       <name>getdelposition</name>
-      <function-class>Model.Util</function-class>
+      <function-class>Model.others.Util</function-class>
       <function-signature>int getdelposition(java.util.Collection,
           java.lang.Object)</function-signature>
   </function>

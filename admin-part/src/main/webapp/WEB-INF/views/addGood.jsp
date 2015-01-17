@@ -83,8 +83,8 @@ height : 300
 	var counter1 = [];
 
 	cc=[];
-//	cc[counter1] = 0;
-//	cc1[cc[counter1]] =0;
+//	controllers[counter1] = 0;
+//	cc1[controllers[counter1]] =0;
 	function appendImage(){
 		var div;
 		
@@ -228,7 +228,7 @@ height : 300
 			</div>
 			<div id = "col2">
 			<form:input type = "hidden" path = "producer.id"  id = "producer_id"/>
-				<form:input id = "producer_text" path="producer.name" onclick = "load_entitychoise('${pageContext.request.contextPath}','producer','Model.Producer', -1)"/>
+				<form:input id = "producer_text" path="producer.name" onclick = "load_entitychoise('${pageContext.request.contextPath}','producer','Model.entity.Producer', -1)"/>
 			</div>
 		</div>
 	

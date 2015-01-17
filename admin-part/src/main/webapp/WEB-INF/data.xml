@@ -7,9 +7,6 @@
     xmlns:tx="http://www.springframework.org/schema/tx"
     xmlns:aop="http://www.springframework.org/schema/aop"
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
-        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
-        http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 	
@@ -34,7 +31,7 @@
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
-	<!-- Непосредственно бин dataSource -->
+
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
 		p:driverClassName="${db.driverClassName}" 
@@ -42,9 +39,6 @@
 		p:username="${db.username}" 
 		p:password="${db.password}" />
 
-
-
-	<!-- Настройки фабрики сессий Хибернейта -->
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
@@ -57,7 +51,7 @@
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hibernate.dialect">Model.CustomMySQLDialect</prop>
+				<prop key="hibernate.dialect">Model.others.CustomMySQLDialect</prop>
 				<prop key="hibernate.connection.charSet">UTF-8</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
 				<prop key="hibernate.connection.CharacterEncoding">UTF-8</prop>
@@ -91,25 +85,14 @@
     </bean>
 	
 	
-	<bean id="authFilter" class="Model.AuthorizeFilter">
+	<bean id="authFilter" class="Model.others.AuthorizeFilter">
    	<property name = "userService" ref = "userService"></property>
   	 </bean>
   	 
   	    
-      <bean id="sessionParamsFilter" class="Model.SessionParamsFilter" autowire="byType">
+      <bean id="sessionParamsFilter" class="Model.others.SessionParamsFilter" autowire="byType">
    	 </bean>
   
-   
-	
-	<bean id="messageSource"
-		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-		<property name="basename" value="classpath:messages" />
-		<property name="defaultEncoding" value="UTF-8" />
-	</bean>
-	
-
-
-	
 
 	
 </beans>

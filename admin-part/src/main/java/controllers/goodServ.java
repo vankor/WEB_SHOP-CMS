@@ -1,82 +1,46 @@
 package controllers;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Map;
-import java.util.Properties;
-import java.util.Map.Entry;
 import java.util.Set;
-import java.util.TreeMap;
 import java.util.TreeSet;
 
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
-
-import Model.AnonimBuck;
-import Model.AnonimEmailService;
-import Model.AnonimEmailWatcher;
-import Model.Category;
-import Model.CategoryService;
-import Model.Comment;
-import Model.CommentService;
-import Model.CategoryCompareGoods;
-import Model.CompareGoodsSet;
-import Model.GoodCollection;
-import Model.GoodCompareBean;
-import Model.GoodHistoryBean;
-import Model.GoodItem;
-import Model.GoodItemCreationBean;
-import Model.GoodItemService;
-import Model.GoodStateService;
-import Model.HistorySet;
-import Model.Order;
-import Model.OrderRow;
-import Model.OrderService;
-import Model.OrderSumCalculator;
-import Model.Property;
-import Model.PropertyService;
-import Model.Row;
-import Model.Town;
-import Model.TownService;
-import Model.User;
-import Model.UserService;
-import Model.Value;
-import Model.ValueService;
-import Model.Vote;
-import Model.VoteService;
+import Model.service.AnonimEmailService;
+import Model.entity.AnonimEmailWatcher;
+import Model.service.CategoryService;
+import Model.entity.Comment;
+import Model.service.CommentService;
+import Model.others.CategoryCompareGoods;
+import Model.others.CompareGoodsSet;
+import Model.entity.GoodItem;
+import Model.service.GoodItemService;
+import Model.service.GoodStateService;
+import Model.service.OrderService;
+import Model.service.PropertyService;
+import Model.service.TownService;
+import Model.entity.User;
+import Model.service.UserService;
+import Model.entity.Value;
+import Model.service.ValueService;
+import Model.service.VoteService;
 
 @Controller
 @RequestMapping("/good/{goodid}/{section}")

@@ -18,13 +18,12 @@ import java.util.Properties;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 
-import Model.BasicConfiguration;
+import Model.entity.BasicConfiguration;
 
-import Model.Role;
-import Model.User;
+import Model.entity.Role;
+import Model.entity.User;
 
 public class Installator {
 

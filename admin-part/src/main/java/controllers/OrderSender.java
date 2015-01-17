@@ -1,6 +1,5 @@
 package controllers;
 import java.util.Date;
-import java.util.List;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -12,9 +11,8 @@ import javax.mail.internet.MimeMessage;
 
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
-import Model.GoodItem;
-import Model.Order;
-import Model.Row;
+import Model.entity.Order;
+import Model.others.Row;
 
 	public class OrderSender {
 		private JavaMailSenderImpl sender;

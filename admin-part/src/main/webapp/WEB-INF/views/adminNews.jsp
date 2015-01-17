@@ -175,7 +175,7 @@ function addField(){
 			</form:label></div>
 			<div id = "col2">
 			<form:input type = "hidden" id = "newstype_id" path="type.id" />
-			<form:input  id = "newstype_text" onclick = "load_entitychoise('${pageContext.request.contextPath}','newstype','Model.NewsType', -1)" path="type.name" />
+			<form:input  id = "newstype_text" onclick = "load_entitychoise('${pageContext.request.contextPath}','newstype','Model.entity.NewsType', -1)" path="type.name" />
 			<form:errors path="type" cssClass="error" />
 			</div>
 		</div>
@@ -267,7 +267,7 @@ function addField(){
 		function appendTextPart(){
 			var div;
 			var id = '"'+'textpart'+counter+'"';
-		//	cc[counter]=0;
+		//	controllers[counter]=0;
 			div = document.createElement("div");
 			div.setAttribute("id", "textpart"+counter);
 //			alert("textpart"+counter);
@@ -283,7 +283,7 @@ function addField(){
 		function appendImage(){
 			var div;
 			var id = '"'+'image'+counter1+'"';
-	//		cc[counter]=0;
+	//		controllers[counter]=0;
 			div = document.createElement("div");
 	//		var idfld = '"'+'image'+counter1+'"';
 	//		var sect = '"'+'choisecategory'+'"';

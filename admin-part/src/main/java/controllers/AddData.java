@@ -15,18 +15,18 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import Model.ActionBean;
-import Model.Category;
-import Model.CategoryService;
-import Model.CommentService;
-import Model.DeliveryType;
-import Model.GoodItemService;
-import Model.PayType;
-import Model.PropSegment;
-import Model.PropSegmentService;
-import Model.Property;
-import Model.PropertyService;
-import Model.Role;
+import Model.dto_beans.ActionBean;
+import Model.entity.Category;
+import Model.service.CategoryService;
+import Model.service.CommentService;
+import Model.entity.DeliveryType;
+import Model.service.GoodItemService;
+import Model.entity.PayType;
+import Model.entity.PropSegment;
+import Model.service.PropSegmentService;
+import Model.entity.Property;
+import Model.service.PropertyService;
+import Model.entity.Role;
 
 @Controller
 @RequestMapping(value = {"/admin/add"})
